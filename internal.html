@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI活用プロジェクト ダッシュボード</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/internal.css">
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<div class="header">
+  <div class="header-top">
+    <div class="header-title-row">
+      <img src="BOF_logo_04.png" alt="BackofficeForce" class="header-logo">
+      <h1 id="page-title">AI活用プロジェクト ダッシュボード</h1>
+    </div>
+    <div class="header-controls">
+      <div class="view-toggle">
+        <button id="btn-card" onclick="switchView('card')">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Card
+        </button>
+        <button id="btn-table" class="active" onclick="switchView('table')">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="2" rx="1"/><rect x="3" y="9" width="18" height="2" rx="1"/><rect x="3" y="14" width="18" height="2" rx="1"/><rect x="3" y="19" width="18" height="2" rx="1"/></svg>
+          List
+        </button>
+      </div>
+      <button id="btn-lang" class="lang-toggle" onclick="toggleLang()">English</button>
+    </div>
+  </div>
+  <div class="subtitle" id="header-subtitle" style="display:none"></div>
+  <div class="summary" id="header-summary"></div>
+  <div class="overall-progress" id="header-progress"></div>
+
+  <!-- CTA: 相談バナー（一時非表示） -->
+  <!--
+  <div class="header-cta">
+    <div class="header-cta-text">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <span>「この業務、もっとラクにならないかな？」と思ったら — <strong>お気軽にご相談ください</strong></span>
+    </div>
+    <a href="https://teams.microsoft.com/l/chat/0/0?users=takuma.sugata@backofficeforce.jp" target="_blank" class="header-cta-btn" id="internal-cta">
+      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+      Teamsで相談する
+    </a>
+  </div>
+  -->
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+
+<!-- Card View -->
+<div id="view-card" style="display:none"></div>
+
+<!-- Table View -->
+<div id="view-table"></div>
+
+</div>
+
+<div class="footer" id="footer"></div>
+
+<!-- Project Detail Modal -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-title" id="modal-title"></div>
+        <span id="modal-badge"></span>
+      </div>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-progress" id="modal-progress"></div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script>
+// ============================================================
+// 社内用ダッシュボード — レンダリング（日英切替対応）
+// ============================================================
+
+var currentLang = 'ja';
+
+// UIラベル翻訳辞書
+var L = {
+  ja: {
+    pageTitle: 'AI活用プロジェクト ダッシュボード',
+    allProjects: '全プロジェクト',
+    overallProgress: '全体進捗',
+    progress: '進捗',
+    history: '作業歴',
+    nextAction: 'Next Action',
+    openTool: 'ツールを開く',
+    viewDetail: '詳細を見る',
+    detail: '詳細',
+    open: '開く',
+    thNo: '#', thName: 'プロジェクト名', thStatus: 'ステータス',
+    thProgress: '進捗', thHistory: '作業歴', thNextAction: '次のアクション',
+    thDetail: '詳細', thAccess: 'アクセス',
+    modalOverview: '概要', modalBackground: '背景・課題',
+    modalTools: '使用ツール', modalImpact: '削減効果',
+    modalHistory: '作業歴', modalNextAction: '次のアクション',
+    statusLive: '運用中', statusTesting: 'テスト中',
+    statusBuilding: '構築中', statusDesigned: '設計済み', statusPlanned: '構想中',
+    footerPrefix: 'AI活用プロジェクト ダッシュボード'
+  },
+  en: {
+    pageTitle: 'AI Project Dashboard',
+    allProjects: 'All Projects',
+    overallProgress: 'Overall Progress',
+    progress: 'Progress',
+    history: 'History',
+    nextAction: 'Next Action',
+    openTool: 'Open Tool',
+    viewDetail: 'View Details',
+    detail: 'Details',
+    open: 'Open',
+    thNo: '#', thName: 'Project', thStatus: 'Status',
+    thProgress: 'Progress', thHistory: 'History', thNextAction: 'Next Action',
+    thDetail: 'Details', thAccess: 'Access',
+    modalOverview: 'Overview', modalBackground: 'Background',
+    modalTools: 'Tools Used', modalImpact: 'Impact',
+    modalHistory: 'History', modalNextAction: 'Next Action',
+    statusLive: 'Live', statusTesting: 'Testing',
+    statusBuilding: 'Building', statusDesigned: 'Designed', statusPlanned: 'Planned',
+    footerPrefix: 'AI Project Dashboard'
+  }
+};
+
+// ヘルパー: 現在の言語に応じてフィールドを取得
+function t(obj, field) {
+  if (currentLang === 'en' && obj[field + 'En']) return obj[field + 'En'];
+  return obj[field];
+}
+function ui(key) { return L[currentLang][key]; }
+function statusLabel(statusKey) {
+  var map = { live: 'statusLive', testing: 'statusTesting', building: 'statusBuilding', designed: 'statusDesigned', planned: 'statusPlanned' };
+  return ui(map[statusKey] || 'statusPlanned');
+}
+
+var STATUS_ORDER = ['live', 'testing', 'building', 'designed', 'planned'];
+var STATUS_COLORS = {
+  live: '#22c55e', testing: '#f97316',
+  building: '#eab308', designed: '#6366f1', planned: '#94a3b8'
+};
+var LINK_ICON = '<svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zM5 5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-6h-2v6H5V7h6V5H5z"/></svg>';
+var DETAIL_EYE = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>';
+
+var MODAL_ICONS = {
+  document: '<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg>',
+  chat: '<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>',
+  people: '<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>',
+  folder: '<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>',
+  gear: '<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>',
+  sparkle: '<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>',
+  arrow: '<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"/></svg>',
+  bell: '<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>'
+};
+
+// ============================================================
+// レンダリング
+// ============================================================
+function renderAll() {
+  var d = DASHBOARD_DATA;
+  var projects = d.projects;
+
+  // Page title
+  document.getElementById('page-title').textContent = ui('pageTitle');
+  document.title = ui('pageTitle');
+
+  // Header subtitle
+  document.getElementById('header-subtitle').textContent =
+    d.manager + ' / Last updated: ' + d.lastUpdated;
+
+  // Summary counts
+  var counts = {};
+  for (var i = 0; i < projects.length; i++) {
+    counts[projects[i].status] = (counts[projects[i].status] || 0) + 1;
+  }
+  var summaryBg = { live: '#22c55e', testing: '#f97316', building: '#eab308', designed: '#6366f1', planned: '#A0A0A0' };
+  var summaryText = { live: '#fff', testing: '#fff', building: '#111111', designed: '#fff', planned: '#fff' };
+  var sh = '<div class="summary-item"><span class="count">' + projects.length + '</span> ' + ui('allProjects') + '</div>';
+  for (var si = 0; si < STATUS_ORDER.length; si++) {
+    var sk = STATUS_ORDER[si];
+    if (counts[sk]) {
+      sh += '<div class="summary-item" style="background:' + summaryBg[sk] + ';color:' + summaryText[sk] + '"><span class="count" style="color:' + summaryText[sk] + '">' + counts[sk] + '</span> ' + statusLabel(sk) + '</div>';
+    }
+  }
+  document.getElementById('header-summary').innerHTML = sh;
+
+  // Overall progress
+  var totalProgress = 0;
+  for (var pi = 0; pi < projects.length; pi++) totalProgress += projects[pi].progress;
+  var avgProgress = Math.round(totalProgress / projects.length);
+  document.getElementById('header-progress').innerHTML =
+    '<div class="overall-progress-label">' + ui('overallProgress') + '</div>' +
+    '<div class="overall-progress-bar"><div class="overall-progress-fill" style="width:' + avgProgress + '%"></div></div>' +
+    '<div class="overall-progress-pct">' + avgProgress + '%</div>';
+
+  // Group by status
+  var grouped = {};
+  for (var gi = 0; gi < projects.length; gi++) {
+    var gs = projects[gi].status;
+    if (!grouped[gs]) grouped[gs] = [];
+    grouped[gs].push(projects[gi]);
+  }
+
+  // Card View
+  var cardHtml = '';
+  for (var ci = 0; ci < STATUS_ORDER.length; ci++) {
+    var cs = STATUS_ORDER[ci];
+    if (!grouped[cs]) continue;
+    cardHtml += '<div class="status-section">';
+    cardHtml += '<h2><span class="section-dot" style="background:' + STATUS_COLORS[cs] + '"></span> ' + statusLabel(cs) + '</h2>';
+    cardHtml += '<div class="card-grid">';
+    for (var cj = 0; cj < grouped[cs].length; cj++) {
+      var cp = grouped[cs][cj];
+      var cpIdx = projects.indexOf(cp);
+      cardHtml += '<div class="card border-' + cp.status + '" style="cursor:pointer" onclick="openModal(' + cpIdx + ')">';
+      cardHtml += '<div class="card-header"><div class="card-title">' + t(cp, 'name') + '</div><span class="badge badge-' + cp.status + '">' + t(cp, 'statusLabel') + '</span></div>';
+      cardHtml += '<div class="card-progress"><div class="card-progress-header"><span class="card-progress-label">' + ui('progress') + '</span><span class="card-progress-pct">' + cp.progress + '%</span></div>';
+      cardHtml += '<div class="progress-bar"><div class="progress-fill pf-' + cp.status + '" style="width:' + cp.progress + '%"></div></div></div>';
+      cardHtml += '<div class="card-desc">' + t(cp, 'description') + '</div>';
+      // History
+      if (cp.history && cp.history.length > 0) {
+        cardHtml += '<div class="card-history"><strong>' + ui('history') + '</strong><ul class="history-list">';
+        for (var hi = 0; hi < cp.history.length; hi++) {
+          cardHtml += '<li class="' + (cp.history[hi].done ? 'done' : '') + '">' + t(cp.history[hi], 'text') + '</li>';
+        }
+        cardHtml += '</ul></div>';
+      }
+      if (t(cp, 'nextAction')) {
+        cardHtml += '<div class="card-next"><strong>' + ui('nextAction') + '</strong><br>' + t(cp, 'nextAction') + '</div>';
+      }
+      if (cp.url) {
+        cardHtml += '<div class="card-access"><a class="access-btn access-btn-active" href="' + cp.url + '" target="_blank" onclick="event.stopPropagation()">' + LINK_ICON + ui('openTool') + '</a></div>';
+      }
+      cardHtml += '<button class="detail-btn" onclick="event.stopPropagation();openModal(' + cpIdx + ')">' + DETAIL_EYE + ' ' + ui('viewDetail') + '</button>';
+      cardHtml += '</div>';
+    }
+    cardHtml += '</div></div>';
+  }
+  document.getElementById('view-card').innerHTML = cardHtml;
+
+  // Table View
+  var tableHtml = '<div class="table-wrap"><table><thead><tr>';
+  tableHtml += '<th>' + ui('thNo') + '</th><th>' + ui('thName') + '</th><th>' + ui('thStatus') + '</th><th>' + ui('thProgress') + '</th><th>' + ui('thHistory') + '</th><th>' + ui('thNextAction') + '</th><th>' + ui('thDetail') + '</th><th>' + ui('thAccess') + '</th>';
+  tableHtml += '</tr></thead><tbody>';
+  for (var ti = 0; ti < projects.length; ti++) {
+    var tp = projects[ti];
+    tableHtml += '<tr style="cursor:pointer" onclick="openModal(' + ti + ')">';
+    tableHtml += '<td>' + (ti + 1) + '</td>';
+    tableHtml += '<td><div class="table-name">' + t(tp, 'name') + '</div><div class="table-desc">' + t(tp, 'description') + '</div></td>';
+    tableHtml += '<td><span class="table-status-dot" style="background:' + STATUS_COLORS[tp.status] + '"></span><span class="badge badge-' + tp.status + '">' + t(tp, 'statusLabel') + '</span></td>';
+    tableHtml += '<td class="table-progress"><div class="table-progress-row"><div class="table-progress-bar"><div class="progress-fill pf-' + tp.status + '" style="width:' + tp.progress + '%"></div></div>';
+    tableHtml += '<span class="table-progress-pct">' + tp.progress + '%</span></div></td>';
+    // History
+    if (tp.history && tp.history.length > 0) {
+      tableHtml += '<td class="table-history"><ul class="table-history-list">';
+      for (var thi = 0; thi < tp.history.length; thi++) {
+        tableHtml += '<li class="' + (tp.history[thi].done ? 'done' : '') + '">' + t(tp.history[thi], 'text') + '</li>';
+      }
+      tableHtml += '</ul></td>';
+    } else {
+      tableHtml += '<td class="table-history"><span style="color:#cbd5e1;font-size:11px">—</span></td>';
+    }
+    tableHtml += '<td><div class="table-next">' + (t(tp, 'nextAction') || '—') + '</div></td>';
+    tableHtml += '<td style="text-align:center"><button class="table-btn table-btn-detail" onclick="event.stopPropagation();openModal(' + ti + ')">' + DETAIL_EYE + ' ' + ui('detail') + '</button></td>';
+    if (tp.url) {
+      tableHtml += '<td class="table-access"><a class="table-btn table-btn-access" href="' + tp.url + '" target="_blank" onclick="event.stopPropagation()">' + LINK_ICON + ui('open') + '</a></td>';
+    } else {
+      tableHtml += '<td class="table-access"><span style="color:#cbd5e1;font-size:11px">—</span></td>';
+    }
+    tableHtml += '</tr>';
+  }
+  tableHtml += '</tbody></table></div>';
+  document.getElementById('view-table').innerHTML = tableHtml;
+
+  // Footer
+  document.getElementById('footer').innerHTML =
+    ui('footerPrefix') + ' / ' + d.manager + ' / Last updated: ' + d.lastUpdated;
+
+  // Lang button
+  document.getElementById('btn-lang').textContent = currentLang === 'ja' ? 'English' : '日本語';
+}
+
+// ============================================================
+// 言語切替
+// ============================================================
+function toggleLang() {
+  currentLang = currentLang === 'ja' ? 'en' : 'ja';
+  renderAll();
+}
+
+// ============================================================
+// ビュー切替
+// ============================================================
+function switchView(mode) {
+  var cardView = document.getElementById('view-card');
+  var tableView = document.getElementById('view-table');
+  var btnCard = document.getElementById('btn-card');
+  var btnTable = document.getElementById('btn-table');
+  if (mode === 'card') {
+    cardView.style.display = 'block';
+    tableView.style.display = 'none';
+    btnCard.classList.add('active');
+    btnTable.classList.remove('active');
+  } else {
+    cardView.style.display = 'none';
+    tableView.style.display = 'block';
+    btnCard.classList.remove('active');
+    btnTable.classList.add('active');
+  }
+}
+
+// ============================================================
+// モーダル
+// ============================================================
+function openModal(index) {
+  var p = DASHBOARD_DATA.projects[index];
+  if (!p) return;
+  var d = p.detail || {};
+
+  document.getElementById('modal-title').textContent = t(p, 'name');
+  document.getElementById('modal-badge').className = 'badge badge-' + p.status;
+  document.getElementById('modal-badge').textContent = t(p, 'statusLabel');
+
+  document.getElementById('modal-progress').innerHTML =
+    '<div style="flex:1;height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden"><div class="progress-fill pf-' + p.status + '" style="width:' + p.progress + '%;height:100%;border-radius:4px"></div></div>' +
+    '<div style="font-size:14px;font-weight:700;min-width:40px">' + p.progress + '%</div>';
+
+  var body = '';
+
+  if (t(d, 'overview')) {
+    body += '<div class="modal-section"><div class="modal-section-title">' + MODAL_ICONS.document + ' ' + ui('modalOverview') + '</div><div class="modal-section-text">' + t(d, 'overview') + '</div></div>';
+  }
+  if (t(d, 'background')) {
+    body += '<div class="modal-section"><div class="modal-section-title">' + MODAL_ICONS.chat + ' ' + ui('modalBackground') + '</div><div class="modal-section-text">' + t(d, 'background') + '</div></div>';
+  }
+
+  var metaHtml = '';
+  if (t(d, 'targetUsers')) metaHtml += '<div class="modal-meta-item">' + MODAL_ICONS.people + ' ' + t(d, 'targetUsers') + '</div>';
+  if (t(d, 'period')) metaHtml += '<div class="modal-meta-item">' + MODAL_ICONS.folder + ' ' + t(d, 'period') + '</div>';
+  if (metaHtml) body += '<div class="modal-section"><div class="modal-meta">' + metaHtml + '</div></div>';
+
+  if (d.tools && d.tools.length > 0) {
+    var toolsHtml = '';
+    for (var ti = 0; ti < d.tools.length; ti++) toolsHtml += '<span class="modal-tool-tag">' + d.tools[ti] + '</span>';
+    body += '<div class="modal-section"><div class="modal-section-title">' + MODAL_ICONS.gear + ' ' + ui('modalTools') + '</div><div class="modal-tools">' + toolsHtml + '</div></div>';
+  }
+
+  if (d.impact) {
+    var impactHtml = '<div class="modal-impact">';
+    impactHtml += '<div class="modal-impact-row"><span class="modal-impact-label before">Before</span><span class="modal-impact-text">' + t(d.impact, 'before') + '</span></div>';
+    impactHtml += '<div class="modal-impact-row"><span class="modal-impact-label after">After</span><span class="modal-impact-text">' + t(d.impact, 'after') + '</span></div>';
+    if (t(d.impact, 'savedTime')) impactHtml += '<div class="modal-impact-saved">' + MODAL_ICONS.sparkle + ' ' + t(d.impact, 'savedTime') + '</div>';
+    impactHtml += '</div>';
+    body += '<div class="modal-section"><div class="modal-section-title">' + MODAL_ICONS.sparkle + ' ' + ui('modalImpact') + '</div>' + impactHtml + '</div>';
+  }
+
+  if (p.history && p.history.length > 0) {
+    var histHtml = '<ul class="modal-history">';
+    for (var h = 0; h < p.history.length; h++) histHtml += '<li class="' + (p.history[h].done ? 'done' : '') + '">' + t(p.history[h], 'text') + '</li>';
+    histHtml += '</ul>';
+    body += '<div class="modal-section"><div class="modal-section-title">' + MODAL_ICONS.arrow + ' ' + ui('modalHistory') + '</div>' + histHtml + '</div>';
+  }
+
+  if (t(p, 'nextAction')) {
+    body += '<div class="modal-section"><div class="modal-section-title">' + MODAL_ICONS.bell + ' ' + ui('modalNextAction') + '</div><div class="modal-section-text">' + t(p, 'nextAction') + '</div></div>';
+  }
+
+  document.getElementById('modal-body').innerHTML = body;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('click', function(e) { if (e.target.id === 'modal-overlay') closeModal(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+// 初期レンダリング
+document.addEventListener('DOMContentLoaded', renderAll);
+</script>
+</body>
+</html>

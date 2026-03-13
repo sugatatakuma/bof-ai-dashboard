@@ -1,0 +1,437 @@
+// ============================================================
+// AI活用ダッシュボード — データ定義
+// 更新はこのファイルの値を変更 → git push で反映
+// ============================================================
+
+const DASHBOARD_DATA = {
+  lastUpdated: "2026/3/14",
+  manager: "Takuma Sugata",
+  title: "AIインテグレーター",
+
+  // ヒーローエリアの数字
+  summary: {
+    toolsInProduction: 1,
+    totalProjects: 9,
+    categories: 6,
+    maxReduction: 96
+  },
+
+  // Section 2: 効果・成果（Before/After）
+  results: [
+    {
+      name: "業務マニュアル自動作成ツール",
+      icon: "document",
+      status: "live",
+      statusLabel: "運用中",
+      description: "引継ぎMTGの文字起こしをアップロードするだけで、業務マニュアルを自動生成",
+      before: "手作業でマニュアルを作成（1件あたり2〜3時間）",
+      after: "ファイルをアップロードするだけで自動生成（約5分）",
+      savedTime: "1件あたり約2.5時間削減",
+      savedTimeValue: null // 月間削減時間（計測後に設定）
+    },
+    {
+      name: "社内ナレッジAIチャットボット",
+      icon: "chat",
+      status: "building",
+      statusLabel: "構築中",
+      description: "社内ルール・業務ノウハウ・ツール操作方法をAIチャットで即座に回答",
+      before: "マニュアルを探す・詳しい人に聞く（数十分かかることも）",
+      after: "AIに質問するだけで即回答（数秒）",
+      savedTime: "問い合わせ対応・検索時間を大幅削減",
+      savedTimeValue: null
+    },
+    {
+      name: "チャット通知自動化システム",
+      icon: "bell",
+      status: "testing",
+      statusLabel: "テスト中",
+      description: "Chatworkのメッセージを自動でTeamsに通知。30分未対応なら自動返信",
+      before: "Chatworkを定期的に確認 → 見逃し・対応遅延のリスク",
+      after: "Teamsに自動通知 + 未対応時は自動返信でクライアント安心",
+      savedTime: "クライアント対応の見逃しゼロ化",
+      savedTimeValue: null
+    }
+  ],
+
+  // Section 3: AI化提案カテゴリ
+  proposals: [
+    {
+      category: "経理・会計",
+      icon: "calculator",
+      items: [
+        { task: "請求書の自動チェック", desc: "金額・日付・宛名の整合性をAIが自動で確認" },
+        { task: "仕訳入力の補助", desc: "証憑データから勘定科目を自動で推測・提案" },
+        { task: "経費精算の自動分類", desc: "経費明細を科目ごとに自動で振り分け" },
+        { task: "月次レポート自動生成", desc: "会計データから報告用レポートを自動作成" }
+      ]
+    },
+    {
+      category: "人事・労務",
+      icon: "people",
+      items: [
+        { task: "勤怠データの自動集計", desc: "出退勤データの集計・異常値チェックを自動化" },
+        { task: "入退社チェックリスト自動生成", desc: "入退社に必要な手続きリストを自動作成" },
+        { task: "給与計算の事前チェック", desc: "計算結果の異常値・変動をAIが事前に検出" },
+        { task: "社員情報の更新通知", desc: "変更が必要な情報を自動で検出・通知" }
+      ]
+    },
+    {
+      category: "IT・システム",
+      icon: "monitor",
+      items: [
+        { task: "社内FAQボット", desc: "よくある質問にAIが自動で回答（実績あり）" },
+        { task: "ツール操作ガイドの自動応答", desc: "「○○の使い方」と聞くだけで手順を表示" },
+        { task: "アカウント発行手順の自動化", desc: "申請から発行までのフローを自動化" },
+        { task: "障害・エラー対応ガイド", desc: "エラーメッセージから対処法を自動提示" }
+      ]
+    },
+    {
+      category: "営業・CS",
+      icon: "phone",
+      items: [
+        { task: "チャット通知の自動化", desc: "クライアントからのメッセージを即座にTeams通知（実績あり）" },
+        { task: "議事録の自動作成", desc: "会議の文字起こしから議事録を自動生成" },
+        { task: "提案書のドラフト自動生成", desc: "要件をもとに提案書の下書きをAIが作成" },
+        { task: "案件マッチングの自動化", desc: "案件要件と人材スキルを自動照合（制作中）" }
+      ]
+    },
+    {
+      category: "総務・法務",
+      icon: "folder",
+      items: [
+        { task: "契約書のチェックポイント抽出", desc: "契約書から確認すべき条項をAIが自動抽出" },
+        { task: "社内規定の検索AI", desc: "「○○のルールは？」と聞くだけで該当規定を表示" },
+        { task: "備品管理の自動化", desc: "在庫状況の確認・発注タイミングの通知を自動化" },
+        { task: "申請書類のテンプレート自動生成", desc: "申請内容に応じた書類を自動で下書き" }
+      ]
+    },
+    {
+      category: "共通業務",
+      icon: "gear",
+      items: [
+        { task: "メール文面の自動作成", desc: "要件を入力するだけでビジネスメールを自動生成" },
+        { task: "データ集計レポートの自動化", desc: "Excelデータから集計・グラフ付きレポートを自動作成" },
+        { task: "定型業務のワークフロー化", desc: "毎回同じ手順の作業を自動化・省力化" },
+        { task: "業務マニュアルの自動作成", desc: "業務内容を伝えるだけでマニュアルを自動生成（実績あり）" }
+      ]
+    }
+  ],
+
+  // Section 5: プロジェクト一覧
+  projects: [
+    {
+      name: "業務マニュアル自動作成ツール",
+      nameEn: "Auto Manual Generator",
+      description: "文字起こしをアップロードするだけで業務マニュアルを自動生成",
+      descriptionEn: "Automatically generates operation manuals from meeting transcripts",
+      status: "live",
+      statusLabel: "運用中",
+      statusLabelEn: "Live",
+      progress: 100,
+      url: "https://udify.app/workflow/j9fyHZH2mZ5UzntX",
+      detail: {
+        overview: "引継ぎMTGの文字起こしデータから、見出し・手順・注意事項を整理した業務マニュアルを自動生成するAIツール。生成されたマニュアルはWordファイル（.docx）として出力され、指定したSharePointフォルダに自動格納される。",
+        overviewEn: "An AI tool that automatically generates structured operation manuals (headings, procedures, notes) from handover meeting transcripts. Output as Word (.docx) files, automatically saved to SharePoint.",
+        background: "引継ぎMTG後に手作業でマニュアルを作成していたが、1件あたり2〜3時間かかっており、担当者の大きな負担になっていた。品質のばらつきも課題だった。",
+        backgroundEn: "Creating manuals manually after handover meetings took 2-3 hours each, placing a heavy burden on staff. Quality inconsistency was also an issue.",
+        targetUsers: "社内の業務担当者（引継ぎ業務を行う社員）",
+        targetUsersEn: "Internal staff handling handover tasks",
+        tools: ["Dify", "LLM", "Python", "SharePoint"],
+        impact: {
+          before: "手作業でマニュアルを作成（1件あたり2〜3時間）",
+          beforeEn: "Manual creation by hand (2-3 hours per document)",
+          after: "ファイルをアップロードするだけで自動生成（約5分）",
+          afterEn: "Auto-generated by uploading a file (~5 min)",
+          savedTime: "1件あたり約2.5時間削減",
+          savedTimeEn: "~2.5 hours saved per document"
+        },
+        period: "2026年3月1日〜3月3日",
+        periodEn: "Mar 1 – Mar 3, 2026"
+      },
+      history: [
+        { text: "Difyワークフロー設計・構築", textEn: "Dify workflow design & build", done: true },
+        { text: "LLMプロンプト設計・調整", textEn: "LLM prompt engineering", done: true },
+        { text: "Pythonコード実装（テキスト整形）", textEn: "Python implementation (text formatting)", done: true },
+        { text: "テスト・品質確認・納品", textEn: "Testing, QA & delivery", done: true }
+      ],
+      nextAction: "完成・納品済み",
+      nextActionEn: "Completed & delivered"
+    },
+    {
+      name: "社内ナレッジAIチャットボット",
+      nameEn: "Internal Knowledge AI Chatbot",
+      description: "社内ルール・業務ノウハウをAIチャットで即座に検索・回答",
+      descriptionEn: "Instantly search and answer internal rules & business know-how via AI chat",
+      status: "building",
+      statusLabel: "構築中",
+      statusLabelEn: "Building",
+      progress: 80,
+      url: null,
+      detail: {
+        overview: "社内ルール・業務ノウハウ・ツール操作方法などを、AIチャットで質問するだけで即座に回答を得られるシステム。4ファイル体制のナレッジベースを構築し、Teamsから利用可能。",
+        overviewEn: "A system where employees can ask questions via AI chat and get instant answers about internal rules, business know-how, and tool usage. Built with a 4-file knowledge base, accessible from Teams.",
+        background: "社内ルールや手続きについて「詳しい人に聞く」「マニュアルを探す」ことに数十分かかるケースが多く、特に新人支援で非効率が目立っていた。",
+        backgroundEn: "Finding answers about internal rules often took tens of minutes—asking colleagues or searching manuals. Especially inefficient for onboarding new staff.",
+        targetUsers: "社員全員",
+        targetUsersEn: "All employees",
+        tools: ["Dify", "LLM", "Azure AD", "Teams"],
+        impact: {
+          before: "マニュアルを探す・詳しい人に聞く（数十分かかることも）",
+          beforeEn: "Search manuals or ask colleagues (often takes tens of minutes)",
+          after: "AIに質問するだけで即回答（数秒）",
+          afterEn: "Ask AI and get instant answers (seconds)",
+          savedTime: "問い合わせ対応・検索時間を大幅削減",
+          savedTimeEn: "Significant reduction in inquiry & search time"
+        },
+        period: "2026年3月3日〜",
+        periodEn: "Mar 3, 2026 –"
+      },
+      history: [
+        { text: "Difyチャットボット構築（フェーズ1〜4）", textEn: "Dify chatbot build (Phase 1-4)", done: true },
+        { text: "Azure認証・Teams連携設定", textEn: "Azure AD auth & Teams integration", done: true },
+        { text: "ナレッジ3ファイル作成・Dify登録", textEn: "3 knowledge files created & registered in Dify", done: true },
+        { text: "社内ポータルナレッジ7セクション追加", textEn: "Added 7 sections of portal knowledge", done: true },
+        { text: "社内アンケートQ&A 35項目抽出", textEn: "Extracted 35 Q&A items from internal survey", done: true }
+      ],
+      nextAction: "レビュー完了→Dify登録",
+      nextActionEn: "Review completion → Register in Dify"
+    },
+    {
+      name: "チャット通知自動化システム",
+      nameEn: "Chat Notification Automation",
+      description: "Chatworkのメッセージを自動でTeamsに通知+未対応時は自動返信",
+      descriptionEn: "Auto-forward Chatwork messages to Teams + auto-reply when unresponded",
+      status: "testing",
+      statusLabel: "テスト中",
+      statusLabelEn: "Testing",
+      progress: 70,
+      url: null,
+      detail: {
+        overview: "クライアントからChatworkに届いたメッセージを、社内のTeamsに自動通知するシステム。メンション連動、30分未対応時の自動返信、営業時間内外の文面切替など高度な制御を実装。",
+        overviewEn: "A system that auto-forwards client messages from Chatwork to Teams. Features include mention sync, 30-min auto-reply for unresponded messages, and business hours message switching.",
+        background: "Chatworkを定期的に確認しないとメッセージを見逃すリスクがあり、クライアント対応の遅延が発生していた。普段使っているTeamsで気づける仕組みが必要だった。",
+        backgroundEn: "Risk of missing Chatwork messages without constant checking, causing delayed client responses. Needed a way to catch messages via Teams.",
+        targetUsers: "クライアント対応を行う社員",
+        targetUsersEn: "Staff handling client communications",
+        tools: ["Python", "FastAPI", "Railway", "Power Automate"],
+        impact: {
+          before: "Chatworkを定期的に確認 → 見逃し・対応遅延のリスク",
+          beforeEn: "Periodically check Chatwork → risk of missed messages & delays",
+          after: "Teamsに自動通知 + 未対応時は自動返信でクライアント安心",
+          afterEn: "Auto-notify on Teams + auto-reply reassures clients",
+          savedTime: "クライアント対応の見逃しゼロ化",
+          savedTimeEn: "Zero missed client messages"
+        },
+        period: "2026年3月4日〜",
+        periodEn: "Mar 4, 2026 –"
+      },
+      history: [
+        { text: "仕様設計（v1→v8まで改訂）", textEn: "Spec design (revised v1 to v8)", done: true },
+        { text: "Python / FastAPI開発", textEn: "Python / FastAPI development", done: true },
+        { text: "署名検証・通知制限・自動返信実装", textEn: "Signature verification, rate limiting & auto-reply", done: true },
+        { text: "Railwayデプロイ", textEn: "Railway deployment", done: true },
+        { text: "2社でPoCテスト開始", textEn: "PoC testing started with 2 clients", done: true }
+      ],
+      nextAction: "PoC確認→展開",
+      nextActionEn: "PoC verification → Rollout"
+    },
+    {
+      name: "案件マッチングメール自動配信",
+      nameEn: "Job Matching Auto-Mailer",
+      description: "案件情報を入力するだけで対象者全員にオファーメールを自動配信",
+      descriptionEn: "Auto-send offer emails to all candidates by simply entering job details",
+      status: "building",
+      statusLabel: "構築中",
+      statusLabelEn: "Building",
+      progress: 75,
+      url: null,
+      detail: {
+        overview: "案件発生時に、AIチャットへ案件情報を入力するだけで、オファーメールの作成・対象者の抽出・一斉配信・エントリー回答の集約まで自動で完結するシステム。",
+        overviewEn: "A system that automates the entire flow—from email creation, candidate extraction, bulk sending, to response collection—just by entering job details into an AI chat.",
+        background: "案件発生のたびに手動でメールを作成・数百名の登録人材に送信・回答を集計しており、担当者の大きな負担になっていた。",
+        backgroundEn: "Each job opening required manually composing emails, sending to hundreds of registered candidates, and tallying responses—a heavy burden on staff.",
+        targetUsers: "案件アサイン担当者",
+        targetUsersEn: "Job assignment managers",
+        tools: ["Dify", "Make", "kintone", "Outlook", "Microsoft Forms"],
+        impact: {
+          before: "手動でメール作成・送信・回答集計（数時間/回）",
+          beforeEn: "Manual email creation, sending & response collection (hours per job)",
+          after: "AIチャットに入力1回で全自動（数分）",
+          afterEn: "Fully automated with one AI chat input (minutes)",
+          savedTime: "1回あたり数時間の作業を数分に短縮",
+          savedTimeEn: "Hours of work reduced to minutes per job"
+        },
+        period: "2026年3月11日〜",
+        periodEn: "Mar 11, 2026 –"
+      },
+      history: [
+        { text: "仕様書v1.0作成", textEn: "Spec v1.0 created", done: true },
+        { text: "Difyワークフロー構築（12項目入力→LLM→メール生成）", textEn: "Dify workflow (12 inputs → LLM → email generation)", done: true },
+        { text: "Makeシナリオ構築（kintone→Outlook一括送信）", textEn: "Make scenario (kintone → Outlook bulk send)", done: true },
+        { text: "kintone API連携・BCC方式実装", textEn: "kintone API integration & BCC implementation", done: true },
+        { text: "結合テスト成功", textEn: "Integration test passed", done: true }
+      ],
+      nextAction: "担当者確認→パイロット",
+      nextActionEn: "Manager review → Pilot test"
+    },
+    {
+      name: "AI人材マッチングシステム",
+      nameEn: "AI Talent Matching System",
+      description: "AIが登録人材のスキル・経験を分析し、最適な候補者を自動提案",
+      descriptionEn: "AI analyzes candidate skills & experience to auto-suggest best matches",
+      status: "designed",
+      statusLabel: "設計済み",
+      statusLabelEn: "Designed",
+      progress: 20,
+      url: null,
+      detail: {
+        overview: "案件の要件に対して、AIが登録人材のスキル・経験・稼働余力を分析し、最適な候補者をスコアリングして提案するシステム。Mini版（全員配信）の発展形。",
+        overviewEn: "A system where AI analyzes registered candidates' skills, experience, and availability against job requirements, scoring and suggesting the best matches. An evolution of the Mini version (bulk send).",
+        background: "Mini版では全登録人材に一斉送信だが、本来は案件要件に合った人材を効率的に絞り込みたい。AIによる候補者の自動マッチングが求められていた。",
+        backgroundEn: "The Mini version sends to all candidates, but ideally we want to efficiently narrow down to those matching job requirements. AI-powered auto-matching was needed.",
+        targetUsers: "案件アサイン担当者",
+        targetUsersEn: "Job assignment managers",
+        tools: ["Dify", "Make", "kintone", "SharePoint", "Azure AD"],
+        impact: {
+          before: "担当者が経験と勘で候補者を選定（属人的・時間がかかる）",
+          beforeEn: "Managers select candidates by experience and intuition (person-dependent, time-consuming)",
+          after: "AIがスコアリングした候補者リストを自動提示",
+          afterEn: "AI auto-presents a scored candidate list",
+          savedTime: "候補者選定の時間短縮・属人化の解消",
+          savedTimeEn: "Faster candidate selection, reduced person-dependency"
+        },
+        period: "2026年3月10日〜",
+        periodEn: "Mar 10, 2026 –"
+      },
+      history: [
+        { text: "仕様書v1.2作成", textEn: "Spec v1.2 created", done: true },
+        { text: "Azure AD承認取得", textEn: "Azure AD approval obtained", done: true },
+        { text: "kintone API取得・名前マッチング検証", textEn: "kintone API integration & name matching test", done: true }
+      ],
+      nextAction: "Mini完了後に着手",
+      nextActionEn: "Start after Mini completion"
+    },
+    {
+      name: "Slack通知自動化システム",
+      nameEn: "Slack Notification Automation",
+      description: "SlackのメッセージをTeamsに自動通知（Chatwork版の姉妹システム）",
+      descriptionEn: "Auto-forward Slack messages to Teams (sister system of Chatwork version)",
+      status: "designed",
+      statusLabel: "設計済み",
+      statusLabelEn: "Designed",
+      progress: 15,
+      url: null,
+      detail: {
+        overview: "Chatwork版と同じ仕組みを、Slackを使っているクライアント向けに提供。Chatwork版のコードを約7割流用し、Slack固有の仕様に対応する部分のみ新規開発。",
+        overviewEn: "Provides the same mechanism as the Chatwork version for Slack-using clients. Reuses ~70% of Chatwork version code, with new development only for Slack-specific features.",
+        background: "一部のクライアントはSlackでやり取りしており、Chatwork版と同様の通知自動化ニーズがあった。",
+        backgroundEn: "Some clients communicate via Slack and had the same notification automation needs as the Chatwork version.",
+        targetUsers: "Slackでやり取りしているクライアントを担当する社員",
+        targetUsersEn: "Staff managing Slack-based client communications",
+        tools: ["Python", "FastAPI", "Railway", "Slack API", "Power Automate"],
+        impact: {
+          before: "Slackを定期的に確認 → 見逃し・対応遅延のリスク",
+          beforeEn: "Periodically check Slack → risk of missed messages & delays",
+          after: "Teamsに自動通知 + 未対応時は自動返信",
+          afterEn: "Auto-notify on Teams + auto-reply when unresponded",
+          savedTime: "Chatwork版と同等の効果を見込む",
+          savedTimeEn: "Expected impact equivalent to Chatwork version"
+        },
+        period: "2026年3月9日〜",
+        periodEn: "Mar 9, 2026 –"
+      },
+      history: [
+        { text: "仕様書v1作成（Chatwork版ベース）", textEn: "Spec v1 created (based on Chatwork version)", done: true }
+      ],
+      nextAction: "確認→コーディング",
+      nextActionEn: "Review → Coding"
+    },
+    {
+      name: "工数分析レポート自動作成",
+      nameEn: "Work-Hours Analysis Report Generator",
+      description: "工数データを分析し、レポートを自動生成",
+      descriptionEn: "Analyze work-hours data and auto-generate reports",
+      status: "planned",
+      statusLabel: "構想中",
+      statusLabelEn: "Planned",
+      progress: 5,
+      url: null,
+      detail: {
+        overview: "工数データを分析し、集計・可視化したレポートを自動生成するツール。現在カスタムGPTで原型を制作済み、Dify/Make等へのアップデートを検討中。",
+        overviewEn: "A tool that analyzes work-hours data to auto-generate aggregated and visualized reports. Prototype built with Custom GPT; considering migration to Dify/Make.",
+        background: "工数データの集計・レポート作成に時間がかかっており、定型的な分析作業を自動化したいニーズがあった。",
+        backgroundEn: "Aggregating work-hours data and creating reports was time-consuming. There was a need to automate routine analysis tasks.",
+        targetUsers: "管理部門・プロジェクトマネージャー",
+        targetUsersEn: "Management & project managers",
+        tools: ["カスタムGPT", "→ Dify / Make（移行検討中）"],
+        impact: null,
+        period: "構想段階",
+        periodEn: "Planning stage"
+      },
+      history: [
+        { text: "カスタムGPTで原型を制作済み", textEn: "Prototype built with Custom GPT", done: true },
+        { text: "プロジェクト登録", textEn: "Project registered", done: false }
+      ],
+      nextAction: "仕様整理→方針決定",
+      nextActionEn: "Organize specs → Decide approach"
+    },
+    {
+      name: "議事録自動作成ツール",
+      nameEn: "Auto Meeting Minutes Generator",
+      description: "会議の文字起こしから議事録を自動生成",
+      descriptionEn: "Auto-generate meeting minutes from transcripts",
+      status: "planned",
+      statusLabel: "構想中",
+      statusLabelEn: "Planned",
+      progress: 5,
+      url: null,
+      detail: {
+        overview: "会議の文字起こしデータから、要点・決定事項・アクションアイテムを整理した議事録を自動生成するツール。現在カスタムGPTで原型を制作済み。",
+        overviewEn: "A tool that auto-generates meeting minutes with key points, decisions, and action items from meeting transcripts. Prototype built with Custom GPT.",
+        background: "会議後の議事録作成に30分〜1時間かかるケースがあり、作成の負担や品質のばらつきが課題だった。",
+        backgroundEn: "Creating meeting minutes took 30 min to 1 hour, with inconsistent quality being a challenge.",
+        targetUsers: "会議参加者・議事録作成担当者",
+        targetUsersEn: "Meeting participants & minute-takers",
+        tools: ["カスタムGPT", "→ Dify / Make（移行検討中）"],
+        impact: null,
+        period: "構想段階",
+        periodEn: "Planning stage"
+      },
+      history: [
+        { text: "カスタムGPTで原型を制作済み", textEn: "Prototype built with Custom GPT", done: true },
+        { text: "プロジェクト登録", textEn: "Project registered", done: false }
+      ],
+      nextAction: "仕様整理→方針決定",
+      nextActionEn: "Organize specs → Decide approach"
+    },
+    {
+      name: "決算レポート自動作成",
+      nameEn: "Financial Report Generator",
+      description: "決算データから報告書レポートを自動生成",
+      descriptionEn: "Auto-generate financial reports from accounting data",
+      status: "planned",
+      statusLabel: "構想中",
+      statusLabelEn: "Planned",
+      progress: 5,
+      url: null,
+      detail: {
+        overview: "決算データから報告書レポートを自動生成するツール。現在カスタムGPTで原型を制作済み、Dify/Make等へのアップデートを検討中。",
+        overviewEn: "A tool that auto-generates financial reports from accounting data. Prototype built with Custom GPT; considering migration to Dify/Make.",
+        background: "決算レポートの作成に時間がかかっており、定型的な部分をAIで効率化したいニーズがあった。",
+        backgroundEn: "Creating financial reports was time-consuming, and there was a need to automate routine parts using AI.",
+        targetUsers: "経理・会計担当者",
+        targetUsersEn: "Accounting & finance staff",
+        tools: ["カスタムGPT", "→ Dify / Make（移行検討中）"],
+        impact: null,
+        period: "構想段階",
+        periodEn: "Planning stage"
+      },
+      history: [
+        { text: "カスタムGPTで原型を制作済み", textEn: "Prototype built with Custom GPT", done: true },
+        { text: "プロジェクト登録", textEn: "Project registered", done: false }
+      ],
+      nextAction: "仕様整理→方針決定",
+      nextActionEn: "Organize specs → Decide approach"
+    }
+  ]
+};

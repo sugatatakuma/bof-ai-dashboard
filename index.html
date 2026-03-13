@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>菅田琢磨 | AIインテグレーター — AI業務自動化ポートフォリオ</title>
+<meta name="description" content="AIインテグレーター 菅田琢磨のポートフォリオ。AIやノーコードツールを組み合わせた業務自動化の実績・サービス紹介。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== Navigation ===== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      Takuma Sugata
+    </div>
+    <div class="nav-links">
+      <a href="#results">導入実績</a>
+      <a href="#proposals">対応領域</a>
+      <a href="#steps">ご依頼の流れ</a>
+      <a href="#projects">プロジェクト</a>
+      <a href="#contact" class="nav-cta">
+        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        お問い合わせ
+      </a>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="nav-mobile" id="nav-mobile">
+  <a href="#results" onclick="closeMenu()">導入実績</a>
+  <a href="#proposals" onclick="closeMenu()">対応領域</a>
+  <a href="#steps" onclick="closeMenu()">ご依頼の流れ</a>
+  <a href="#projects" onclick="closeMenu()">プロジェクト</a>
+  <a href="#contact" class="nav-cta" onclick="closeMenu()">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    お問い合わせ
+  </a>
+</div>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 12l10 5 10-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      AIインテグレーター
+    </div>
+    <h1>AIで、業務をもっとシンプルに。</h1>
+    <p class="hero-desc">
+      AIやクラウドツール、ノーコードツールを組み合わせて、業務課題を解決する仕組みを作っています。「手間がかかっている作業」を見つけて、自動化・効率化するのが得意です。
+    </p>
+    <div class="hero-stats" id="hero-stats">
+      <!-- data.jsから動的に生成 -->
+    </div>
+    <a href="#contact" class="cta-button">
+      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+      お仕事のご相談はこちら
+    </a>
+  </div>
+</section>
+
+<!-- ===== Results (成果) ===== -->
+<section class="results section-padding" id="results">
+  <div class="container">
+    <h2 class="section-title">導入実績（一例）</h2>
+    <p class="section-subtitle">AIや自動化ツールを活用して、実際に業務を効率化した事例の一部をご紹介します。</p>
+    <div class="results-grid" id="results-grid">
+      <!-- data.jsから動的に生成 -->
+    </div>
+  </div>
+</section>
+
+<!-- ===== Proposals (AI化できます) ===== -->
+<section class="proposals section-padding" id="proposals">
+  <div class="container">
+    <h2 class="section-title">対応可能な業務領域</h2>
+    <p class="section-subtitle">以下のような業務のAI化・自動化に対応しています。お気軽にご相談ください。</p>
+    <div class="proposal-tabs" id="proposal-tabs">
+      <!-- data.jsから動的に生成 -->
+    </div>
+    <div id="proposal-contents">
+      <!-- data.jsから動的に生成 -->
+    </div>
+  </div>
+</section>
+
+<!-- ===== Steps (依頼の流れ) ===== -->
+<section class="steps section-padding" id="steps">
+  <div class="container">
+    <h2 class="section-title">ご依頼の流れ</h2>
+    <p class="section-subtitle">「こういう業務、もっとラクにならない？」から始まります。お気軽にご相談ください。</p>
+    <div class="steps-grid">
+      <div class="step-item">
+        <div class="step-number">1</div>
+        <div class="step-title">ご相談</div>
+        <div class="step-desc">「この業務、大変なんだけど...」で大丈夫です。具体的でなくてもOK。まずはお話を聞かせてください。</div>
+      </div>
+      <div class="step-item">
+        <div class="step-number">2</div>
+        <div class="step-title">ヒアリング</div>
+        <div class="step-desc">業務の内容や困りごとを詳しく伺い、AI化・自動化できるかどうかを判断。最適な方法をご提案します。</div>
+      </div>
+      <div class="step-item">
+        <div class="step-number">3</div>
+        <div class="step-title">制作・テスト</div>
+        <div class="step-desc">AIやツールを組み合わせて仕組みを構築。テストを重ねて、実務で使えるレベルに仕上げます。</div>
+      </div>
+      <div class="step-item">
+        <div class="step-number">4</div>
+        <div class="step-title">導入・運用</div>
+        <div class="step-desc">実際に使いながら改善を重ねます。使いにくい点やご要望があれば、随時フィードバックを反映します。</div>
+      </div>
+    </div>
+    <div class="steps-cta">
+      <a href="#contact" class="cta-button cta-button-outline">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        まずは気軽に相談する
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Projects ===== -->
+<section class="projects section-padding" id="projects">
+  <div class="container">
+    <h2 class="section-title">プロジェクト一覧</h2>
+    <p class="section-subtitle">これまでに手がけたプロジェクトと、現在進行中のプロジェクトです。</p>
+    <div class="projects-grid" id="projects-grid">
+      <!-- data.jsから動的に生成 -->
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA Band + Chatbot Area ===== -->
+<section class="cta-band" id="contact">
+  <div class="container">
+    <h2>お仕事のご相談、お気軽にどうぞ</h2>
+    <p>「この作業、もっとラクにならないかな？」そんな小さなきっかけから、一緒に解決策を考えます。</p>
+    <a href="mailto:sugata.takuma@gmail.com" class="cta-button" id="cta-contact">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      メールで相談する
+    </a>
+    <!-- 将来チャットボットを埋め込む場所 -->
+    <!-- <div id="chatbot-container">
+      <iframe src="https://udify.app/chatbot/XXXXX" style="width:100%;height:600px;border:none;border-radius:12px;margin-top:32px;"></iframe>
+    </div> -->
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="container">
+    <p id="footer-text"></p>
+  </div>
+</footer>
+
+<!-- Project Detail Modal -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-title" id="modal-title"></div>
+        <span id="modal-badge"></span>
+      </div>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-progress" id="modal-progress"></div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
