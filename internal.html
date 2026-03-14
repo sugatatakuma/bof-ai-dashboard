@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI活用プロジェクト ダッシュボード</title>
+<title>DashBoard | AI活用プロジェクト</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="BOF_logo_04.png">
 <link rel="stylesheet" href="css/internal.css">
 </head>
 <body>
@@ -16,9 +17,10 @@
   <div class="header-top">
     <div class="header-title-row">
       <img src="BOF_logo_04.png" alt="BackofficeForce" class="header-logo">
-      <h1 id="page-title">AI活用プロジェクト ダッシュボード</h1>
+      <h1 id="page-title">ダッシュボード <span class="header-separator">/</span> <span class="header-subtitle-text">AI活用プロジェクト</span></h1>
     </div>
     <div class="header-controls">
+      <input type="text" id="search-input" class="search-input" placeholder="検索..." oninput="onSearch()">
       <div class="view-toggle">
         <button id="btn-card" onclick="switchView('card')">
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
@@ -32,7 +34,7 @@
       <button id="btn-lang" class="lang-toggle" onclick="toggleLang()">English</button>
     </div>
   </div>
-  <div class="subtitle" id="header-subtitle" style="display:none"></div>
+  <div class="subtitle" id="header-subtitle"></div>
   <div class="summary" id="header-summary"></div>
   <div class="overall-progress" id="header-progress"></div>
 
@@ -86,11 +88,16 @@
 // ============================================================
 
 var currentLang = 'ja';
+var currentSearch = '';
+var currentFilter = null;
+var currentSort = null;
+var sortDirection = 'asc';
 
 // UIラベル翻訳辞書
 var L = {
   ja: {
-    pageTitle: 'AI活用プロジェクト ダッシュボード',
+    pageTitle: 'ダッシュボード',
+    pageSubtitle: 'AI活用プロジェクト',
     allProjects: '全プロジェクト',
     overallProgress: '全体進捗',
     progress: '進捗',
@@ -108,10 +115,14 @@ var L = {
     modalHistory: '作業歴', modalNextAction: '次のアクション',
     statusLive: '運用中', statusTesting: 'テスト中',
     statusBuilding: '構築中', statusDesigned: '設計済み', statusPlanned: '構想中',
-    footerPrefix: 'AI活用プロジェクト ダッシュボード'
+    footerPrefix: 'ダッシュボード / AI活用プロジェクト',
+    subtitlePrefix: '担当',
+    subtitleUpdated: '最終更新',
+    searchPlaceholder: '検索...'
   },
   en: {
-    pageTitle: 'AI Project Dashboard',
+    pageTitle: 'DashBoard',
+    pageSubtitle: 'AI Projects',
     allProjects: 'All Projects',
     overallProgress: 'Overall Progress',
     progress: 'Progress',
@@ -129,7 +140,10 @@ var L = {
     modalHistory: 'History', modalNextAction: 'Next Action',
     statusLive: 'Live', statusTesting: 'Testing',
     statusBuilding: 'Building', statusDesigned: 'Designed', statusPlanned: 'Planned',
-    footerPrefix: 'AI Project Dashboard'
+    footerPrefix: 'AI Project Dashboard',
+    subtitlePrefix: 'Manager',
+    subtitleUpdated: 'Last updated',
+    searchPlaceholder: 'Search...'
   }
 };
 
@@ -146,9 +160,15 @@ function statusLabel(statusKey) {
 
 var STATUS_ORDER = ['live', 'testing', 'building', 'designed', 'planned'];
 var STATUS_COLORS = {
-  live: '#22c55e', testing: '#f97316',
-  building: '#eab308', designed: '#6366f1', planned: '#94a3b8'
+  live: '#006EE6', testing: '#E6731E',
+  building: '#E6731E', designed: '#A0A0A0', planned: '#A0A0A0'
 };
+function progressColor(pct) {
+  if (pct <= 30) return '#E6731E';
+  if (pct >= 80) return '#006EE6';
+  return '#111111';
+}
+
 var LINK_ICON = '<svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zM5 5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-6h-2v6H5V7h6V5H5z"/></svg>';
 var DETAIL_EYE = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>';
 
@@ -166,38 +186,68 @@ var MODAL_ICONS = {
 // ============================================================
 // レンダリング
 // ============================================================
+function getFilteredProjects() {
+  var all = DASHBOARD_DATA.projects;
+  var result = [];
+  for (var i = 0; i < all.length; i++) {
+    var p = all[i];
+    if (currentFilter && p.status !== currentFilter) continue;
+    if (currentSearch) {
+      var q = currentSearch.toLowerCase();
+      var name = (t(p, 'name') || '').toLowerCase();
+      var desc = (t(p, 'description') || '').toLowerCase();
+      if (name.indexOf(q) === -1 && desc.indexOf(q) === -1) continue;
+    }
+    result.push(p);
+  }
+  if (currentSort) {
+    var dir = sortDirection === 'asc' ? 1 : -1;
+    result.sort(function(a, b) {
+      if (currentSort === 'progress') return (a.progress - b.progress) * dir;
+      if (currentSort === 'status') return (STATUS_ORDER.indexOf(a.status) - STATUS_ORDER.indexOf(b.status)) * dir;
+      return 0;
+    });
+  }
+  return result;
+}
+
 function renderAll() {
   var d = DASHBOARD_DATA;
-  var projects = d.projects;
+  var allProjects = d.projects;
+  var projects = getFilteredProjects();
+
+  // Search placeholder
+  document.getElementById('search-input').placeholder = ui('searchPlaceholder');
 
   // Page title
-  document.getElementById('page-title').textContent = ui('pageTitle');
-  document.title = ui('pageTitle');
+  document.getElementById('page-title').innerHTML = ui('pageTitle') + ' <span class="header-separator">/</span> <span class="header-subtitle-text">' + ui('pageSubtitle') + '</span>';
+  document.title = ui('pageTitle') + ' / ' + ui('pageSubtitle');
 
   // Header subtitle
   document.getElementById('header-subtitle').textContent =
-    d.manager + ' / Last updated: ' + d.lastUpdated;
+    ui('subtitlePrefix') + ': ' + d.manager + ' / ' + ui('subtitleUpdated') + ': ' + d.lastUpdated;
 
-  // Summary counts
+  // Summary counts (always based on all projects)
   var counts = {};
-  for (var i = 0; i < projects.length; i++) {
-    counts[projects[i].status] = (counts[projects[i].status] || 0) + 1;
+  for (var i = 0; i < allProjects.length; i++) {
+    counts[allProjects[i].status] = (counts[allProjects[i].status] || 0) + 1;
   }
-  var summaryBg = { live: '#22c55e', testing: '#f97316', building: '#eab308', designed: '#6366f1', planned: '#A0A0A0' };
-  var summaryText = { live: '#fff', testing: '#fff', building: '#111111', designed: '#fff', planned: '#fff' };
-  var sh = '<div class="summary-item"><span class="count">' + projects.length + '</span> ' + ui('allProjects') + '</div>';
+  var summaryBg = { live: '#006EE6', testing: '#E6731E', building: '#E6731E', designed: '#A0A0A0', planned: '#A0A0A0' };
+  var summaryText = { live: '#fff', testing: '#fff', building: '#fff', designed: '#fff', planned: '#fff' };
+  var sh = '<div class="summary-item summary-clickable' + (!currentFilter ? ' summary-active' : '') + '" onclick="filterByStatus(null)"><span class="count">' + allProjects.length + '</span> ' + ui('allProjects') + '</div>';
   for (var si = 0; si < STATUS_ORDER.length; si++) {
     var sk = STATUS_ORDER[si];
     if (counts[sk]) {
-      sh += '<div class="summary-item" style="background:' + summaryBg[sk] + ';color:' + summaryText[sk] + '"><span class="count" style="color:' + summaryText[sk] + '">' + counts[sk] + '</span> ' + statusLabel(sk) + '</div>';
+      var isActive = currentFilter === sk;
+      sh += '<div class="summary-item summary-clickable' + (isActive ? ' summary-active' : '') + '" style="background:' + summaryBg[sk] + ';color:' + summaryText[sk] + '" onclick="filterByStatus(\'' + sk + '\')"><span class="count" style="color:' + summaryText[sk] + '">' + counts[sk] + '</span> ' + statusLabel(sk) + '</div>';
     }
   }
   document.getElementById('header-summary').innerHTML = sh;
 
-  // Overall progress
+  // Overall progress (always based on all projects)
   var totalProgress = 0;
-  for (var pi = 0; pi < projects.length; pi++) totalProgress += projects[pi].progress;
-  var avgProgress = Math.round(totalProgress / projects.length);
+  for (var pi = 0; pi < allProjects.length; pi++) totalProgress += allProjects[pi].progress;
+  var avgProgress = Math.round(totalProgress / allProjects.length);
   document.getElementById('header-progress').innerHTML =
     '<div class="overall-progress-label">' + ui('overallProgress') + '</div>' +
     '<div class="overall-progress-bar"><div class="overall-progress-fill" style="width:' + avgProgress + '%"></div></div>' +
@@ -221,11 +271,11 @@ function renderAll() {
     cardHtml += '<div class="card-grid">';
     for (var cj = 0; cj < grouped[cs].length; cj++) {
       var cp = grouped[cs][cj];
-      var cpIdx = projects.indexOf(cp);
+      var cpIdx = allProjects.indexOf(cp);
       cardHtml += '<div class="card border-' + cp.status + '" style="cursor:pointer" onclick="openModal(' + cpIdx + ')">';
       cardHtml += '<div class="card-header"><div class="card-title">' + t(cp, 'name') + '</div><span class="badge badge-' + cp.status + '">' + t(cp, 'statusLabel') + '</span></div>';
-      cardHtml += '<div class="card-progress"><div class="card-progress-header"><span class="card-progress-label">' + ui('progress') + '</span><span class="card-progress-pct">' + cp.progress + '%</span></div>';
-      cardHtml += '<div class="progress-bar"><div class="progress-fill pf-' + cp.status + '" style="width:' + cp.progress + '%"></div></div></div>';
+      cardHtml += '<div class="card-progress"><div class="card-progress-header"><span class="card-progress-label">' + ui('progress') + '</span><span class="card-progress-pct" style="color:' + progressColor(cp.progress) + '">' + cp.progress + '%</span></div>';
+      cardHtml += '<div class="progress-bar"><div class="progress-fill" style="width:' + cp.progress + '%;background:' + progressColor(cp.progress) + '"></div></div></div>';
       cardHtml += '<div class="card-desc">' + t(cp, 'description') + '</div>';
       // History
       if (cp.history && cp.history.length > 0) {
@@ -250,16 +300,20 @@ function renderAll() {
 
   // Table View
   var tableHtml = '<div class="table-wrap"><table><thead><tr>';
-  tableHtml += '<th>' + ui('thNo') + '</th><th>' + ui('thName') + '</th><th>' + ui('thStatus') + '</th><th>' + ui('thProgress') + '</th><th>' + ui('thHistory') + '</th><th>' + ui('thNextAction') + '</th><th>' + ui('thDetail') + '</th><th>' + ui('thAccess') + '</th>';
+  tableHtml += '<th>' + ui('thNo') + '</th><th>' + ui('thName') + '</th>';
+  tableHtml += '<th class="sortable-th" onclick="sortBy(\'status\')">' + ui('thStatus') + sortIndicator('status') + '</th>';
+  tableHtml += '<th class="sortable-th" onclick="sortBy(\'progress\')">' + ui('thProgress') + sortIndicator('progress') + '</th>';
+  tableHtml += '<th>' + ui('thHistory') + '</th><th>' + ui('thNextAction') + '</th><th>' + ui('thDetail') + '</th><th>' + ui('thAccess') + '</th>';
   tableHtml += '</tr></thead><tbody>';
   for (var ti = 0; ti < projects.length; ti++) {
     var tp = projects[ti];
-    tableHtml += '<tr style="cursor:pointer" onclick="openModal(' + ti + ')">';
+    var tpOrigIdx = allProjects.indexOf(tp);
+    tableHtml += '<tr style="cursor:pointer" onclick="openModal(' + tpOrigIdx + ')">';
     tableHtml += '<td>' + (ti + 1) + '</td>';
     tableHtml += '<td><div class="table-name">' + t(tp, 'name') + '</div><div class="table-desc">' + t(tp, 'description') + '</div></td>';
     tableHtml += '<td><span class="table-status-dot" style="background:' + STATUS_COLORS[tp.status] + '"></span><span class="badge badge-' + tp.status + '">' + t(tp, 'statusLabel') + '</span></td>';
-    tableHtml += '<td class="table-progress"><div class="table-progress-row"><div class="table-progress-bar"><div class="progress-fill pf-' + tp.status + '" style="width:' + tp.progress + '%"></div></div>';
-    tableHtml += '<span class="table-progress-pct">' + tp.progress + '%</span></div></td>';
+    tableHtml += '<td class="table-progress"><div class="table-progress-row"><div class="table-progress-bar"><div class="progress-fill" style="width:' + tp.progress + '%;background:' + progressColor(tp.progress) + '"></div></div>';
+    tableHtml += '<span class="table-progress-pct" style="color:' + progressColor(tp.progress) + '">' + tp.progress + '%</span></div></td>';
     // History
     if (tp.history && tp.history.length > 0) {
       tableHtml += '<td class="table-history"><ul class="table-history-list">';
@@ -271,7 +325,7 @@ function renderAll() {
       tableHtml += '<td class="table-history"><span style="color:#cbd5e1;font-size:11px">—</span></td>';
     }
     tableHtml += '<td><div class="table-next">' + (t(tp, 'nextAction') || '—') + '</div></td>';
-    tableHtml += '<td style="text-align:center"><button class="table-btn table-btn-detail" onclick="event.stopPropagation();openModal(' + ti + ')">' + DETAIL_EYE + ' ' + ui('detail') + '</button></td>';
+    tableHtml += '<td style="text-align:center"><button class="table-btn table-btn-detail" onclick="event.stopPropagation();openModal(' + tpOrigIdx + ')">' + DETAIL_EYE + ' ' + ui('detail') + '</button></td>';
     if (tp.url) {
       tableHtml += '<td class="table-access"><a class="table-btn table-btn-access" href="' + tp.url + '" target="_blank" onclick="event.stopPropagation()">' + LINK_ICON + ui('open') + '</a></td>';
     } else {
@@ -284,7 +338,7 @@ function renderAll() {
 
   // Footer
   document.getElementById('footer').innerHTML =
-    ui('footerPrefix') + ' / ' + d.manager + ' / Last updated: ' + d.lastUpdated;
+    ui('footerPrefix') + ' / ' + ui('subtitlePrefix') + ': ' + d.manager + ' / ' + ui('subtitleUpdated') + ': ' + d.lastUpdated;
 
   // Lang button
   document.getElementById('btn-lang').textContent = currentLang === 'ja' ? 'English' : '日本語';
@@ -296,6 +350,31 @@ function renderAll() {
 function toggleLang() {
   currentLang = currentLang === 'ja' ? 'en' : 'ja';
   renderAll();
+}
+
+function onSearch() {
+  currentSearch = document.getElementById('search-input').value;
+  renderAll();
+}
+
+function filterByStatus(status) {
+  currentFilter = status;
+  renderAll();
+}
+
+function sortBy(field) {
+  if (currentSort === field) {
+    sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+  } else {
+    currentSort = field;
+    sortDirection = 'asc';
+  }
+  renderAll();
+}
+
+function sortIndicator(field) {
+  if (currentSort !== field) return ' <span style="opacity:0.4">⇅</span>';
+  return sortDirection === 'asc' ? ' ▲' : ' ▼';
 }
 
 // ============================================================
@@ -332,7 +411,7 @@ function openModal(index) {
   document.getElementById('modal-badge').textContent = t(p, 'statusLabel');
 
   document.getElementById('modal-progress').innerHTML =
-    '<div style="flex:1;height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden"><div class="progress-fill pf-' + p.status + '" style="width:' + p.progress + '%;height:100%;border-radius:4px"></div></div>' +
+    '<div style="flex:1;height:8px;background:var(--color-gray-light);border-radius:4px;overflow:hidden"><div class="progress-fill" style="width:' + p.progress + '%;height:100%;border-radius:4px;background:' + progressColor(p.progress) + '"></div></div>' +
     '<div style="font-size:14px;font-weight:700;min-width:40px">' + p.progress + '%</div>';
 
   var body = '';

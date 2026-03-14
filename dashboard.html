@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI活用プロジェクト ダッシュボード</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Yu Gothic Medium', 'Hiragino Sans', 'Meiryo', sans-serif;
+    background: #f0f2f5;
+    color: #1a1a2e;
+    line-height: 1.6;
+  }
+
+  /* ===== Header ===== */
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #fff;
+    padding: 32px 40px 24px;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4px;
+  }
+  .header h1 { font-size: 24px; font-weight: 700; }
+  .header .subtitle { font-size: 13px; color: #94a3b8; margin-bottom: 20px; }
+
+  /* ===== View Toggle ===== */
+  .view-toggle {
+    display: flex;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .view-toggle button {
+    background: none; border: none; color: #94a3b8;
+    padding: 8px 16px; font-size: 13px; font-family: inherit;
+    cursor: pointer; display: flex; align-items: center; gap: 6px;
+    transition: all 0.2s;
+  }
+  .view-toggle button.active { background: rgba(255,255,255,0.2); color: #fff; }
+  .view-toggle button:hover:not(.active) { background: rgba(255,255,255,0.08); }
+  .view-toggle svg { width: 16px; height: 16px; fill: currentColor; }
+
+  /* ===== Summary Bar ===== */
+  .summary { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .summary-item {
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+    padding: 10px 18px; display: flex; align-items: center; gap: 8px; font-size: 13px;
+  }
+  .summary-item .count { font-size: 22px; font-weight: 700; }
+
+  /* ===== Overall Progress ===== */
+  .overall-progress {
+    display: flex; align-items: center; gap: 12px; margin-top: 16px;
+    background: rgba(255,255,255,0.08); border-radius: 8px; padding: 12px 18px;
+  }
+  .overall-progress-label { font-size: 13px; color: #cbd5e1; white-space: nowrap; }
+  .overall-progress-bar { flex: 1; height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden; }
+  .overall-progress-fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, #22c55e, #3b82f6); transition: width 0.6s ease; }
+  .overall-progress-pct { font-size: 18px; font-weight: 700; color: #fff; min-width: 48px; text-align: right; }
+
+  /* ===== Main ===== */
+  .main { max-width: 1200px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  /* ===== Status Section ===== */
+  .status-section { margin-bottom: 32px; }
+  .status-section h2 {
+    font-size: 16px; font-weight: 700; margin-bottom: 14px; padding-left: 4px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+  /* ===== Card Grid ===== */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 16px; }
+
+  /* ===== Card ===== */
+  .card {
+    background: #fff; border-radius: 12px; padding: 22px 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    border-left: 4px solid #cbd5e1; transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 10px; }
+  .card-title { font-size: 16px; font-weight: 700; }
+
+  /* ===== Badge ===== */
+  .badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+  .badge-completed { background: #dcfce7; color: #166534; }
+  .badge-live      { background: #dbeafe; color: #1e40af; }
+  .badge-testing   { background: #ffedd5; color: #9a3412; }
+  .badge-building  { background: #fef9c3; color: #854d0e; }
+  .badge-waiting   { background: #e0e7ff; color: #3730a3; }
+  .badge-planned   { background: #f1f5f9; color: #475569; }
+
+  .card.border-completed { border-left-color: #22c55e; }
+  .card.border-live      { border-left-color: #3b82f6; }
+  .card.border-testing   { border-left-color: #f97316; }
+  .card.border-building  { border-left-color: #eab308; }
+  .card.border-waiting   { border-left-color: #6366f1; }
+  .card.border-planned   { border-left-color: #94a3b8; }
+
+  /* ===== Progress Bar ===== */
+  .card-progress { margin-bottom: 12px; }
+  .card-progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+  .card-progress-label { font-size: 11px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .card-progress-pct { font-size: 13px; font-weight: 700; }
+  .progress-bar { width: 100%; height: 8px; background: #f1f5f9; border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+  .progress-fill.color-completed { background: #22c55e; }
+  .progress-fill.color-live      { background: #3b82f6; }
+  .progress-fill.color-testing   { background: #f97316; }
+  .progress-fill.color-building  { background: #eab308; }
+  .progress-fill.color-waiting   { background: #6366f1; }
+  .progress-fill.color-planned   { background: #94a3b8; }
+
+  /* ===== Card Body ===== */
+  .card-desc { font-size: 13px; color: #475569; margin-bottom: 12px; }
+  .card-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .tech-tag { font-size: 11px; background: #f1f5f9; color: #64748b; padding: 2px 8px; border-radius: 4px; }
+
+  /* ===== History (Card) ===== */
+  .card-history {
+    background: #f8fafc; border-radius: 6px; padding: 10px 12px;
+    font-size: 12px; color: #334155; margin-bottom: 10px;
+  }
+  .card-history strong {
+    color: #0f172a; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+    display: block; margin-bottom: 6px;
+  }
+  .history-list {
+    list-style: none; padding: 0; margin: 0;
+    position: relative;
+    padding-left: 16px;
+  }
+  .history-list::before {
+    content: '';
+    position: absolute; left: 4px; top: 4px; bottom: 4px;
+    width: 2px; background: #e2e8f0; border-radius: 1px;
+  }
+  .history-list li {
+    position: relative;
+    padding: 2px 0;
+    font-size: 12px;
+    color: #475569;
+  }
+  .history-list li::before {
+    content: '';
+    position: absolute; left: -14px; top: 8px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #94a3b8;
+    border: 1.5px solid #fff;
+    box-shadow: 0 0 0 1px #cbd5e1;
+  }
+  .history-list li.done::before { background: #22c55e; box-shadow: 0 0 0 1px #bbf7d0; }
+
+  /* ===== Next Action (Card) ===== */
+  .card-next {
+    background: #f8fafc; border-radius: 6px; padding: 10px 12px;
+    font-size: 12px; color: #334155; margin-bottom: 10px;
+  }
+  .card-next strong {
+    color: #0f172a; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+
+  /* ===== Access Button ===== */
+  .card-access { margin-top: 2px; }
+  .access-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 6px;
+    font-size: 12px; font-weight: 600; font-family: inherit;
+    text-decoration: none; cursor: pointer;
+    transition: all 0.2s; border: none;
+  }
+  .access-btn svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+  .access-btn-active {
+    background: #1a1a2e; color: #fff;
+  }
+  .access-btn-active:hover { background: #0f3460; }
+  .access-btn-disabled {
+    background: #f1f5f9; color: #94a3b8; cursor: default; pointer-events: none;
+  }
+
+  /* ===== Table View ===== */
+  #view-table { display: block; }
+  .table-wrap {
+    background: #fff; border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    overflow: hidden;
+  }
+  .table-wrap table { width: 100%; border-collapse: collapse; }
+  .table-wrap thead { background: #f8fafc; }
+  .table-wrap th {
+    text-align: left; padding: 12px 14px;
+    font-size: 11px; font-weight: 700; color: #64748b;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    border-bottom: 2px solid #e2e8f0; white-space: nowrap;
+  }
+  .table-wrap td {
+    padding: 14px 14px; font-size: 13px;
+    border-bottom: 1px solid #f1f5f9; vertical-align: middle;
+  }
+  .table-wrap tbody tr { transition: background 0.15s; }
+  .table-wrap tbody tr:hover { background: #f8fafc; }
+  .table-wrap tbody tr:last-child td { border-bottom: none; }
+  .table-name { font-weight: 700; font-size: 14px; color: #1a1a2e; }
+  .table-desc { color: #64748b; font-size: 12px; margin-top: 2px; }
+  .table-tech { display: flex; flex-wrap: wrap; gap: 4px; }
+  .table-next { font-size: 12px; color: #475569; }
+  .table-status-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    display: inline-block; margin-right: 4px; vertical-align: middle;
+  }
+
+  /* ===== Progress (Table) ===== */
+  .table-progress { min-width: 110px; }
+  .table-progress-row { display: flex; align-items: center; gap: 8px; }
+  .table-progress-bar { flex: 1; height: 8px; background: #f1f5f9; border-radius: 4px; overflow: hidden; }
+  .table-progress-bar .progress-fill { height: 100%; border-radius: 4px; }
+  .table-progress-pct { font-size: 13px; font-weight: 700; min-width: 36px; text-align: right; }
+
+  /* ===== History (Table) ===== */
+  .table-history { font-size: 11px; color: #64748b; max-width: 200px; }
+  .table-history-list { list-style: none; padding: 0; margin: 0; }
+  .table-history-list li { padding: 1px 0; position: relative; padding-left: 12px; }
+  .table-history-list li::before {
+    content: ''; position: absolute; left: 0; top: 7px;
+    width: 5px; height: 5px; border-radius: 50%; background: #cbd5e1;
+  }
+  .table-history-list li.done::before { background: #22c55e; }
+
+  /* ===== Access (Table) ===== */
+  .table-access { text-align: center; }
+  .access-btn-sm {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 5px 12px; border-radius: 5px;
+    font-size: 11px; font-weight: 600; font-family: inherit;
+    text-decoration: none; cursor: pointer;
+    transition: all 0.2s; border: none;
+  }
+  .access-btn-sm svg { width: 12px; height: 12px; fill: currentColor; }
+  .access-btn-sm.active { background: #1a1a2e; color: #fff; }
+  .access-btn-sm.active:hover { background: #0f3460; }
+  .access-btn-sm.disabled { background: #f1f5f9; color: #cbd5e1; cursor: default; pointer-events: none; }
+
+  /* ===== Footer ===== */
+  .footer { text-align: center; padding: 20px; font-size: 12px; color: #94a3b8; }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 600px) {
+    .header { padding: 20px 16px 16px; }
+    .header-top { flex-direction: column; gap: 12px; }
+    .header h1 { font-size: 20px; }
+    .main { padding: 16px 12px 40px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .table-wrap { overflow-x: auto; }
+    .table-wrap table { min-width: 1000px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<div class="header">
+  <div class="header-top">
+    <h1>AI活用プロジェクト ダッシュボード</h1>
+    <div class="view-toggle">
+      <button id="btn-card" onclick="switchView('card')">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        カード
+      </button>
+      <button id="btn-table" class="active" onclick="switchView('table')">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="2" rx="1"/><rect x="3" y="9" width="18" height="2" rx="1"/><rect x="3" y="14" width="18" height="2" rx="1"/><rect x="3" y="19" width="18" height="2" rx="1"/></svg>
+        一覧
+      </button>
+    </div>
+  </div>
+  <div class="subtitle">菅田琢磨 ／ 最終更新: 2026年3月14日</div>
+  <div class="summary">
+    <div class="summary-item"><span class="count">9</span> 全プロジェクト</div>
+    <div class="summary-item" style="color:#86efac"><span class="count">1</span> 運用中</div>
+    <div class="summary-item" style="color:#fdba74"><span class="count">1</span> テスト中</div>
+    <div class="summary-item" style="color:#fde047"><span class="count">2</span> 構築中</div>
+    <div class="summary-item" style="color:#a5b4fc"><span class="count">2</span> 設計済み</div>
+    <div class="summary-item" style="color:#cbd5e1"><span class="count">3</span> 構想中</div>
+  </div>
+  <div class="overall-progress">
+    <div class="overall-progress-label">全体進捗</div>
+    <div class="overall-progress-bar">
+      <div class="overall-progress-fill" style="width:42%"></div>
+    </div>
+    <div class="overall-progress-pct">42%</div>
+  </div>
+</div>
+
+<!-- ===== Main ===== -->
+<div class="main">
+
+<!-- ========== CARD VIEW ========== -->
+<div id="view-card" style="display:none">
+
+  <!-- 運用中 -->
+  <div class="status-section">
+    <h2><span class="section-dot" style="background:#22c55e"></span> 運用中</h2>
+    <div class="card-grid">
+      <div class="card border-live">
+        <div class="card-header">
+          <div class="card-title">BOF業務マニュアルメーカー</div>
+          <span class="badge badge-live">運用中</span>
+        </div>
+        <div class="card-progress">
+          <div class="card-progress-header">
+            <span class="card-progress-label">進捗</span>
+            <span class="card-progress-pct" style="color:#166534">100%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill color-live" style="width:100%"></div></div>
+        </div>
+        <div class="card-desc">文字起こしファイルを入力するだけで、業務マニュアル（手順書）を自動生成するAIツール</div>
+        <div class="card-tech">
+          <span class="tech-tag">Dify</span><span class="tech-tag">LLM</span><span class="tech-tag">Python</span>
+        </div>
+        <div class="card-history">
+          <strong>作業歴</strong>
+          <ul class="history-list">
+            <li class="done">Difyワークフロー設計・構築</li>
+            <li class="done">LLMプロンプト設計・調整</li>
+            <li class="done">Pythonコード実装（テキスト整形）</li>
+            <li class="done">テスト・品質確認・納品</li>
+          </ul>
+        </div>
+        <div class="card-next">
+          <strong>Next Action</strong><br>
+          完成・納品済み。必要に応じてナレッジ拡充
+        </div>
+        <div class="card-access">
+          <a class="access-btn access-btn-active" href="https://udify.app/workflow/j9fyHZH2mZ5UzntX" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zM5 5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-6h-2v6H5V7h6V5H5z"/></svg>
+            ツールを開く
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- テスト中 -->
+  <div class="status-section">
+    <h2><span class="section-dot" style="background:#f97316"></span> テスト中</h2>
+    <div class="card-grid">
+      <div class="card border-testing">
+        <div class="card-header">
+          <div class="card-title">Chatwork → Teams 通知システム</div>
+          <span class="badge badge-testing">テスト中</span>
+        </div>
+        <div class="card-progress">
+          <div class="card-progress-header">
+            <span class="card-progress-label">進捗</span>
+            <span class="card-progress-pct" style="color:#9a3412">70%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill color-testing" style="width:70%"></div></div>
+        </div>
+        <div class="card-desc">Chatworkの新着メッセージをMicrosoft Teamsチャネルにリアルタイム通知するシステム</div>
+        <div class="card-tech">
+          <span class="tech-tag">Python</span><span class="tech-tag">FastAPI</span><span class="tech-tag">Railway</span><span class="tech-tag">Power Automate</span>
+        </div>
+        <div class="card-history">
+          <strong>作業歴</strong>
+          <ul class="history-list">
+            <li class="done">仕様設計（v1→v8まで改訂）</li>
+            <li class="done">Python / FastAPI開発</li>
+            <li class="done">署名検証・通知制限・自動返信実装</li>
+            <li class="done">Railwayデプロイ</li>
+            <li class="done">2社でPoCテスト開始</li>
+          </ul>
+        </div>
+        <div class="card-next">
+          <strong>Next Action</strong><br>
+          PoC動作確認 → 他クライアントルーム展開
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 構築中 -->
+  <div class="status-section">
+    <h2><span class="section-dot" style="background:#eab308"></span> 構築中</h2>
+    <div class="card-grid">
+      <div class="card border-building">
+        <div class="card-header">
+          <div class="card-title">GRスタンダードプラスα</div>
+          <span class="badge badge-building">構築中</span>
+        </div>
+        <div class="card-progress">
+          <div class="card-progress-header">
+            <span class="card-progress-label">進捗</span>
+            <span class="card-progress-pct" style="color:#854d0e">80%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill color-building" style="width:80%"></div></div>
+        </div>
+        <div class="card-desc">GRスタンダード関連の社内FAQチャットボット。ナレッジベースを拡充しながら構築中</div>
+        <div class="card-tech">
+          <span class="tech-tag">Dify</span><span class="tech-tag">LLM</span><span class="tech-tag">Teams</span>
+        </div>
+        <div class="card-history">
+          <strong>作業歴</strong>
+          <ul class="history-list">
+            <li class="done">Difyチャットボット構築（フェーズ1〜4）</li>
+            <li class="done">Azure認証・Teams連携設定</li>
+            <li class="done">ナレッジ3ファイル作成・Dify登録</li>
+            <li class="done">KITHubナレッジ7セクション追加</li>
+            <li class="done">KITHubアンケートQ&A 35項目抽出</li>
+          </ul>
+        </div>
+        <div class="card-next">
+          <strong>Next Action</strong><br>
+          BF業務ナレッジ・KITHubアンケートQ&Aのレビュー完了→Dify登録
+        </div>
+        <div class="card-access">
+          <button class="access-btn access-btn-disabled" disabled>
+            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zM5 5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-6h-2v6H5V7h6V5H5z"/></svg>
+            未公開
+          </button>
+        </div>
+      </div>
+
+      <div class="card border-building">
+        <div class="card-header">
+          <div class="card-title">BOF Match Mini</div>
+          <span class="badge badge-building">構築中</span>
+        </div>
+        <div class="card-progress">
+          <div class="card-progress-header">
+            <span class="card-progress-label">進捗</span>
+            <span class="card-progress-pct" style="color:#854d0e">75%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill color-building" style="width:75%"></div></div>
+        </div>
+        <div class="card-desc">業務委託パートナーへの案件マッチングメール一括送信システム（簡易版）</div>
+        <div class="card-tech">
+          <span class="tech-tag">Dify</span><span class="tech-tag">Make</span><span class="tech-tag">kintone</span><span class="tech-tag">Outlook</span>
+        </div>
+        <div class="card-history">
+          <strong>作業歴</strong>
+          <ul class="history-list">
+            <li class="done">仕様書v1.0作成</li>
+            <li class="done">Difyワークフロー構築（12項目入力→LLM→メール生成）</li>
+            <li class="done">Makeシナリオ構築（kintone→Outlook一括送信）</li>
+            <li class="done">kintone API連携・BCC方式実装</li>
+            <li class="done">結合テスト成功</li>
+          </ul>
+        </div>
+        <div class="card-next">
+          <strong>Next Action</strong><br>
+          マッチング担当者に確認事項10項目を確認 → パイロットテスト
+        </div>
+        <div class="card-access">
+          <button class="access-btn access-btn-disabled" disabled>
+            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zM5 5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-6h-2v6H5V7h6V5H5z"/></svg>
+            未公開
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 設計済み -->
+  <div class="status-section">
+    <h2><span class="section-dot" style="background:#6366f1"></span> 設計済み</h2>
+    <div class="card-grid">
+      <div class="card border-waiting">
+        <div class="card-header">
+          <div class="card-title">BOF Match フル版</div>
+          <span class="badge badge-waiting">設計済み</span>
+        </div>
+        <div class="card-progress">
+          <div class="card-progress-header">
+            <span class="card-progress-label">進捗</span>
+            <span class="card-progress-pct" style="color:#3730a3">20%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill color-waiting" style="width:20%"></div></div>
+        </div>
+        <div class="card-desc">SharePoint + Difyによる人材マッチング自動化システム（フル機能版）</div>
+        <div class="card-tech">
+          <span class="tech-tag">Dify</span><span class="tech-tag">SharePoint</span><span class="tech-tag">Azure AD</span><span class="tech-tag">kintone</span>
+        </div>
+        <div class="card-history">
+          <strong>作業歴</strong>
+          <ul class="history-list">
+            <li class="done">仕様書v1.2作成</li>
+            <li class="done">Azure AD承認取得</li>
+            <li class="done">kintone API取得・名前マッチング検証</li>
+          </ul>
+        </div>
+        <div class="card-next">
+          <strong>Next Action</strong><br>
+          Mini版完了後に着手。kintone編集権限APIトークンの取得を担当者に依頼
+        </div>
+        <div class="card-access">
+          <button class="access-btn access-btn-disabled" disabled>
+            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zM5 5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-6h-2v6H5V7h6V5H5z"/></svg>
+            未公開
+          </button>
+        </div>
+      </div>
+
+      <div class="card border-waiting">
+        <div class="card-header">
+          <div class="card-title">Slack → Teams 通知システム</div>
+          <span class="badge badge-waiting">設計済み</span>
+        </div>
+        <div class="card-progress">
+          <div class="card-progress-header">
+            <span class="card-progress-label">進捗</span>
+            <span class="card-progress-pct" style="color:#3730a3">15%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill color-waiting" style="width:15%"></div></div>
+        </div>
+        <div class="card-desc">Slackの新着メッセージをMicrosoft Teamsチャネルに通知するシステム</div>
+        <div class="card-tech">
+          <span class="tech-tag">Python</span><span class="tech-tag">FastAPI</span><span class="tech-tag">Railway</span><span class="tech-tag">Slack API</span>
+        </div>
+        <div class="card-history">
+          <strong>作業歴</strong>
+          <ul class="history-list">
+            <li class="done">仕様書v1作成（Chatwork版ベース）</li>
+          </ul>
+        </div>
+        <div class="card-next">
+          <strong>Next Action</strong><br>
+          未確定事項の確認（対象ワークスペース、App権限等）→ コーディング
+        </div>
+        <div class="card-access">
+          <button class="access-btn access-btn-disabled" disabled>
+            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zM5 5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-6h-2v6H5V7h6V5H5z"/></svg>
+            未公開
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 構想中 -->
+  <div class="status-section">
+    <h2><span class="section-dot" style="background:#94a3b8"></span> 構想中</h2>
+    <div class="card-grid">
+      <div class="card border-planned">
+        <div class="card-header">
+          <div class="card-title">BOF工数分析レポート</div>
+          <span class="badge badge-planned">構想中</span>
+        </div>
+        <div class="card-progress">
+          <div class="card-progress-header">
+            <span class="card-progress-label">進捗</span>
+            <span class="card-progress-pct" style="color:#475569">5%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill color-planned" style="width:5%"></div></div>
+        </div>
+        <div class="card-desc">工数データを分析し、レポートを自動生成するツール（カスタムGPTからの移行）</div>
+        <div class="card-tech">
+          <span class="tech-tag">カスタムGPT</span><span class="tech-tag">→ Dify / Make</span>
+        </div>
+        <div class="card-history">
+          <strong>作業歴</strong>
+          <ul class="history-list">
+            <li class="done">カスタムGPTで原型を制作済み</li>
+            <li>プロジェクト登録</li>
+          </ul>
+        </div>
+        <div class="card-next">
+          <strong>Next Action</strong><br>
+          現状のカスタムGPTの機能・仕様を整理 → アップデート方針決定
+        </div>
+        <div class="card-access">
+          <button class="access-btn access-btn-disabled" disabled>
+            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zM5 5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-6h-2v6H5V7h6V5H5z"/></svg>
+            未公開
+          </button>
+        </div>
+      </div>
+
+      <div class="card border-planned">
+        <div class="card-header">
+          <div class="card-title">BOF議事録作成GPT</div>
+          <span class="badge badge-planned">構想中</span>
+        </div>
+        <div class="card-progress">
+          <div class="card-progress-header">
+            <span class="card-progress-label">進捗</span>
+            <span class="card-progress-pct" style="color:#475569">5%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill color-planned" style="width:5%"></div></div>
+        </div>
+        <div class="card-desc">会議の文字起こしから議事録を自動生成するツール（カスタムGPTからの移行）</div>
+        <div class="card-tech">
+          <span class="tech-tag">カスタムGPT</span><span class="tech-tag">→ Dify / Make</span>
+        </div>
+        <div class="card-history">
+          <strong>作業歴</strong>
+          <ul class="history-list">
+            <li class="done">カスタムGPTで原型を制作済み</li>
+            <li>プロジェクト登録</li>
+          </ul>
+        </div>
+        <div class="card-next">
+          <strong>Next Action</strong><br>
+          現状のカスタムGPTの機能・仕様を整理 → アップデート方針決定
+        </div>
+        <div class="card-access">
+          <button class="access-btn access-btn-disabled" disabled>
+            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zM5 5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-6h-2v6H5V7h6V5H5z"/></svg>
+            未公開
+          </button>
+        </div>
+      </div>
+
+      <div class="card border-planned">
+        <div class="card-header">
+          <div class="card-title">決算報告書レポートGPT</div>
+          <span class="badge badge-planned">構想中</span>
+        </div>
+        <div class="card-progress">
+          <div class="card-progress-header">
+            <span class="card-progress-label">進捗</span>
+            <span class="card-progress-pct" style="color:#475569">5%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill color-planned" style="width:5%"></div></div>
+        </div>
+        <div class="card-desc">決算データから報告書レポートを自動生成するツール（カスタムGPTからの移行）</div>
+        <div class="card-tech">
+          <span class="tech-tag">カスタムGPT</span><span class="tech-tag">→ Dify / Make</span>
+        </div>
+        <div class="card-history">
+          <strong>作業歴</strong>
+          <ul class="history-list">
+            <li class="done">カスタムGPTで原型を制作済み</li>
+            <li>プロジェクト登録</li>
+          </ul>
+        </div>
+        <div class="card-next">
+          <strong>Next Action</strong><br>
+          現状のカスタムGPTの機能・仕様を整理 → アップデート方針決定
+        </div>
+        <div class="card-access">
+          <button class="access-btn access-btn-disabled" disabled>
+            <svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zM5 5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-6h-2v6H5V7h6V5H5z"/></svg>
+            未公開
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ========== TABLE VIEW ========== -->
+<div id="view-table">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>プロジェクト名</th>
+          <th>ステータス</th>
+          <th>進捗</th>
+          <th>作業歴</th>
+          <th>次のアクション</th>
+          <th>アクセス</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 1 -->
+        <tr>
+          <td>1</td>
+          <td>
+            <div class="table-name">BOF業務マニュアルメーカー</div>
+            <div class="table-desc">文字起こしから業務マニュアルを自動生成</div>
+          </td>
+          <td><span class="table-status-dot" style="background:#22c55e"></span><span class="badge badge-live">運用中</span></td>
+          <td class="table-progress">
+            <div class="table-progress-row">
+              <div class="table-progress-bar"><div class="progress-fill color-live" style="width:100%"></div></div>
+              <span class="table-progress-pct" style="color:#166534">100%</span>
+            </div>
+          </td>
+          <td class="table-history">
+            <ul class="table-history-list">
+              <li class="done">Difyワークフロー構築</li>
+              <li class="done">プロンプト設計・テスト</li>
+              <li class="done">納品完了</li>
+            </ul>
+          </td>
+          <td><div class="table-next">完成・納品済み</div></td>
+          <td class="table-access"><a class="access-btn-sm active" href="https://udify.app/workflow/j9fyHZH2mZ5UzntX" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7zM5 5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-6h-2v6H5V7h6V5H5z"/></svg>開く</a></td>
+        </tr>
+        <!-- 2 -->
+        <tr>
+          <td>2</td>
+          <td>
+            <div class="table-name">GRスタンダードプラスα</div>
+            <div class="table-desc">社内FAQチャットボット（ナレッジ拡充中）</div>
+          </td>
+          <td><span class="table-status-dot" style="background:#eab308"></span><span class="badge badge-building">構築中</span></td>
+          <td class="table-progress">
+            <div class="table-progress-row">
+              <div class="table-progress-bar"><div class="progress-fill color-building" style="width:80%"></div></div>
+              <span class="table-progress-pct" style="color:#854d0e">80%</span>
+            </div>
+          </td>
+          <td class="table-history">
+            <ul class="table-history-list">
+              <li class="done">チャットボット構築（4フェーズ）</li>
+              <li class="done">ナレッジ3件登録</li>
+              <li class="done">KITHub更新・アンケートQ&A</li>
+            </ul>
+          </td>
+          <td><div class="table-next">レビュー完了→Dify登録</div></td>
+          <td class="table-access"><button class="access-btn-sm disabled" disabled>未公開</button></td>
+        </tr>
+        <!-- 3 -->
+        <tr>
+          <td>3</td>
+          <td>
+            <div class="table-name">Chatwork → Teams 通知</div>
+            <div class="table-desc">Chatworkメッセージ→Teamsリアルタイム通知</div>
+          </td>
+          <td><span class="table-status-dot" style="background:#f97316"></span><span class="badge badge-testing">テスト中</span></td>
+          <td class="table-progress">
+            <div class="table-progress-row">
+              <div class="table-progress-bar"><div class="progress-fill color-testing" style="width:70%"></div></div>
+              <span class="table-progress-pct" style="color:#9a3412">70%</span>
+            </div>
+          </td>
+          <td class="table-history">
+            <ul class="table-history-list">
+              <li class="done">仕様設計v1→v8</li>
+              <li class="done">FastAPI開発・デプロイ</li>
+              <li class="done">2社PoCテスト開始</li>
+            </ul>
+          </td>
+          <td><div class="table-next">PoC確認→展開</div></td>
+          <td class="table-access"><span style="color:#cbd5e1; font-size:11px">—</span></td>
+        </tr>
+        <!-- 4 -->
+        <tr>
+          <td>4</td>
+          <td>
+            <div class="table-name">BOF Match Mini</div>
+            <div class="table-desc">案件マッチングメール一括送信（簡易版）</div>
+          </td>
+          <td><span class="table-status-dot" style="background:#eab308"></span><span class="badge badge-building">構築中</span></td>
+          <td class="table-progress">
+            <div class="table-progress-row">
+              <div class="table-progress-bar"><div class="progress-fill color-building" style="width:75%"></div></div>
+              <span class="table-progress-pct" style="color:#854d0e">75%</span>
+            </div>
+          </td>
+          <td class="table-history">
+            <ul class="table-history-list">
+              <li class="done">Dify+Make構築</li>
+              <li class="done">kintone連携・BCC実装</li>
+              <li class="done">結合テスト成功</li>
+            </ul>
+          </td>
+          <td><div class="table-next">担当者確認→パイロット</div></td>
+          <td class="table-access"><button class="access-btn-sm disabled" disabled>未公開</button></td>
+        </tr>
+        <!-- 5 -->
+        <tr>
+          <td>5</td>
+          <td>
+            <div class="table-name">BOF Match フル版</div>
+            <div class="table-desc">人材マッチング自動化（フル機能版）</div>
+          </td>
+          <td><span class="table-status-dot" style="background:#6366f1"></span><span class="badge badge-waiting">設計済み</span></td>
+          <td class="table-progress">
+            <div class="table-progress-row">
+              <div class="table-progress-bar"><div class="progress-fill color-waiting" style="width:20%"></div></div>
+              <span class="table-progress-pct" style="color:#3730a3">20%</span>
+            </div>
+          </td>
+          <td class="table-history">
+            <ul class="table-history-list">
+              <li class="done">仕様書v1.2作成</li>
+              <li class="done">Azure AD承認・kintone検証</li>
+            </ul>
+          </td>
+          <td><div class="table-next">Mini完了後に着手</div></td>
+          <td class="table-access"><button class="access-btn-sm disabled" disabled>未公開</button></td>
+        </tr>
+        <!-- 6 -->
+        <tr>
+          <td>6</td>
+          <td>
+            <div class="table-name">Slack → Teams 通知</div>
+            <div class="table-desc">SlackメッセージをTeamsに通知</div>
+          </td>
+          <td><span class="table-status-dot" style="background:#6366f1"></span><span class="badge badge-waiting">設計済み</span></td>
+          <td class="table-progress">
+            <div class="table-progress-row">
+              <div class="table-progress-bar"><div class="progress-fill color-waiting" style="width:15%"></div></div>
+              <span class="table-progress-pct" style="color:#3730a3">15%</span>
+            </div>
+          </td>
+          <td class="table-history">
+            <ul class="table-history-list">
+              <li class="done">仕様書v1作成</li>
+            </ul>
+          </td>
+          <td><div class="table-next">確認→コーディング</div></td>
+          <td class="table-access"><button class="access-btn-sm disabled" disabled>未公開</button></td>
+        </tr>
+        <!-- 7 -->
+        <tr>
+          <td>7</td>
+          <td>
+            <div class="table-name">BOF工数分析レポート</div>
+            <div class="table-desc">工数データ分析・レポート自動生成</div>
+          </td>
+          <td><span class="table-status-dot" style="background:#94a3b8"></span><span class="badge badge-planned">構想中</span></td>
+          <td class="table-progress">
+            <div class="table-progress-row">
+              <div class="table-progress-bar"><div class="progress-fill color-planned" style="width:5%"></div></div>
+              <span class="table-progress-pct" style="color:#475569">5%</span>
+            </div>
+          </td>
+          <td class="table-history">
+            <ul class="table-history-list">
+              <li class="done">カスタムGPT原型制作済み</li>
+            </ul>
+          </td>
+          <td><div class="table-next">仕様整理→方針決定</div></td>
+          <td class="table-access"><button class="access-btn-sm disabled" disabled>未公開</button></td>
+        </tr>
+        <!-- 8 -->
+        <tr>
+          <td>8</td>
+          <td>
+            <div class="table-name">BOF議事録作成GPT</div>
+            <div class="table-desc">文字起こしから議事録を自動生成</div>
+          </td>
+          <td><span class="table-status-dot" style="background:#94a3b8"></span><span class="badge badge-planned">構想中</span></td>
+          <td class="table-progress">
+            <div class="table-progress-row">
+              <div class="table-progress-bar"><div class="progress-fill color-planned" style="width:5%"></div></div>
+              <span class="table-progress-pct" style="color:#475569">5%</span>
+            </div>
+          </td>
+          <td class="table-history">
+            <ul class="table-history-list">
+              <li class="done">カスタムGPT原型制作済み</li>
+            </ul>
+          </td>
+          <td><div class="table-next">仕様整理→方針決定</div></td>
+          <td class="table-access"><button class="access-btn-sm disabled" disabled>未公開</button></td>
+        </tr>
+        <!-- 9 -->
+        <tr>
+          <td>9</td>
+          <td>
+            <div class="table-name">決算報告書レポートGPT</div>
+            <div class="table-desc">決算データから報告書レポートを自動生成</div>
+          </td>
+          <td><span class="table-status-dot" style="background:#94a3b8"></span><span class="badge badge-planned">構想中</span></td>
+          <td class="table-progress">
+            <div class="table-progress-row">
+              <div class="table-progress-bar"><div class="progress-fill color-planned" style="width:5%"></div></div>
+              <span class="table-progress-pct" style="color:#475569">5%</span>
+            </div>
+          </td>
+          <td class="table-history">
+            <ul class="table-history-list">
+              <li class="done">カスタムGPT原型制作済み</li>
+            </ul>
+          </td>
+          <td><div class="table-next">仕様整理→方針決定</div></td>
+          <td class="table-access"><button class="access-btn-sm disabled" disabled>未公開</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  AI活用プロジェクト ダッシュボード ／ 菅田琢磨 ／ 制作: 菅田琢磨
+</div>
+
+<script>
+function switchView(mode) {
+  var cardView = document.getElementById('view-card');
+  var tableView = document.getElementById('view-table');
+  var btnCard = document.getElementById('btn-card');
+  var btnTable = document.getElementById('btn-table');
+  if (mode === 'card') {
+    cardView.style.display = 'block';
+    tableView.style.display = 'none';
+    btnCard.classList.add('active');
+    btnTable.classList.remove('active');
+  } else {
+    cardView.style.display = 'none';
+    tableView.style.display = 'block';
+    btnCard.classList.remove('active');
+    btnTable.classList.add('active');
+  }
+}
+</script>
+
+</body>
+</html>
