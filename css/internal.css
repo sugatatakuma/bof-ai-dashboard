@@ -459,8 +459,8 @@ body {
   .view-toggle { display: none; }
 
   /* Modal — fullscreen on mobile */
-  .modal-overlay { padding: 0; align-items: stretch; }
-  .modal { border-radius: 0; max-width: 100%; min-height: 100vh; }
+  .modal-overlay { padding: 0; align-items: flex-start; }
+  .modal { border-radius: 0; max-width: 100%; width: 100%; min-height: 100vh; }
   .modal-header { padding: 20px 16px 0; }
   .modal-title { font-size: 17px; }
   .modal-progress { padding: 12px 16px; }
