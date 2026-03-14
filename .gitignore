@@ -2,3 +2,8 @@
 Thumbs.db
 *.swp
 *.swo
+
+# ポートフォリオ版（社内リポジトリでは非公開）
+index.html
+css/style.css
+js/main.js
