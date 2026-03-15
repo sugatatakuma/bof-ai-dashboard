@@ -11,7 +11,7 @@ const DASHBOARD_DATA = {
   // ヒーローエリアの数字
   summary: {
     toolsInProduction: 1,
-    totalProjects: 10,
+    totalProjects: 11,
     categories: 6,
     maxReduction: 96
   },
@@ -404,6 +404,46 @@ const DASHBOARD_DATA = {
       lastUpdated: "2026/3/15",
       lastUpdatedNote: "プロンプト完成",
       lastUpdatedNoteEn: "Prompts finalized"
+    },
+    {
+      name: "AI活用相談ボット",
+      nameEn: "AI Consultation Bot",
+      description: "社員からの業務効率化相談をAIが一次ヒアリングし、構造化して管理するDX相談受付システム",
+      descriptionEn: "AI-powered first-interview bot that structures employee automation consultation requests",
+      status: "building",
+      statusLabel: "構築中",
+      statusLabelEn: "Building",
+      progress: 10,
+      url: null,
+      detail: {
+        overview: "社員が業務効率化・自動化の相談をAIチャットボットに入力すると、AIが対話形式で必要情報をヒアリングし、構造化テキストを生成。社員本人が内容を確認・修正した後、DBに保存しTeamsで通知する社内DX相談受付システム。",
+        overviewEn: "An internal DX consultation system where employees submit automation requests via AI chatbot. The AI conducts structured interviews, generates organized summaries, gets employee confirmation, then saves to DB and notifies via Teams.",
+        background: "社員ごとに説明能力・業務整理能力が異なるため、相談内容のヒアリングが非効率になり、再ヒアリングが多発していた。AIによる標準化されたヒアリングで解決を図る。",
+        backgroundEn: "Employees vary in their ability to articulate needs, making consultation interviews inefficient with frequent re-interviews. Standardized AI interviews aim to solve this.",
+        targetUsers: "業務効率化を相談したい社員全員",
+        targetUsersEn: "All employees seeking automation consultation",
+        tools: ["GitHub Pages", "OpenAI API", "Power Automate", "Dataverse"],
+        impact: {
+          before: "相談内容が整理されず再ヒアリングが多発（1件30分〜1時間）",
+          beforeEn: "Unstructured consultations requiring frequent re-interviews (30 min – 1 hour each)",
+          after: "AIが対話で必要情報を漏れなく収集・構造化（数分）",
+          afterEn: "AI collects and structures all necessary info via dialogue (minutes)",
+          savedTime: "ヒアリング・要件整理の工数を大幅削減",
+          savedTimeEn: "Significant reduction in interview & requirements organization effort"
+        },
+        period: "2026年3月15日〜",
+        periodEn: "Mar 15, 2026 –"
+      },
+      history: [
+        { text: "要件定義・設計相談テキスト作成", textEn: "Requirements definition & design document created", done: true },
+        { text: "ヒアリング項目設計（Q1〜Q12）", textEn: "Interview items designed (Q1-Q12)", done: true },
+        { text: "確認ループ・構造化出力の設計", textEn: "Confirmation loop & structured output designed", done: true }
+      ],
+      nextAction: "詳細設計（DB・UI・プロンプト）",
+      nextActionEn: "Detailed design (DB, UI, prompts)",
+      lastUpdated: "2026/3/15",
+      lastUpdatedNote: "設計開始",
+      lastUpdatedNoteEn: "Design started"
     },
     {
       name: "議事録自動作成ツール",
