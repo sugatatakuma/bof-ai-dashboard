@@ -11,7 +11,7 @@ const DASHBOARD_DATA = {
   // ヒーローエリアの数字
   summary: {
     toolsInProduction: 1,
-    totalProjects: 11,
+    totalProjects: 12,
     categories: 6,
     maxReduction: 96
   },
@@ -509,6 +509,48 @@ const DASHBOARD_DATA = {
       lastUpdated: "2026/3/13",
       lastUpdatedNote: "プロジェクト登録",
       lastUpdatedNoteEn: "Project registered"
+    },
+    {
+      name: "AIプロジェクトスケジューラー",
+      nameEn: "AI Project Scheduler",
+      description: "AIがプロジェクト状況を分析し、Outlook予定表の空き時間に作業予定を自動配置する2週間ローリングスケジューラー",
+      descriptionEn: "AI analyzes project status and auto-schedules work blocks into Outlook calendar free slots (2-week rolling)",
+      status: "building",
+      statusLabel: "構築中",
+      statusLabelEn: "Building",
+      progress: 30,
+      url: null,
+      detail: {
+        overview: "BOF-AI-Dashboardのプロジェクトデータ（data.js）をAIが分析し、優先順位を判定。Outlook予定表の空き時間に作業予定を自動配置する2週間ローリングスケジューラー。毎朝8:00に自動実行し、状況変化に応じて予定を再評価・更新する。",
+        overviewEn: "AI analyzes project data (data.js) from BOF-AI-Dashboard, determines priorities, and auto-schedules work blocks into Outlook calendar free slots. Runs daily at 8:00 AM with rolling 2-week re-evaluation.",
+        background: "複数のAIプロジェクトを同時進行する中、どのプロジェクトにいつ時間を割くべきかの判断が属人的で、着手の優先順位付けに毎朝時間を使っていた。",
+        backgroundEn: "While managing multiple AI projects, deciding which to work on and when was person-dependent, taking time each morning to prioritize.",
+        targetUsers: "AIプロジェクト担当者（菅田）",
+        targetUsersEn: "AI project manager (Sugata)",
+        tools: ["Make", "OpenAI", "Microsoft Graph API", "GitHub Pages"],
+        impact: {
+          before: "毎朝手動でプロジェクト状況を確認し、何に取り組むか判断（15〜30分）",
+          beforeEn: "Manually review project status each morning and decide what to work on (15-30 min)",
+          after: "AIが自動で優先順位を判定し、Outlook予定に作業予定を配置（自動）",
+          afterEn: "AI auto-prioritizes and schedules work blocks in Outlook (automated)",
+          savedTime: "毎朝の判断・計画時間を削減 + プロジェクト停滞の防止",
+          savedTimeEn: "Reduced daily planning time + prevention of project stagnation"
+        },
+        period: "2026年3月15日〜",
+        periodEn: "Mar 15, 2026 –"
+      },
+      history: [
+        { text: "仕様書v1.1作成", textEn: "Spec v1.1 created", done: true },
+        { text: "AIスケジューリングプロンプト作成", textEn: "AI scheduling prompt created", done: true },
+        { text: "作業時間推定方式・工数自動計測仕様の策定", textEn: "Work time estimation & auto time-tracking spec defined", done: true },
+        { text: "Make構築手順書作成", textEn: "Make build guide created", done: true },
+        { text: "Makeシナリオ構築+テスト", textEn: "Make scenario build & test", done: false }
+      ],
+      nextAction: "Makeシナリオ構築→テスト",
+      nextActionEn: "Build Make scenario → Test",
+      lastUpdated: "2026/3/15",
+      lastUpdatedNote: "手順書作成・構築準備完了",
+      lastUpdatedNoteEn: "Build guide created, ready for construction"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
