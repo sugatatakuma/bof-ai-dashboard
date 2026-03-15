@@ -4,14 +4,14 @@
 // ============================================================
 
 const DASHBOARD_DATA = {
-  lastUpdated: "2026/3/14",
+  lastUpdated: "2026/3/15",
   manager: "Takuma Sugata",
   title: "AIインテグレーター",
 
   // ヒーローエリアの数字
   summary: {
     toolsInProduction: 1,
-    totalProjects: 9,
+    totalProjects: 10,
     categories: 6,
     maxReduction: 96
   },
@@ -432,6 +432,45 @@ const DASHBOARD_DATA = {
       ],
       nextAction: "仕様整理→方針決定",
       nextActionEn: "Organize specs → Decide approach"
+    },
+    {
+      name: "AI活用プロジェクトダッシュボード",
+      nameEn: "AI Project Dashboard",
+      description: "全プロジェクトの進捗・ステータスを一覧管理するWebダッシュボード",
+      descriptionEn: "Web dashboard to track progress & status of all AI projects",
+      status: "live",
+      statusLabel: "運用中",
+      statusLabelEn: "Live",
+      progress: 100,
+      url: "https://sugatatakuma.github.io/bof-ai-dashboard/internal.html",
+      detail: {
+        overview: "AI活用プロジェクトの進捗・ステータス・作業歴・次のアクションを一覧で確認できるWebダッシュボード。カード/リスト切替、検索・フィルター・ソート、日英切替、印刷対応など多機能。GitHub Pagesで社内公開中。",
+        overviewEn: "A web dashboard to view progress, status, history, and next actions for all AI projects. Features card/list views, search, filter, sort, language toggle (JP/EN), and print support. Published via GitHub Pages.",
+        background: "複数のAI活用プロジェクトが同時進行する中、各プロジェクトの進捗やステータスを一元的に把握・共有する手段がなかった。",
+        backgroundEn: "With multiple AI projects running simultaneously, there was no centralized way to track and share progress and status.",
+        targetUsers: "社内メンバー・マネージャー",
+        targetUsersEn: "Internal staff & managers",
+        tools: ["HTML", "CSS", "JavaScript", "GitHub Pages"],
+        impact: {
+          before: "プロジェクト状況を個別に口頭やチャットで確認",
+          beforeEn: "Check project status individually via verbal or chat communication",
+          after: "ダッシュボードでリアルタイムに一覧確認",
+          afterEn: "View all project statuses in real-time on the dashboard",
+          savedTime: "進捗共有・報告の工数を削減",
+          savedTimeEn: "Reduced effort for progress sharing & reporting"
+        },
+        period: "2026年3月13日〜3月14日",
+        periodEn: "Mar 13 – Mar 14, 2026"
+      },
+      history: [
+        { text: "HTML/CSS/JS基盤構築", textEn: "HTML/CSS/JS foundation build", done: true },
+        { text: "data.js共有データ管理化", textEn: "Shared data management via data.js", done: true },
+        { text: "検索・フィルター・ソート実装", textEn: "Search, filter & sort implementation", done: true },
+        { text: "日英切替・レスポンシブ・印刷対応", textEn: "Language toggle, responsive & print support", done: true },
+        { text: "GitHub Pages公開・社内共有", textEn: "Published on GitHub Pages & shared internally", done: true }
+      ],
+      nextAction: "運用中（データ更新のみ）",
+      nextActionEn: "In operation (data updates only)"
     }
   ]
 };
