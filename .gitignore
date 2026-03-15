@@ -7,3 +7,7 @@ Thumbs.db
 index.html
 css/style.css
 js/main.js
+
+# 工数管理（個人用・非公開）
+timetrack.html
+js/timetrack-data.js
