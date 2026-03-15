@@ -387,6 +387,17 @@ body {
 .modal-meta-item { display: flex; align-items: center; gap: 6px; }
 .modal-meta-item svg { width: 14px; height: 14px; }
 
+/* Last Updated (Card) */
+.card-last-updated {
+  font-size: 11px; color: var(--color-gray); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 4px;
+}
+
+/* Last Updated (Table) */
+.table-last-updated {
+  font-size: 11px; color: var(--color-gray); margin-top: 2px;
+}
+
 /* Detail Button (Card) */
 .detail-btn {
   display: inline-flex;

@@ -117,7 +117,8 @@ var L = {
     footerPrefix: 'ダッシュボード / AI活用プロジェクト',
     subtitlePrefix: '担当',
     subtitleUpdated: '最終更新',
-    searchPlaceholder: '検索...'
+    searchPlaceholder: '検索...',
+    projectLastUpdated: '最終更新'
   },
   en: {
     pageTitle: 'DashBoard',
@@ -142,7 +143,8 @@ var L = {
     footerPrefix: 'AI Project Dashboard',
     subtitlePrefix: 'Manager',
     subtitleUpdated: 'Last updated',
-    searchPlaceholder: 'Search...'
+    searchPlaceholder: 'Search...',
+    projectLastUpdated: 'Last updated'
   }
 };
 
@@ -283,6 +285,9 @@ function renderAll() {
       if (t(cp, 'nextAction')) {
         cardHtml += '<div class="card-next"><strong>' + ui('nextAction') + '</strong><br>' + t(cp, 'nextAction') + '</div>';
       }
+      if (cp.lastUpdated) {
+        cardHtml += '<div class="card-last-updated">' + ui('projectLastUpdated') + '（' + t(cp, 'lastUpdatedNote') + '）：' + cp.lastUpdated + '</div>';
+      }
       if (cp.url) {
         cardHtml += '<div class="card-access"><a class="access-btn access-btn-active" href="' + cp.url + '" target="_blank" onclick="event.stopPropagation()">' + LINK_ICON + ui('openTool') + '</a></div>';
       }
@@ -305,7 +310,8 @@ function renderAll() {
     var tpOrigIdx = allProjects.indexOf(tp);
     tableHtml += '<tr style="cursor:pointer" onclick="openModal(' + tpOrigIdx + ')">';
     tableHtml += '<td>' + (ti + 1) + '</td>';
-    tableHtml += '<td><div class="table-name">' + t(tp, 'name') + '</div><div class="table-desc">' + t(tp, 'description') + '</div></td>';
+    var lastUpdatedHtml = tp.lastUpdated ? '<div class="table-last-updated">' + ui('projectLastUpdated') + '（' + t(tp, 'lastUpdatedNote') + '）：' + tp.lastUpdated + '</div>' : '';
+    tableHtml += '<td><div class="table-name">' + t(tp, 'name') + '</div><div class="table-desc">' + t(tp, 'description') + '</div>' + lastUpdatedHtml + '</td>';
     tableHtml += '<td><span class="table-status-dot" style="background:' + STATUS_COLORS[tp.status] + '"></span><span class="badge badge-' + tp.status + '">' + t(tp, 'statusLabel') + '</span></td>';
     tableHtml += '<td class="table-progress"><div class="table-progress-row"><div class="table-progress-bar"><div class="progress-fill" style="width:' + tp.progress + '%;background:' + progressColor(tp.progress) + '"></div></div>';
     tableHtml += '<span class="table-progress-pct" style="color:' + progressColor(tp.progress) + '">' + tp.progress + '%</span></div></td>';
@@ -421,6 +427,7 @@ function openModal(index) {
   var metaHtml = '';
   if (t(d, 'targetUsers')) metaHtml += '<div class="modal-meta-item">' + MODAL_ICONS.people + ' ' + t(d, 'targetUsers') + '</div>';
   if (t(d, 'period')) metaHtml += '<div class="modal-meta-item">' + MODAL_ICONS.folder + ' ' + t(d, 'period') + '</div>';
+  if (p.lastUpdated) metaHtml += '<div class="modal-meta-item">' + MODAL_ICONS.bell + ' ' + ui('projectLastUpdated') + '（' + t(p, 'lastUpdatedNote') + '）：' + p.lastUpdated + '</div>';
   if (metaHtml) body += '<div class="modal-section"><div class="modal-meta">' + metaHtml + '</div></div>';
 
   if (d.tools && d.tools.length > 0) {

@@ -155,7 +155,10 @@ const DASHBOARD_DATA = {
         { text: "テスト・品質確認・納品", textEn: "Testing, QA & delivery", done: true }
       ],
       nextAction: "完成・納品済み",
-      nextActionEn: "Completed & delivered"
+      nextActionEn: "Completed & delivered",
+      lastUpdated: "2026/3/3",
+      lastUpdatedNote: "完成・納品",
+      lastUpdatedNoteEn: "Completed & delivered"
     },
     {
       name: "社内ナレッジAIチャットボット",
@@ -194,7 +197,10 @@ const DASHBOARD_DATA = {
         { text: "社内アンケートQ&A 35項目抽出", textEn: "Extracted 35 Q&A items from internal survey", done: true }
       ],
       nextAction: "レビュー完了→Dify登録",
-      nextActionEn: "Review completion → Register in Dify"
+      nextActionEn: "Review completion → Register in Dify",
+      lastUpdated: "2026/3/15",
+      lastUpdatedNote: "ナレッジ追加",
+      lastUpdatedNoteEn: "Knowledge added"
     },
     {
       name: "チャット通知自動化システム",
@@ -233,7 +239,10 @@ const DASHBOARD_DATA = {
         { text: "2社でPoCテスト開始", textEn: "PoC testing started with 2 clients", done: true }
       ],
       nextAction: "PoC確認→展開",
-      nextActionEn: "PoC verification → Rollout"
+      nextActionEn: "PoC verification → Rollout",
+      lastUpdated: "2026/3/10",
+      lastUpdatedNote: "PoCテスト開始",
+      lastUpdatedNoteEn: "PoC test started"
     },
     {
       name: "案件マッチングメール自動配信",
@@ -272,7 +281,10 @@ const DASHBOARD_DATA = {
         { text: "結合テスト成功", textEn: "Integration test passed", done: true }
       ],
       nextAction: "担当者確認→パイロット",
-      nextActionEn: "Manager review → Pilot test"
+      nextActionEn: "Manager review → Pilot test",
+      lastUpdated: "2026/3/15",
+      lastUpdatedNote: "結合テスト成功",
+      lastUpdatedNoteEn: "Integration test passed"
     },
     {
       name: "AI人材マッチングシステム",
@@ -309,7 +321,10 @@ const DASHBOARD_DATA = {
         { text: "kintone API取得・名前マッチング検証", textEn: "kintone API integration & name matching test", done: true }
       ],
       nextAction: "Mini完了後に着手",
-      nextActionEn: "Start after Mini completion"
+      nextActionEn: "Start after Mini completion",
+      lastUpdated: "2026/3/10",
+      lastUpdatedNote: "kintone検証完了",
+      lastUpdatedNoteEn: "kintone verification done"
     },
     {
       name: "Slack通知自動化システム",
@@ -344,7 +359,10 @@ const DASHBOARD_DATA = {
         { text: "仕様書v1作成（Chatwork版ベース）", textEn: "Spec v1 created (based on Chatwork version)", done: true }
       ],
       nextAction: "確認→コーディング",
-      nextActionEn: "Review → Coding"
+      nextActionEn: "Review → Coding",
+      lastUpdated: "2026/3/9",
+      lastUpdatedNote: "仕様書作成",
+      lastUpdatedNoteEn: "Spec created"
     },
     {
       name: "工数分析レポート自動作成",
@@ -382,7 +400,10 @@ const DASHBOARD_DATA = {
         { text: "LLMプロンプト完成版作成", textEn: "Finalized LLM prompts", done: true }
       ],
       nextAction: "Difyノード構築→テスト",
-      nextActionEn: "Build Dify nodes → Test"
+      nextActionEn: "Build Dify nodes → Test",
+      lastUpdated: "2026/3/15",
+      lastUpdatedNote: "プロンプト完成",
+      lastUpdatedNoteEn: "Prompts finalized"
     },
     {
       name: "議事録自動作成ツール",
@@ -411,7 +432,10 @@ const DASHBOARD_DATA = {
         { text: "プロジェクト登録", textEn: "Project registered", done: false }
       ],
       nextAction: "仕様整理→方針決定",
-      nextActionEn: "Organize specs → Decide approach"
+      nextActionEn: "Organize specs → Decide approach",
+      lastUpdated: "2026/3/13",
+      lastUpdatedNote: "プロジェクト登録",
+      lastUpdatedNoteEn: "Project registered"
     },
     {
       name: "決算レポート自動作成",
@@ -440,7 +464,10 @@ const DASHBOARD_DATA = {
         { text: "プロジェクト登録", textEn: "Project registered", done: false }
       ],
       nextAction: "仕様整理→方針決定",
-      nextActionEn: "Organize specs → Decide approach"
+      nextActionEn: "Organize specs → Decide approach",
+      lastUpdated: "2026/3/13",
+      lastUpdatedNote: "プロジェクト登録",
+      lastUpdatedNoteEn: "Project registered"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
@@ -479,7 +506,10 @@ const DASHBOARD_DATA = {
         { text: "GitHub Pages公開・社内共有", textEn: "Published on GitHub Pages & shared internally", done: true }
       ],
       nextAction: "運用中（データ更新のみ）",
-      nextActionEn: "In operation (data updates only)"
+      nextActionEn: "In operation (data updates only)",
+      lastUpdated: "2026/3/15",
+      lastUpdatedNote: "機能追加",
+      lastUpdatedNoteEn: "Feature added"
     }
   ]
 };
