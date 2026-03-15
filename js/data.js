@@ -349,31 +349,40 @@ const DASHBOARD_DATA = {
     {
       name: "工数分析レポート自動作成",
       nameEn: "Work-Hours Analysis Report Generator",
-      description: "工数データを分析し、レポートを自動生成",
-      descriptionEn: "Analyze work-hours data and auto-generate reports",
-      status: "planned",
-      statusLabel: "構想中",
-      statusLabelEn: "Planned",
-      progress: 5,
+      description: "工数CSVから業務工数を分析し、クライアント向け＋社内専用レポートを自動生成",
+      descriptionEn: "Analyze work-hours CSV and auto-generate client & internal reports",
+      status: "building",
+      statusLabel: "構築中",
+      statusLabelEn: "Building",
+      progress: 25,
       url: null,
       detail: {
-        overview: "工数データを分析し、集計・可視化したレポートを自動生成するツール。現在カスタムGPTで原型を制作済み、Dify/Make等へのアップデートを検討中。",
-        overviewEn: "A tool that analyzes work-hours data to auto-generate aggregated and visualized reports. Prototype built with Custom GPT; considering migration to Dify/Make.",
-        background: "工数データの集計・レポート作成に時間がかかっており、定型的な分析作業を自動化したいニーズがあった。",
-        backgroundEn: "Aggregating work-hours data and creating reports was time-consuming. There was a need to automate routine analysis tasks.",
-        targetUsers: "管理部門・プロジェクトマネージャー",
-        targetUsersEn: "Management & project managers",
-        tools: ["カスタムGPT", "→ Dify / Make（移行検討中）"],
-        impact: null,
-        period: "構想段階",
-        periodEn: "Planning stage"
+        overview: "クライアントの月次作業ログCSVから、業務別・担当者別・月初中末別の工数分析を行い、クライアント向けレポート（提出可能）と社内専用レポート（提出禁止）の2種類を自動生成するDifyワークフロー。",
+        overviewEn: "A Dify workflow that analyzes monthly work-log CSVs by task, worker, and timing (early/mid/late month), generating two reports: client-facing (submittable) and internal-only (confidential).",
+        background: "工数データの集計・レポート作成に時間がかかっており、カスタムGPTで原型を運用していたが、社内ツール化・自動配信のためDifyに移植。",
+        backgroundEn: "Work-hours reporting was time-consuming. A Custom GPT prototype was in use, but migration to Dify was needed for internal tooling and automated distribution.",
+        targetUsers: "クライアント責任者・管理部門",
+        targetUsersEn: "Client managers & administration",
+        tools: ["Dify", "LLM", "Python", "Power Automate"],
+        impact: {
+          before: "カスタムGPTに手動でCSVアップロード→レポート手作業で整形",
+          beforeEn: "Manually upload CSV to Custom GPT → manually format reports",
+          after: "Difyワークフローで分析→Word生成→SharePoint保存→Teams通知まで自動化",
+          afterEn: "Automated analysis via Dify workflow → Word generation → SharePoint → Teams notification",
+          savedTime: "レポート作成の工数を大幅削減",
+          savedTimeEn: "Significant reduction in report creation effort"
+        },
+        period: "2026年3月13日〜",
+        periodEn: "Mar 13, 2026 –"
       },
       history: [
         { text: "カスタムGPTで原型を制作済み", textEn: "Prototype built with Custom GPT", done: true },
-        { text: "プロジェクト登録", textEn: "Project registered", done: false }
+        { text: "Dify化設計（アーキテクチャ・ワークフロー・コード・プロンプト）", textEn: "Dify migration design (architecture, workflow, code, prompts)", done: true },
+        { text: "設計レビュー・Code①改善版作成・検証完了", textEn: "Design review, improved Code① created & verified", done: true },
+        { text: "LLMプロンプト完成版作成", textEn: "Finalized LLM prompts", done: true }
       ],
-      nextAction: "仕様整理→方針決定",
-      nextActionEn: "Organize specs → Decide approach"
+      nextAction: "Difyノード構築→テスト",
+      nextActionEn: "Build Dify nodes → Test"
     },
     {
       name: "議事録自動作成ツール",
