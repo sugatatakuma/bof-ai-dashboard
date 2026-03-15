@@ -34,7 +34,6 @@
       <button id="btn-lang" class="lang-toggle" onclick="toggleLang()">English</button>
     </div>
   </div>
-  <div class="subtitle" id="header-subtitle"></div>
   <div class="summary" id="header-summary"></div>
   <div class="overall-progress" id="header-progress"></div>
 
@@ -102,7 +101,7 @@ var L = {
     overallProgress: '全体進捗',
     progress: '進捗',
     history: '作業歴',
-    nextAction: 'Next Action',
+    nextAction: '次のアクション',
     openTool: 'ツールを開く',
     viewDetail: '詳細を見る',
     detail: '詳細',
@@ -222,10 +221,6 @@ function renderAll() {
   // Page title
   document.getElementById('page-title').innerHTML = ui('pageTitle') + ' <span class="header-separator">/</span> <span class="header-subtitle-text">' + ui('pageSubtitle') + '</span>';
   document.title = ui('pageTitle') + ' / ' + ui('pageSubtitle');
-
-  // Header subtitle
-  document.getElementById('header-subtitle').textContent =
-    ui('subtitlePrefix') + ': ' + d.manager + ' / ' + ui('subtitleUpdated') + ': ' + d.lastUpdated;
 
   // Summary counts (always based on all projects)
   var counts = {};
