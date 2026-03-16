@@ -236,13 +236,14 @@ const DASHBOARD_DATA = {
         { text: "Python / FastAPI開発", textEn: "Python / FastAPI development", done: true },
         { text: "署名検証・通知制限・自動返信実装", textEn: "Signature verification, rate limiting & auto-reply", done: true },
         { text: "Railwayデプロイ", textEn: "Railway deployment", done: true },
-        { text: "2社でPoCテスト開始", textEn: "PoC testing started with 2 clients", done: true }
+        { text: "2社でPoCテスト開始", textEn: "PoC testing started with 2 clients", done: true },
+        { text: "スレッド化調査（PA権限制限により見送り）", textEn: "Threading investigation (deferred due to PA permission limits)", done: true, actualHours: 1.0 }
       ],
-      nextAction: "PoC確認→展開",
-      nextActionEn: "PoC verification → Rollout",
-      lastUpdated: "2026/3/10",
-      lastUpdatedNote: "PoCテスト開始",
-      lastUpdatedNoteEn: "PoC test started"
+      nextAction: "PoCテスト継続・他クライアント展開",
+      nextActionEn: "Continue PoC testing & expand to other clients",
+      lastUpdated: "2026/3/16",
+      lastUpdatedNote: "スレッド化調査完了（見送り）",
+      lastUpdatedNoteEn: "Threading investigation completed (deferred)"
     },
     {
       name: "案件マッチングメール自動配信",
