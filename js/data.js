@@ -4,7 +4,7 @@
 // ============================================================
 
 const DASHBOARD_DATA = {
-  lastUpdated: "2026/3/15",
+  lastUpdated: "2026/3/16",
   manager: "Takuma Sugata",
   title: "AIインテグレーター",
 
@@ -513,12 +513,12 @@ const DASHBOARD_DATA = {
     {
       name: "AIプロジェクトスケジューラー",
       nameEn: "AI Project Scheduler",
-      description: "AIがプロジェクト状況を分析し、Outlook予定表の空き時間に作業予定を自動配置する2週間ローリングスケジューラー",
-      descriptionEn: "AI analyzes project status and auto-schedules work blocks into Outlook calendar free slots (2-week rolling)",
+      description: "AIがプロジェクト状況を分析し、Outlook予定表の空き時間に作業予定を自動配置する1週間ローリングスケジューラー",
+      descriptionEn: "AI analyzes project status and auto-schedules work blocks into Outlook calendar free slots (1-week rolling)",
       status: "building",
       statusLabel: "構築中",
       statusLabelEn: "Building",
-      progress: 30,
+      progress: 70,
       url: null,
       detail: {
         overview: "BOF-AI-Dashboardのプロジェクトデータ（data.js）をAIが分析し、優先順位を判定。Outlook予定表の空き時間に作業予定を自動配置する2週間ローリングスケジューラー。毎朝8:00に自動実行し、状況変化に応じて予定を再評価・更新する。",
@@ -544,13 +544,14 @@ const DASHBOARD_DATA = {
         { text: "AIスケジューリングプロンプト作成", textEn: "AI scheduling prompt created", done: true },
         { text: "作業時間推定方式・工数自動計測仕様の策定", textEn: "Work time estimation & auto time-tracking spec defined", done: true },
         { text: "Make構築手順書作成", textEn: "Make build guide created", done: true },
-        { text: "Makeシナリオ構築+テスト", textEn: "Make scenario build & test", done: false }
+        { text: "Makeシナリオ構築（HTTP+API Call+OpenAI+Iterator+Create Event）", textEn: "Make scenario build (HTTP+API Call+OpenAI+Iterator+Create Event)", done: true, actualHours: 5.5 },
+        { text: "Schedulerトリガー+toDelete自動削除+シナリオON", textEn: "Scheduler trigger + toDelete auto-delete + scenario activation", done: false }
       ],
-      nextAction: "Makeシナリオ構築→テスト",
-      nextActionEn: "Build Make scenario → Test",
-      lastUpdated: "2026/3/15",
-      lastUpdatedNote: "手順書作成・構築準備完了",
-      lastUpdatedNoteEn: "Build guide created, ready for construction"
+      nextAction: "Scheduler追加→toDelete自動削除→シナリオON",
+      nextActionEn: "Add Scheduler → toDelete auto-delete → Activate scenario",
+      lastUpdated: "2026/3/16",
+      lastUpdatedNote: "Makeシナリオ構築・Phase A/Bテスト完了",
+      lastUpdatedNoteEn: "Make scenario built, Phase A/B test passed"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
