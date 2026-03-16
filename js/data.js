@@ -546,13 +546,14 @@ const DASHBOARD_DATA = {
         { text: "作業時間推定方式・工数自動計測仕様の策定", textEn: "Work time estimation & auto time-tracking spec defined", done: true },
         { text: "Make構築手順書作成", textEn: "Make build guide created", done: true },
         { text: "Makeシナリオ構築（HTTP+API Call+OpenAI+Iterator+Create Event）", textEn: "Make scenario build (HTTP+API Call+OpenAI+Iterator+Create Event)", done: true, actualHours: 5.5 },
-        { text: "Schedulerトリガー+toDelete自動削除+シナリオON", textEn: "Scheduler trigger + toDelete auto-delete + scenario activation", done: false }
+        { text: "Schedulerトリガー+toDelete自動削除+シナリオON", textEn: "Scheduler trigger + toDelete auto-delete + scenario activation", done: false },
+        { text: "重複予定一括削除・toDelete設計", textEn: "Bulk delete duplicate events & toDelete flow design", done: true, actualHours: 0.5 }
       ],
-      nextAction: "Scheduler追加→toDelete自動削除→シナリオON",
-      nextActionEn: "Add Scheduler → toDelete auto-delete → Activate scenario",
+      nextAction: "toDelete削除フロー実装（Router分岐）→Scheduler追加→シナリオON",
+      nextActionEn: "Implement toDelete flow (Router) → Add Scheduler → Activate scenario",
       lastUpdated: "2026/3/16",
-      lastUpdatedNote: "Makeシナリオ構築・Phase A/Bテスト完了",
-      lastUpdatedNoteEn: "Make scenario built, Phase A/B test passed"
+      lastUpdatedNote: "重複予定削除・toDeleteフロー設計",
+      lastUpdatedNoteEn: "Duplicate events cleaned & toDelete flow designed"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
