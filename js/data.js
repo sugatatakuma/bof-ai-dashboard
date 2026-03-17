@@ -171,13 +171,13 @@ const DASHBOARD_DATA = {
       progress: 90,
       url: "https://udify.app/chat/apwkfP2K2aa2nzTM",
       detail: {
-        overview: "社内ルール・業務ノウハウ・ツール操作方法などを、AIチャットで質問するだけで即座に回答を得られるシステム。4ファイル体制のナレッジベースを構築し、Teamsから利用可能。",
-        overviewEn: "A system where employees can ask questions via AI chat and get instant answers about internal rules, business know-how, and tool usage. Built with a 4-file knowledge base, accessible from Teams.",
+        overview: "社内ルール・業務ノウハウ・ツール操作方法などを、AIチャットで質問するだけで即座に回答を得られるシステム。3ファイル体制のナレッジベースを構築し、ブラウザからアクセス可能。",
+        overviewEn: "A system where employees can ask questions via AI chat and get instant answers about internal rules, business know-how, and tool usage. Built with a 3-file knowledge base, accessible via browser.",
         background: "社内ルールや手続きについて「詳しい人に聞く」「マニュアルを探す」ことに数十分かかるケースが多く、特に新人支援で非効率が目立っていた。",
         backgroundEn: "Finding answers about internal rules often took tens of minutes—asking colleagues or searching manuals. Especially inefficient for onboarding new staff.",
         targetUsers: "社員全員",
         targetUsersEn: "All employees",
-        tools: ["Dify", "LLM", "Azure AD", "Teams"],
+        tools: ["Dify", "GPT-4o", "Tavily"],
         impact: {
           before: "マニュアルを探す・詳しい人に聞く（数十分かかることも）",
           beforeEn: "Search manuals or ask colleagues (often takes tens of minutes)",
@@ -191,9 +191,9 @@ const DASHBOARD_DATA = {
       },
       history: [
         { text: "Difyチャットボット構築（フェーズ1〜4）", textEn: "Dify chatbot build (Phase 1-4)", done: true },
-        { text: "Azure認証・Teams連携設定", textEn: "Azure AD auth & Teams integration", done: true },
+        { text: "Teamsからナレッジ抽出・AI構造化", textEn: "Knowledge extraction from Teams & AI structuring", done: true },
         { text: "ナレッジ3ファイル作成・Dify登録", textEn: "3 knowledge files created & registered in Dify", done: true },
-        { text: "社内ポータルナレッジ7セクション追加", textEn: "Added 7 sections of portal knowledge", done: true },
+        { text: "社内ポータルナレッジ・アンケートQ&A統合", textEn: "Integrated portal knowledge & survey Q&A", done: true },
         { text: "社内アンケートQ&A 35項目抽出", textEn: "Extracted 35 Q&A items from internal survey", done: true },
         { text: "ナレッジ統合・セパレータ統一・Difyアップロード（3ファイル）", textEn: "Knowledge consolidation, separator unification & Dify upload (3 files)", done: true },
         { text: "ツール公式サポートURL（15ツール）追加", textEn: "Added 15 tool official support URLs", done: true },
