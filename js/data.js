@@ -241,13 +241,14 @@ const DASHBOARD_DATA = {
         { text: "署名検証・通知制限・自動返信実装", textEn: "Signature verification, rate limiting & auto-reply", done: true },
         { text: "Railwayデプロイ", textEn: "Railway deployment", done: true },
         { text: "2社でPoCテスト開始", textEn: "PoC testing started with 2 clients", done: true },
-        { text: "スレッド化調査（PA権限制限により見送り）", textEn: "Threading investigation (deferred due to PA permission limits)", done: true, actualHours: 1.0 }
+        { text: "スレッド化調査（PA権限制限により見送り）", textEn: "Threading investigation (deferred due to PA permission limits)", done: true, actualHours: 1.0 },
+        { text: "CW展開分析（39社）・Teamsチャネル連携によるBF側自動判定機能の設計・実装", textEn: "CW deployment analysis (39 clients) & Teams channel-based BF member auto-detection", done: true, actualHours: 1.5 }
       ],
-      nextAction: "PoCテスト継続・他クライアント展開",
-      nextActionEn: "Continue PoC testing & expand to other clients",
-      lastUpdated: "2026/3/16",
-      lastUpdatedNote: "スレッド化調査完了（見送り）",
-      lastUpdatedNoteEn: "Threading investigation completed (deferred)"
+      nextAction: "Azure AD権限承認待ち→Team/Channel ID取得→テスト",
+      nextActionEn: "Awaiting Azure AD permission approval → Get Team/Channel IDs → Test",
+      lastUpdated: "2026/3/17",
+      lastUpdatedNote: "Teams連携BF自動判定機能実装・展開分析完了",
+      lastUpdatedNoteEn: "Teams sync BF auto-detection implemented & deployment analysis done"
     },
     {
       name: "案件マッチングメール自動配信",
