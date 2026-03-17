@@ -522,8 +522,8 @@ const DASHBOARD_DATA = {
       progress: 85,
       url: null,
       detail: {
-        overview: "BOF-AI-Dashboardのプロジェクトデータ（data.js）をAIが分析し、優先順位を判定。Outlook予定表の空き時間に作業予定を自動配置する2週間ローリングスケジューラー。毎朝8:00に自動実行し、状況変化に応じて予定を再評価・更新する。",
-        overviewEn: "AI analyzes project data (data.js) from BOF-AI-Dashboard, determines priorities, and auto-schedules work blocks into Outlook calendar free slots. Runs daily at 8:00 AM with rolling 2-week re-evaluation.",
+        overview: "BOF-AI-Dashboardのプロジェクトデータ（data.js）をAIが分析し、優先順位を判定。Outlook予定表の空き時間に作業予定を自動配置する1週間ローリングスケジューラー。毎朝8:00に自動実行し、状況変化に応じて予定を再評価・更新する。",
+        overviewEn: "AI analyzes project data (data.js) from BOF-AI-Dashboard, determines priorities, and auto-schedules work blocks into Outlook calendar free slots. Runs daily at 8:00 AM with rolling 1-week re-evaluation.",
         background: "複数のAIプロジェクトを同時進行する中、どのプロジェクトにいつ時間を割くべきかの判断が属人的で、着手の優先順位付けに毎朝時間を使っていた。",
         backgroundEn: "While managing multiple AI projects, deciding which to work on and when was person-dependent, taking time each morning to prioritize.",
         targetUsers: "AIプロジェクト担当者（菅田）",
