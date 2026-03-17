@@ -169,7 +169,7 @@ const DASHBOARD_DATA = {
       statusLabel: "テスト中",
       statusLabelEn: "Testing",
       progress: 90,
-      url: null,
+      url: "https://udify.app/chat/apwkfP2K2aa2nzTM",
       detail: {
         overview: "社内ルール・業務ノウハウ・ツール操作方法などを、AIチャットで質問するだけで即座に回答を得られるシステム。4ファイル体制のナレッジベースを構築し、Teamsから利用可能。",
         overviewEn: "A system where employees can ask questions via AI chat and get instant answers about internal rules, business know-how, and tool usage. Built with a 4-file knowledge base, accessible from Teams.",
