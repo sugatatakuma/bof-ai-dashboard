@@ -4,7 +4,7 @@
 // ============================================================
 
 const DASHBOARD_DATA = {
-  lastUpdated: "2026/3/16",
+  lastUpdated: "2026/3/17",
   manager: "Takuma Sugata",
   title: "AIインテグレーター",
 
@@ -519,7 +519,7 @@ const DASHBOARD_DATA = {
       status: "building",
       statusLabel: "構築中",
       statusLabelEn: "Building",
-      progress: 70,
+      progress: 85,
       url: null,
       detail: {
         overview: "BOF-AI-Dashboardのプロジェクトデータ（data.js）をAIが分析し、優先順位を判定。Outlook予定表の空き時間に作業予定を自動配置する2週間ローリングスケジューラー。毎朝8:00に自動実行し、状況変化に応じて予定を再評価・更新する。",
@@ -547,13 +547,14 @@ const DASHBOARD_DATA = {
         { text: "Make構築手順書作成", textEn: "Make build guide created", done: true },
         { text: "Makeシナリオ構築（HTTP+API Call+OpenAI+Iterator+Create Event）", textEn: "Make scenario build (HTTP+API Call+OpenAI+Iterator+Create Event)", done: true, actualHours: 5.5 },
         { text: "Schedulerトリガー+toDelete自動削除+シナリオON", textEn: "Scheduler trigger + toDelete auto-delete + scenario activation", done: false },
-        { text: "重複予定一括削除・toDelete設計", textEn: "Bulk delete duplicate events & toDelete flow design", done: true, actualHours: 0.5 }
+        { text: "重複予定一括削除・toDelete設計", textEn: "Bulk delete duplicate events & toDelete flow design", done: true, actualHours: 0.5 },
+        { text: "toDelete削除フロー実装（Router+Filter）・Scheduler設定・Coreプラン契約", textEn: "toDelete flow implementation (Router+Filter), Scheduler config & Core plan upgrade", done: true, actualHours: 1.0 }
       ],
-      nextAction: "toDelete削除フロー実装（Router分岐）→Scheduler追加→シナリオON",
-      nextActionEn: "Implement toDelete flow (Router) → Add Scheduler → Activate scenario",
-      lastUpdated: "2026/3/16",
-      lastUpdatedNote: "重複予定削除・toDeleteフロー設計",
-      lastUpdatedNoteEn: "Duplicate events cleaned & toDelete flow designed"
+      nextAction: "Phase Cテスト（再評価テスト）→シナリオON",
+      nextActionEn: "Phase C test (re-evaluation) → Activate scenario",
+      lastUpdated: "2026/3/17",
+      lastUpdatedNote: "toDeleteフロー実装完了・Scheduler設定済み",
+      lastUpdatedNoteEn: "toDelete flow implemented & Scheduler configured"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
