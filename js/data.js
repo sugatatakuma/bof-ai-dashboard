@@ -32,8 +32,8 @@ const DASHBOARD_DATA = {
     {
       name: "社内ナレッジAIチャットボット",
       icon: "chat",
-      status: "building",
-      statusLabel: "構築中",
+      status: "testing",
+      statusLabel: "テスト中",
       description: "社内ルール・業務ノウハウ・ツール操作方法をAIチャットで即座に回答",
       before: "マニュアルを探す・詳しい人に聞く（数十分かかることも）",
       after: "AIに質問するだけで即回答（数秒）",
@@ -165,10 +165,10 @@ const DASHBOARD_DATA = {
       nameEn: "Internal Knowledge AI Chatbot",
       description: "社内ルール・業務ノウハウをAIチャットで即座に検索・回答",
       descriptionEn: "Instantly search and answer internal rules & business know-how via AI chat",
-      status: "building",
-      statusLabel: "構築中",
-      statusLabelEn: "Building",
-      progress: 80,
+      status: "testing",
+      statusLabel: "テスト中",
+      statusLabelEn: "Testing",
+      progress: 90,
       url: null,
       detail: {
         overview: "社内ルール・業務ノウハウ・ツール操作方法などを、AIチャットで質問するだけで即座に回答を得られるシステム。4ファイル体制のナレッジベースを構築し、Teamsから利用可能。",
@@ -194,13 +194,17 @@ const DASHBOARD_DATA = {
         { text: "Azure認証・Teams連携設定", textEn: "Azure AD auth & Teams integration", done: true },
         { text: "ナレッジ3ファイル作成・Dify登録", textEn: "3 knowledge files created & registered in Dify", done: true },
         { text: "社内ポータルナレッジ7セクション追加", textEn: "Added 7 sections of portal knowledge", done: true },
-        { text: "社内アンケートQ&A 35項目抽出", textEn: "Extracted 35 Q&A items from internal survey", done: true }
+        { text: "社内アンケートQ&A 35項目抽出", textEn: "Extracted 35 Q&A items from internal survey", done: true },
+        { text: "ナレッジ統合・セパレータ統一・Difyアップロード（3ファイル）", textEn: "Knowledge consolidation, separator unification & Dify upload (3 files)", done: true },
+        { text: "ツール公式サポートURL（15ツール）追加", textEn: "Added 15 tool official support URLs", done: true },
+        { text: "検索テスト4項目実施・全項目成功", textEn: "4 search tests completed, all passed", done: true },
+        { text: "社内テスト期間（〜3/31）", textEn: "Internal testing period (~3/31)", done: false }
       ],
-      nextAction: "レビュー完了→Dify登録",
-      nextActionEn: "Review completion → Register in Dify",
-      lastUpdated: "2026/3/15",
-      lastUpdatedNote: "ナレッジ追加",
-      lastUpdatedNoteEn: "Knowledge added"
+      nextAction: "社内テスト中（〜3/31）→フィードバック反映",
+      nextActionEn: "Internal testing (~3/31) → Apply feedback",
+      lastUpdated: "2026/3/17",
+      lastUpdatedNote: "社内テスト開始",
+      lastUpdatedNoteEn: "Internal testing started"
     },
     {
       name: "チャット通知自動化システム",
