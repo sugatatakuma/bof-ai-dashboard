@@ -242,13 +242,14 @@ const DASHBOARD_DATA = {
         { text: "Railwayデプロイ", textEn: "Railway deployment", done: true },
         { text: "2社でPoCテスト開始", textEn: "PoC testing started with 2 clients", done: true },
         { text: "スレッド化調査（PA権限制限により見送り）", textEn: "Threading investigation (deferred due to PA permission limits)", done: true, actualHours: 1.0 },
-        { text: "CW展開分析（39社）・Teamsチャネル連携によるBF側自動判定機能の設計・実装", textEn: "CW deployment analysis (39 clients) & Teams channel-based BF member auto-detection", done: true, actualHours: 1.5 }
+        { text: "CW展開分析（39社）・Teamsチャネル連携によるBF側自動判定機能の設計・実装", textEn: "CW deployment analysis (39 clients) & Teams channel-based BF member auto-detection", done: true, actualHours: 1.5 },
+        { text: "Bot追加クライアント向け案内文・社員向け依頼文作成", textEn: "Created client notification & internal request messages for Bot addition", done: true, actualHours: 0.5 }
       ],
       nextAction: "Azure AD権限承認待ち→Team/Channel ID取得→テスト",
       nextActionEn: "Awaiting Azure AD permission approval → Get Team/Channel IDs → Test",
-      lastUpdated: "2026/3/17",
-      lastUpdatedNote: "Teams連携BF自動判定機能実装・展開分析完了",
-      lastUpdatedNoteEn: "Teams sync BF auto-detection implemented & deployment analysis done"
+      lastUpdated: "2026/3/18",
+      lastUpdatedNote: "Bot追加案内文・依頼文作成完了",
+      lastUpdatedNoteEn: "Bot addition notification & request messages created"
     },
     {
       name: "案件マッチングメール自動配信",
