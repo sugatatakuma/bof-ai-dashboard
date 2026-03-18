@@ -4,7 +4,7 @@
 // ============================================================
 
 const DASHBOARD_DATA = {
-  lastUpdated: "2026/3/17",
+  lastUpdated: "2026/3/18",
   manager: "Takuma Sugata",
   title: "AIインテグレーター",
 
@@ -214,7 +214,7 @@ const DASHBOARD_DATA = {
       status: "testing",
       statusLabel: "テスト中",
       statusLabelEn: "Testing",
-      progress: 70,
+      progress: 75,
       url: null,
       detail: {
         overview: "クライアントからChatworkに届いたメッセージを、社内のTeamsに自動通知するシステム。メンション連動、30分未対応時の自動返信、営業時間内外の文面切替など高度な制御を実装。",
@@ -243,13 +243,14 @@ const DASHBOARD_DATA = {
         { text: "2社でPoCテスト開始", textEn: "PoC testing started with 2 clients", done: true },
         { text: "スレッド化調査（PA権限制限により見送り）", textEn: "Threading investigation (deferred due to PA permission limits)", done: true, actualHours: 1.0 },
         { text: "CW展開分析（39社）・Teamsチャネル連携によるBF側自動判定機能の設計・実装", textEn: "CW deployment analysis (39 clients) & Teams channel-based BF member auto-detection", done: true, actualHours: 1.5 },
-        { text: "Bot追加クライアント向け案内文・社員向け依頼文作成", textEn: "Created client notification & internal request messages for Bot addition", done: true, actualHours: 0.5 }
+        { text: "Bot追加クライアント向け案内文・社員向け依頼文作成", textEn: "Created client notification & internal request messages for Bot addition", done: true, actualHours: 0.5 },
+        { text: "Group.Read.All承認→Team/Channel ID取得→sync_members実行（57名同期）→Git push", textEn: "Group.Read.All approved → Team/Channel ID obtained → sync_members executed (57 members) → Git push", done: true, actualHours: 0.5 }
       ],
-      nextAction: "Azure AD権限承認待ち→Team/Channel ID取得→テスト",
-      nextActionEn: "Awaiting Azure AD permission approval → Get Team/Channel IDs → Test",
+      nextAction: "Railway環境変数追加→デプロイ→動作確認",
+      nextActionEn: "Add Railway env vars → Deploy → Verify operation",
       lastUpdated: "2026/3/18",
-      lastUpdatedNote: "Bot追加案内文・依頼文作成完了",
-      lastUpdatedNoteEn: "Bot addition notification & request messages created"
+      lastUpdatedNote: "Teams同期設定完了・Git push済み。Railway環境変数追加が次ステップ",
+      lastUpdatedNoteEn: "Teams sync config done & pushed. Railway env vars addition is next step"
     },
     {
       name: "案件マッチングメール自動配信",
