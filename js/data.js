@@ -524,7 +524,7 @@ const DASHBOARD_DATA = {
       status: "building",
       statusLabel: "構築中",
       statusLabelEn: "Building",
-      progress: 85,
+      progress: 90,
       url: null,
       detail: {
         overview: "BOF-AI-Dashboardのプロジェクトデータ（data.js）をAIが分析し、優先順位を判定。Outlook予定表の空き時間に作業予定を自動配置する1週間ローリングスケジューラー。毎朝8:00に自動実行し、状況変化に応じて予定を再評価・更新する。",
@@ -553,13 +553,15 @@ const DASHBOARD_DATA = {
         { text: "Makeシナリオ構築（HTTP+API Call+OpenAI+Iterator+Create Event）", textEn: "Make scenario build (HTTP+API Call+OpenAI+Iterator+Create Event)", done: true, actualHours: 5.5 },
         { text: "Schedulerトリガー+toDelete自動削除+シナリオON", textEn: "Scheduler trigger + toDelete auto-delete + scenario activation", done: false },
         { text: "重複予定一括削除・toDelete設計", textEn: "Bulk delete duplicate events & toDelete flow design", done: true, actualHours: 0.5 },
-        { text: "toDelete削除フロー実装（Router+Filter）・Scheduler設定・Coreプラン契約", textEn: "toDelete flow implementation (Router+Filter), Scheduler config & Core plan upgrade", done: true, actualHours: 1.0 }
+        { text: "toDelete削除フロー実装（Router+Filter）・Scheduler設定・Coreプラン契約", textEn: "toDelete flow implementation (Router+Filter), Scheduler config & Core plan upgrade", done: true, actualHours: 1.0 },
+        { text: "Filter修正（Result大文字R）・Iterator変数修正（{{20.value}}）・Delete動作確認", textEn: "Filter fix (capital R in Result), Iterator variable fix ({{20.value}}), Delete operation verified", done: true, actualHours: 1.0 },
+        { text: "プロンプト改善（重複回避ルール強化・期間7日統一）・手動予定誤削除防止策（$selectからid除外）", textEn: "Prompt improvement (overlap prevention rules, 7-day period) & manual event deletion prevention ($select id exclusion)", done: true, actualHours: 0.5 }
       ],
-      nextAction: "Phase Cテスト（再評価テスト）→シナリオON",
-      nextActionEn: "Phase C test (re-evaluation) → Activate scenario",
-      lastUpdated: "2026/3/17",
-      lastUpdatedNote: "toDeleteフロー実装完了・Scheduler設定済み",
-      lastUpdatedNoteEn: "toDelete flow implemented & Scheduler configured"
+      nextAction: "最終テスト→シナリオActivate",
+      nextActionEn: "Final test → Activate scenario",
+      lastUpdated: "2026/3/18",
+      lastUpdatedNote: "Filter・プロンプト修正・安全策実装完了",
+      lastUpdatedNoteEn: "Filter & prompt fixes, safety measures implemented"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
