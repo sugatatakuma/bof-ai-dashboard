@@ -555,13 +555,14 @@ const DASHBOARD_DATA = {
         { text: "重複予定一括削除・toDelete設計", textEn: "Bulk delete duplicate events & toDelete flow design", done: true, actualHours: 0.5 },
         { text: "toDelete削除フロー実装（Router+Filter）・Scheduler設定・Coreプラン契約", textEn: "toDelete flow implementation (Router+Filter), Scheduler config & Core plan upgrade", done: true, actualHours: 1.0 },
         { text: "Filter修正（Result大文字R）・Iterator変数修正（{{20.value}}）・Delete動作確認", textEn: "Filter fix (capital R in Result), Iterator variable fix ({{20.value}}), Delete operation verified", done: true, actualHours: 1.0 },
-        { text: "プロンプト改善（重複回避ルール強化・期間7日統一）・手動予定誤削除防止策（$selectからid除外）", textEn: "Prompt improvement (overlap prevention rules, 7-day period) & manual event deletion prevention ($select id exclusion)", done: true, actualHours: 0.5 }
+        { text: "プロンプト改善（重複回避ルール強化・期間7日統一）・手動予定誤削除防止策（$selectからid除外）", textEn: "Prompt improvement (overlap prevention rules, 7-day period) & manual event deletion prevention ($select id exclusion)", done: true, actualHours: 0.5 },
+        { text: "v2安全設計版に移行: AIからtoDelete廃止、Makeが自動削除する方式に変更。プロンプト・手順書・PLAN.md更新", textEn: "Migration to v2 safety design: removed toDelete from AI, Make auto-deletes AI-Schedule events. Updated prompt, guide & PLAN.md", done: true, actualHours: 0.5 }
       ],
-      nextAction: "最終テスト→シナリオActivate",
-      nextActionEn: "Final test → Activate scenario",
+      nextAction: "Makeシナリオ再構築（v2安全設計版）→ Run onceテスト → Activate",
+      nextActionEn: "Rebuild Make scenario (v2 safety design) → Run once test → Activate",
       lastUpdated: "2026/3/18",
-      lastUpdatedNote: "Filter・プロンプト修正・安全策実装完了",
-      lastUpdatedNoteEn: "Filter & prompt fixes, safety measures implemented"
+      lastUpdatedNote: "v2安全設計版に移行決定。プロンプト・手順書更新完了。Make再構築が次ステップ",
+      lastUpdatedNoteEn: "Migrated to v2 safety design. Prompt & guide updated. Make rebuild is next step"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
