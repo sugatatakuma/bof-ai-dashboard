@@ -245,13 +245,15 @@ const DASHBOARD_DATA = {
         { text: "スレッド化調査（PA権限制限により見送り）", textEn: "Threading investigation (deferred due to PA permission limits)", done: true, actualHours: 1.0 },
         { text: "CW展開分析（39社）・Teamsチャネル連携によるBF側自動判定機能の設計・実装", textEn: "CW deployment analysis (39 clients) & Teams channel-based BF member auto-detection", done: true, actualHours: 1.5 },
         { text: "Bot追加クライアント向け案内文・社員向け依頼文作成", textEn: "Created client notification & internal request messages for Bot addition", done: true, actualHours: 0.5 },
-        { text: "Group.Read.All承認→Team/Channel ID取得→sync_members実行（57名同期）→Git push", textEn: "Group.Read.All approved → Team/Channel ID obtained → sync_members executed (57 members) → Git push", done: true, actualHours: 0.5 }
+        { text: "Group.Read.All承認→Team/Channel ID取得→sync_members実行（57名同期）→Git push", textEn: "Group.Read.All approved → Team/Channel ID obtained → sync_members executed (57 members) → Git push", done: true, actualHours: 0.5 },
+        { text: "Railway環境変数追加・asyncio.run()バグ修正・デプロイ成功・Teams同期動作確認", textEn: "Railway env vars added, asyncio.run() bug fix, deploy success, Teams sync verified", done: true, actualHours: 1.5 },
+        { text: "38社Teamsチャネル追加依頼文作成・Teams投稿", textEn: "Created Teams channel addition request for 38 clients & posted to Teams", done: true }
       ],
-      nextAction: "Railway環境変数追加→デプロイ→動作確認",
-      nextActionEn: "Add Railway env vars → Deploy → Verify operation",
-      lastUpdated: "2026/3/18",
-      lastUpdatedNote: "Teams同期設定完了・Git push済み。Railway環境変数追加が次ステップ",
-      lastUpdatedNoteEn: "Teams sync config done & pushed. Railway env vars addition is next step"
+      nextAction: "各責任者のチャネル追加完了待ち→テストメッセージ→PoC→39社展開",
+      nextActionEn: "Waiting for channel additions by managers → Test messages → PoC → 39-client rollout",
+      lastUpdated: "2026/3/19",
+      lastUpdatedNote: "Railway環境変数追加・バグ修正・デプロイ完了。38社チャネル追加依頼済み",
+      lastUpdatedNoteEn: "Railway env vars added, bug fix, deploy done. Channel addition requested for 38 clients"
     },
     {
       name: "案件マッチングメール自動配信",
