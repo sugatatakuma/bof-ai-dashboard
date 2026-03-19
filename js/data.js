@@ -199,13 +199,14 @@ const DASHBOARD_DATA = {
         { text: "ツール公式サポートURL（15ツール）追加", textEn: "Added 15 tool official support URLs", done: true },
         { text: "検索テスト4項目実施・全項目成功", textEn: "4 search tests completed, all passed", done: true },
         { text: "社内テスト期間（〜3/31）", textEn: "Internal testing period (~3/31)", done: false },
-        { text: "BF業務ナレッジにOutlook外部共有手順・インターネットFAXマニュアル追加（55セクション）", textEn: "Added Outlook external sharing guide & Internet FAX manual to BF knowledge (55 sections)", done: true, actualHours: 1.0 }
+        { text: "BF業務ナレッジにOutlook外部共有手順・インターネットFAXマニュアル追加（55セクション）", textEn: "Added Outlook external sharing guide & Internet FAX manual to BF knowledge (55 sections)", done: true, actualHours: 1.0 },
+        { text: "構造化済みナレッジをDifyに再アップロード完了", textEn: "Re-uploaded structured knowledge to Dify", done: true }
       ],
-      nextAction: "構造化済みナレッジをDifyに再アップロード→フィードバック収集継続",
-      nextActionEn: "Re-upload structured knowledge to Dify → Continue feedback collection",
-      lastUpdated: "2026/3/18",
-      lastUpdatedNote: "ナレッジ拡充（Outlook外部共有・FAXマニュアル追加）",
-      lastUpdatedNoteEn: "Knowledge expansion (Outlook external sharing & FAX manual added)"
+      nextAction: "社内テスト期間中のフィードバック収集継続（〜3/31）",
+      nextActionEn: "Continue feedback collection during internal testing period (~3/31)",
+      lastUpdated: "2026/3/19",
+      lastUpdatedNote: "構造化済みナレッジをDifyに再アップロード完了",
+      lastUpdatedNoteEn: "Re-uploaded structured knowledge to Dify"
     },
     {
       name: "チャット通知自動化システム",
