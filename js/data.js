@@ -290,13 +290,14 @@ const DASHBOARD_DATA = {
         { text: "Difyワークフロー構築（12項目入力→LLM→メール生成）", textEn: "Dify workflow (12 inputs → LLM → email generation)", done: true },
         { text: "Makeシナリオ構築（kintone→Outlook一括送信）", textEn: "Make scenario (kintone → Outlook bulk send)", done: true },
         { text: "kintone API連携・BCC方式実装", textEn: "kintone API integration & BCC implementation", done: true },
-        { text: "結合テスト成功", textEn: "Integration test passed", done: true }
+        { text: "結合テスト成功", textEn: "Integration test passed", done: true },
+        { text: "抽出条件変更（雇用形態・単価・メーリス可否）・332件取得確認", textEn: "Filter criteria updated (employment type, rate, mailing flag) - 332 records confirmed", done: true }
       ],
       nextAction: "担当者確認→パイロット",
       nextActionEn: "Manager review → Pilot test",
-      lastUpdated: "2026/3/15",
-      lastUpdatedNote: "結合テスト成功",
-      lastUpdatedNoteEn: "Integration test passed"
+      lastUpdated: "2026/3/20",
+      lastUpdatedNote: "抽出条件変更・再構築・結合テスト成功（332件）",
+      lastUpdatedNoteEn: "Filter criteria updated, rebuilt & integration test passed (332 records)"
     },
     {
       name: "AI人材マッチングシステム",
