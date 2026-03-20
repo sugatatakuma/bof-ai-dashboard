@@ -527,10 +527,10 @@ const DASHBOARD_DATA = {
       nameEn: "AI Project Scheduler",
       description: "AIがプロジェクト状況を分析し、Outlook予定表の空き時間に作業予定を自動配置する1週間ローリングスケジューラー",
       descriptionEn: "AI analyzes project status and auto-schedules work blocks into Outlook calendar free slots (1-week rolling)",
-      status: "building",
-      statusLabel: "構築中",
-      statusLabelEn: "Building",
-      progress: 90,
+      status: "active",
+      statusLabel: "運用中",
+      statusLabelEn: "Active",
+      progress: 100,
       url: null,
       detail: {
         overview: "BOF-AI-Dashboardのプロジェクトデータ（data.js）をAIが分析し、優先順位を判定。Outlook予定表の空き時間に作業予定を自動配置する1週間ローリングスケジューラー。毎朝8:00に自動実行し、状況変化に応じて予定を再評価・更新する。",
@@ -557,19 +557,20 @@ const DASHBOARD_DATA = {
         { text: "作業時間推定方式・工数自動計測仕様の策定", textEn: "Work time estimation & auto time-tracking spec defined", done: true },
         { text: "Make構築手順書作成", textEn: "Make build guide created", done: true },
         { text: "Makeシナリオ構築（HTTP+API Call+OpenAI+Iterator+Create Event）", textEn: "Make scenario build (HTTP+API Call+OpenAI+Iterator+Create Event)", done: true, actualHours: 5.5 },
-        { text: "Schedulerトリガー+toDelete自動削除+シナリオON", textEn: "Scheduler trigger + toDelete auto-delete + scenario activation", done: false },
+        { text: "Schedulerトリガー+toDelete自動削除+シナリオON", textEn: "Scheduler trigger + toDelete auto-delete + scenario activation", done: true },
         { text: "重複予定一括削除・toDelete設計", textEn: "Bulk delete duplicate events & toDelete flow design", done: true, actualHours: 0.5 },
         { text: "toDelete削除フロー実装（Router+Filter）・Scheduler設定・Coreプラン契約", textEn: "toDelete flow implementation (Router+Filter), Scheduler config & Core plan upgrade", done: true, actualHours: 1.0 },
         { text: "Filter修正（Result大文字R）・Iterator変数修正（{{20.value}}）・Delete動作確認", textEn: "Filter fix (capital R in Result), Iterator variable fix ({{20.value}}), Delete operation verified", done: true, actualHours: 1.0 },
         { text: "プロンプト改善（重複回避ルール強化・期間7日統一）・手動予定誤削除防止策（$selectからid除外）", textEn: "Prompt improvement (overlap prevention rules, 7-day period) & manual event deletion prevention ($select id exclusion)", done: true, actualHours: 0.5 },
         { text: "v2安全設計版に移行: AIからtoDelete廃止、Makeが自動削除する方式に変更。プロンプト・手順書・PLAN.md更新", textEn: "Migration to v2 safety design: removed toDelete from AI, Make auto-deletes AI-Schedule events. Updated prompt, guide & PLAN.md", done: true, actualHours: 0.5 },
-        { text: "v2 Makeシナリオ構築: モジュール追加(#25-#28)・直列接続・System Prompt/User Message更新・Iterator/Aggregator修正・テスト", textEn: "v2 Make scenario build: modules added (#25-#28), serial connection, System Prompt/User Message update, Iterator/Aggregator fix, testing", done: false, actualHours: 2.5 }
+        { text: "v2 Makeシナリオ構築: モジュール追加(#25-#28)・直列接続・System Prompt/User Message更新・Iterator/Aggregator修正・テスト", textEn: "v2 Make scenario build: modules added (#25-#28), serial connection, System Prompt/User Message update, Iterator/Aggregator fix, testing", done: true, actualHours: 2.5 },
+        { text: "Delete問題解決: #29 Make an API Call DELETE方式に変更・フルサイクルテスト2回成功・シナリオActivate", textEn: "Delete fix: #29 Make an API Call DELETE method, 2 full cycle tests passed, scenario activated", done: true, actualHours: 0.5 }
       ],
-      nextAction: "Delete問題解決（Make an API Call DELETE方式）→ フルサイクルテスト → Activate",
-      nextActionEn: "Fix Delete issue (Make an API Call DELETE method) → Full cycle test → Activate",
+      nextAction: "運用監視（エッジケース確認：月曜動作・祝日対応など）",
+      nextActionEn: "Operational monitoring (edge case review: Monday execution, holiday handling, etc.)",
       lastUpdated: "2026/3/20",
-      lastUpdatedNote: "v2シナリオ構築完了。予定作成は正常動作。Delete an Eventのサイレント失敗問題が未解決",
-      lastUpdatedNoteEn: "v2 scenario build complete. Event creation works correctly. Delete an Event silent failure issue remains"
+      lastUpdatedNote: "v2完成・運用開始。Delete問題解決（Make an API Call DELETE）、フルサイクルテスト成功、毎日8:00自動実行中",
+      lastUpdatedNoteEn: "v2 complete & live. Delete issue fixed (Make an API Call DELETE), full cycle test passed, running daily at 8:00"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
