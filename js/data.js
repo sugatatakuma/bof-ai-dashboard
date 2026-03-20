@@ -4,7 +4,7 @@
 // ============================================================
 
 const DASHBOARD_DATA = {
-  lastUpdated: "2026/3/18",
+  lastUpdated: "2026/3/20",
   manager: "Takuma Sugata",
   title: "AIインテグレーター",
 
@@ -562,13 +562,14 @@ const DASHBOARD_DATA = {
         { text: "toDelete削除フロー実装（Router+Filter）・Scheduler設定・Coreプラン契約", textEn: "toDelete flow implementation (Router+Filter), Scheduler config & Core plan upgrade", done: true, actualHours: 1.0 },
         { text: "Filter修正（Result大文字R）・Iterator変数修正（{{20.value}}）・Delete動作確認", textEn: "Filter fix (capital R in Result), Iterator variable fix ({{20.value}}), Delete operation verified", done: true, actualHours: 1.0 },
         { text: "プロンプト改善（重複回避ルール強化・期間7日統一）・手動予定誤削除防止策（$selectからid除外）", textEn: "Prompt improvement (overlap prevention rules, 7-day period) & manual event deletion prevention ($select id exclusion)", done: true, actualHours: 0.5 },
-        { text: "v2安全設計版に移行: AIからtoDelete廃止、Makeが自動削除する方式に変更。プロンプト・手順書・PLAN.md更新", textEn: "Migration to v2 safety design: removed toDelete from AI, Make auto-deletes AI-Schedule events. Updated prompt, guide & PLAN.md", done: true, actualHours: 0.5 }
+        { text: "v2安全設計版に移行: AIからtoDelete廃止、Makeが自動削除する方式に変更。プロンプト・手順書・PLAN.md更新", textEn: "Migration to v2 safety design: removed toDelete from AI, Make auto-deletes AI-Schedule events. Updated prompt, guide & PLAN.md", done: true, actualHours: 0.5 },
+        { text: "v2 Makeシナリオ構築: モジュール追加(#25-#28)・直列接続・System Prompt/User Message更新・Iterator/Aggregator修正・テスト", textEn: "v2 Make scenario build: modules added (#25-#28), serial connection, System Prompt/User Message update, Iterator/Aggregator fix, testing", done: false, actualHours: 2.5 }
       ],
-      nextAction: "Makeシナリオ再構築（v2安全設計版）→ Run onceテスト → Activate",
-      nextActionEn: "Rebuild Make scenario (v2 safety design) → Run once test → Activate",
-      lastUpdated: "2026/3/18",
-      lastUpdatedNote: "v2安全設計版に移行決定。プロンプト・手順書更新完了。Make再構築が次ステップ",
-      lastUpdatedNoteEn: "Migrated to v2 safety design. Prompt & guide updated. Make rebuild is next step"
+      nextAction: "Delete問題解決（Make an API Call DELETE方式）→ フルサイクルテスト → Activate",
+      nextActionEn: "Fix Delete issue (Make an API Call DELETE method) → Full cycle test → Activate",
+      lastUpdated: "2026/3/20",
+      lastUpdatedNote: "v2シナリオ構築完了。予定作成は正常動作。Delete an Eventのサイレント失敗問題が未解決",
+      lastUpdatedNoteEn: "v2 scenario build complete. Event creation works correctly. Delete an Event silent failure issue remains"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
