@@ -527,9 +527,9 @@ const DASHBOARD_DATA = {
       nameEn: "AI Project Scheduler",
       description: "AIがプロジェクト状況を分析し、Outlook予定表の空き時間に作業予定を自動配置する1週間ローリングスケジューラー",
       descriptionEn: "AI analyzes project status and auto-schedules work blocks into Outlook calendar free slots (1-week rolling)",
-      status: "active",
+      status: "live",
       statusLabel: "運用中",
-      statusLabelEn: "Active",
+      statusLabelEn: "Live",
       progress: 100,
       url: null,
       detail: {
