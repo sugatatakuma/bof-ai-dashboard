@@ -11,7 +11,7 @@ const DASHBOARD_DATA = {
   // ヒーローエリアの数字
   summary: {
     toolsInProduction: 1,
-    totalProjects: 12,
+    totalProjects: 13,
     categories: 6,
     maxReduction: 96
   },
@@ -572,6 +572,44 @@ const DASHBOARD_DATA = {
       lastUpdated: "2026/3/20",
       lastUpdatedNote: "v2完成・運用開始。Delete問題解決（Make an API Call DELETE）、フルサイクルテスト成功、毎日8:00自動実行中",
       lastUpdatedNoteEn: "v2 complete & live. Delete issue fixed (Make an API Call DELETE), full cycle test passed, running daily at 8:00"
+    },
+    {
+      name: "商談分析月次レポート自動作成",
+      nameEn: "Sales Meeting Monthly Report Generator",
+      description: "商談議事録をAIが自動分析し、FACT・INSIGHT・ACTIONの3層構造で月次レポートを生成",
+      descriptionEn: "AI auto-analyzes sales meeting minutes and generates monthly reports with FACT/INSIGHT/ACTION layers",
+      status: "designed",
+      statusLabel: "設計済み",
+      statusLabelEn: "Designed",
+      progress: 15,
+      url: null,
+      detail: {
+        overview: "SharePointに格納された商談議事録（docx）を自動収集し、AIが15カテゴリで構造化分析。月次で経営・営業・マーケ・オペレーション全部署が活用できるレポートを自動生成するシステム。2段階設計（個別構造化→月次レポート生成）でコンテキスト超過を防止。",
+        overviewEn: "Auto-collects sales meeting minutes (docx) from SharePoint, AI structures them into 15 categories. Generates monthly reports usable by management, sales, marketing & operations. Two-stage design (individual structuring → monthly report) prevents context overflow.",
+        background: "商談議事録が「記録」として蓄積されるだけで、経営データとしての活用ができていなかった。115件超の議事録から傾向分析・失注パターン・勝ちパターンを抽出し、全社の意思決定基盤にしたい。",
+        backgroundEn: "Sales meeting minutes were only accumulated as records without being utilized as business data. Need to extract trends, loss patterns, and win patterns from 115+ minutes to build a company-wide decision-making foundation.",
+        targetUsers: "経営層・営業・マーケティング・オペレーション部門",
+        targetUsersEn: "Management, Sales, Marketing & Operations departments",
+        tools: ["Dify", "Power Automate", "SharePoint", "OneDrive", "Teams"],
+        impact: {
+          before: "議事録が記録として蓄積されるだけ。傾向分析・パターン把握は手作業で困難",
+          beforeEn: "Minutes only accumulated as records. Trend analysis & pattern recognition was manual and difficult",
+          after: "AIが自動で15カテゴリ分析→月次レポート生成→SharePoint保存→Teams通知",
+          afterEn: "AI auto-analyzes 15 categories → generates monthly report → saves to SharePoint → Teams notification",
+          savedTime: "商談データの分析・レポート作成を全自動化",
+          savedTimeEn: "Fully automates sales data analysis & report generation"
+        },
+        period: "2026年3月20日〜",
+        periodEn: "Mar 20, 2026 –"
+      },
+      history: [
+        { text: "設計仕様書作成（全10セクション・プロンプト設計含む）", textEn: "Design spec created (10 sections incl. prompt design)", done: true }
+      ],
+      nextAction: "PlanMode確認→Phase 1（Difyワークフロー①構築・テスト）",
+      nextActionEn: "PlanMode review → Phase 1 (Dify workflow ① build & test)",
+      lastUpdated: "2026/3/20",
+      lastUpdatedNote: "設計仕様書作成完了",
+      lastUpdatedNoteEn: "Design spec completed"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
