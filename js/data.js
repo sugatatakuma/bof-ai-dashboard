@@ -578,10 +578,10 @@ const DASHBOARD_DATA = {
       nameEn: "Sales Meeting Monthly Report Generator",
       description: "商談議事録をAIが自動分析し、FACT・INSIGHT・ACTIONの3層構造で月次レポートを生成",
       descriptionEn: "AI auto-analyzes sales meeting minutes and generates monthly reports with FACT/INSIGHT/ACTION layers",
-      status: "designed",
-      statusLabel: "設計済み",
-      statusLabelEn: "Designed",
-      progress: 15,
+      status: "building",
+      statusLabel: "構築中",
+      statusLabelEn: "Building",
+      progress: 25,
       url: null,
       detail: {
         overview: "SharePointに格納された商談議事録（docx）を自動収集し、AIが15カテゴリで構造化分析。月次で経営・営業・マーケ・オペレーション全部署が活用できるレポートを自動生成するシステム。2段階設計（個別構造化→月次レポート生成）でコンテキスト超過を防止。",
@@ -603,13 +603,15 @@ const DASHBOARD_DATA = {
         periodEn: "Mar 20, 2026 –"
       },
       history: [
-        { text: "設計仕様書作成（全10セクション・プロンプト設計含む）", textEn: "Design spec created (10 sections incl. prompt design)", done: true }
+        { text: "設計仕様書作成（全10セクション・プロンプト設計含む）", textEn: "Design spec created (10 sections incl. prompt design)", done: true },
+        { text: "PLAN.md作成・ナレッジベース整備（7プロジェクト分）", textEn: "PLAN.md created, knowledge base organized (7 projects)", done: true },
+        { text: "Difyワークフロー①構築完了・テスト2/6通過（タイプA/B両方確認）", textEn: "Dify workflow ① built, 2/6 tests passed (Type A/B verified)", done: true }
       ],
-      nextAction: "PlanMode確認→Phase 1（Difyワークフロー①構築・テスト）",
-      nextActionEn: "PlanMode review → Phase 1 (Dify workflow ① build & test)",
-      lastUpdated: "2026/3/20",
-      lastUpdatedNote: "設計仕様書作成完了",
-      lastUpdatedNoteEn: "Design spec completed"
+      nextAction: "Phase 1テスト残り4件→プロンプト最終調整→Phase 2着手",
+      nextActionEn: "Phase 1: remaining 4 tests → prompt tuning → Phase 2",
+      lastUpdated: "2026/3/21",
+      lastUpdatedNote: "ワークフロー①構築完了・テスト2/6通過",
+      lastUpdatedNoteEn: "Workflow ① built, 2/6 tests passed"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
