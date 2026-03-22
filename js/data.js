@@ -4,7 +4,7 @@
 // ============================================================
 
 const DASHBOARD_DATA = {
-  lastUpdated: "2026/3/20",
+  lastUpdated: "2026/3/22",
   manager: "Takuma Sugata",
   title: "AIインテグレーター",
 
@@ -605,13 +605,14 @@ const DASHBOARD_DATA = {
       history: [
         { text: "設計仕様書作成（全10セクション・プロンプト設計含む）", textEn: "Design spec created (10 sections incl. prompt design)", done: true },
         { text: "PLAN.md作成・ナレッジベース整備（7プロジェクト分）", textEn: "PLAN.md created, knowledge base organized (7 projects)", done: true },
-        { text: "Difyワークフロー①構築完了・テスト2/6通過（タイプA/B両方確認）", textEn: "Dify workflow ① built, 2/6 tests passed (Type A/B verified)", done: true }
+        { text: "Difyワークフロー①構築完了・テスト2/6通過（タイプA/B両方確認）", textEn: "Dify workflow ① built, 2/6 tests passed (Type A/B verified)", done: true },
+        { text: "Phase 1テスト完了（6/6件）: プロンプト改善（判定ヒント追加）・コード改善（company_name自動抽出・二重波括弧対応）", textEn: "Phase 1 tests complete (6/6): prompt improvement (judgment hints) & code improvement (company_name auto-extraction, double brace fix)", done: true, actualHours: 1.5 }
       ],
-      nextAction: "Phase 1テスト残り4件→プロンプト最終調整→Phase 2着手",
-      nextActionEn: "Phase 1: remaining 4 tests → prompt tuning → Phase 2",
-      lastUpdated: "2026/3/21",
-      lastUpdatedNote: "ワークフロー①構築完了・テスト2/6通過",
-      lastUpdatedNoteEn: "Workflow ① built, 2/6 tests passed"
+      nextAction: "Difyワークフロー①に修正版反映→セキュリティ確認→Phase 2着手",
+      nextActionEn: "Apply updates to Dify workflow ① → Security review → Start Phase 2",
+      lastUpdated: "2026/3/22",
+      lastUpdatedNote: "Phase 1完了（6/6件テスト通過・プロンプト/コード改善済み）",
+      lastUpdatedNoteEn: "Phase 1 complete (6/6 tests passed, prompt & code improved)"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
