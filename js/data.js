@@ -4,7 +4,7 @@
 // ============================================================
 
 const DASHBOARD_DATA = {
-  lastUpdated: "2026/3/22",
+  lastUpdated: "2026/3/23",
   manager: "Takuma Sugata",
   title: "AIインテグレーター",
 
@@ -202,11 +202,11 @@ const DASHBOARD_DATA = {
         { text: "BF業務ナレッジにOutlook外部共有手順・インターネットFAXマニュアル追加（55セクション）", textEn: "Added Outlook external sharing guide & Internet FAX manual to BF knowledge (55 sections)", done: true, actualHours: 1.0 },
         { text: "構造化済みナレッジをDifyに再アップロード完了", textEn: "Re-uploaded structured knowledge to Dify", done: true }
       ],
-      nextAction: "社内テスト期間中のフィードバック収集継続（〜3/31）",
-      nextActionEn: "Continue feedback collection during internal testing period (~3/31)",
-      lastUpdated: "2026/3/19",
-      lastUpdatedNote: "構造化済みナレッジをDifyに再アップロード完了",
-      lastUpdatedNoteEn: "Re-uploaded structured knowledge to Dify"
+      nextAction: "BF業務ナレッジ（20260318版）をDifyに再アップロード・社内テストフィードバック収集（〜3/31）",
+      nextActionEn: "Re-upload BF knowledge (20260318) to Dify & collect internal test feedback (~3/31)",
+      lastUpdated: "2026/3/23",
+      lastUpdatedNote: "仕様書3点の最新化（要件仕様書・BF業務ナレッジ仕様書・Teams抽出仕様書）",
+      lastUpdatedNoteEn: "Updated 3 specification documents to latest state"
     },
     {
       name: "チャット通知自動化システム",
