@@ -4,14 +4,14 @@
 // ============================================================
 
 const DASHBOARD_DATA = {
-  lastUpdated: "2026/3/23",
+  lastUpdated: "2026/3/24",
   manager: "Takuma Sugata",
   title: "AIインテグレーター",
 
   // ヒーローエリアの数字
   summary: {
     toolsInProduction: 1,
-    totalProjects: 13,
+    totalProjects: 14,
     categories: 6,
     maxReduction: 96
   },
@@ -655,6 +655,49 @@ const DASHBOARD_DATA = {
       lastUpdated: "2026/3/15",
       lastUpdatedNote: "機能追加",
       lastUpdatedNoteEn: "Feature added"
+    },
+    {
+      name: "AI研修カリキュラム",
+      nameEn: "AI Training Curriculum",
+      description: "新卒向けAI研修スライド全3回。今後全体の流れをレビューし、改善すべき点があれば改善する段階",
+      descriptionEn: "3-session AI training slides for new hires. Currently in review phase for overall flow improvement",
+      status: "testing",
+      statusLabel: "レビュー中",
+      statusLabelEn: "In Review",
+      progress: 85,
+      url: "https://sugatatakuma.github.io/bof-training/",
+      detail: {
+        overview: "新卒社員向けのAI研修を全3回のHTMLスライドで制作。第1回:AI基礎と安全な使い方、第2回:4つの業務場面とプロンプトの書き方、第3回:AIの業務組み込みとナレッジ資産化。報連相・グランサーズスタンダード・自己紹介スライドも併せて制作。",
+        overviewEn: "AI training for new hires in 3 HTML slide sessions. Session 1: AI basics & safe usage. Session 2: 4 business scenarios & prompt writing. Session 3: Integrating AI into workflows & knowledge management. Also includes supplementary slides for Horenso, Grancers Standard, and self-introduction.",
+        background: "新卒社員がAIツールを安全かつ効果的に業務で活用できるよう、体系的な研修カリキュラムが必要だった。",
+        backgroundEn: "A systematic training curriculum was needed to help new hires use AI tools safely and effectively in their work.",
+        targetUsers: "新卒社員・研修担当者",
+        targetUsersEn: "New hires & training managers",
+        tools: ["HTML", "CSS", "JavaScript", "GitHub Pages"],
+        impact: {
+          before: "AI研修の体系的な教材がなく、口頭での説明に依存",
+          beforeEn: "No systematic AI training materials; relied on verbal explanations",
+          after: "全3回の統一されたスライド教材でいつでも研修可能",
+          afterEn: "Unified 3-session slide materials available for training anytime",
+          savedTime: "研修準備時間の削減＋教育品質の均一化",
+          savedTimeEn: "Reduced training preparation time & standardized education quality"
+        },
+        period: "2026年3月〜",
+        periodEn: "Mar 2026 –"
+      },
+      history: [
+        { text: "第1回スライド制作（32枚）", textEn: "Session 1 slides created (32 slides)", done: true },
+        { text: "第2回スライド制作（25枚）", textEn: "Session 2 slides created (25 slides)", done: true },
+        { text: "第3回スライド制作（23枚）", textEn: "Session 3 slides created (23 slides)", done: true },
+        { text: "報連相・GRスタンダード・自己紹介スライド制作", textEn: "Horenso, Grancers Standard & self-intro slides created", done: true },
+        { text: "GitHub Pages公開", textEn: "Published on GitHub Pages", done: true },
+        { text: "全体レビュー・改善", textEn: "Overall review & improvement", done: false }
+      ],
+      nextAction: "全体の流れをレビューし、改善すべき点を洗い出し・修正",
+      nextActionEn: "Review overall flow and identify/fix areas for improvement",
+      lastUpdated: "2026/3/24",
+      lastUpdatedNote: "プロンプト構成統一・GitHub Pages公開",
+      lastUpdatedNoteEn: "Prompt structure unified & published on GitHub Pages"
     }
   ]
 };
