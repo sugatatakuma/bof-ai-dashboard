@@ -4,7 +4,7 @@
 // ============================================================
 
 const DASHBOARD_DATA = {
-  lastUpdated: "2026/3/24",
+  lastUpdated: "2026/3/25",
   manager: "Takuma Sugata",
   title: "AIインテグレーター",
 
