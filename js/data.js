@@ -248,13 +248,16 @@ const DASHBOARD_DATA = {
         { text: "Bot追加クライアント向け案内文・社員向け依頼文作成", textEn: "Created client notification & internal request messages for Bot addition", done: true, actualHours: 0.5 },
         { text: "Group.Read.All承認→Team/Channel ID取得→sync_members実行（57名同期）→Git push", textEn: "Group.Read.All approved → Team/Channel ID obtained → sync_members executed (57 members) → Git push", done: true, actualHours: 0.5 },
         { text: "Railway環境変数追加・asyncio.run()バグ修正・デプロイ成功・Teams同期動作確認", textEn: "Railway env vars added, asyncio.run() bug fix, deploy success, Teams sync verified", done: true, actualHours: 1.5 },
-        { text: "38社Teamsチャネル追加依頼文作成・Teams投稿", textEn: "Created Teams channel addition request for 38 clients & posted to Teams", done: true }
+        { text: "38社Teamsチャネル追加依頼文作成・Teams投稿", textEn: "Created Teams channel addition request for 38 clients & posted to Teams", done: true },
+        { text: "コード品質改善（lifespan移行・httpx共有化・障害耐性強化）", textEn: "Code quality improvement (lifespan migration, shared httpx client, resilience)", done: true, actualHours: 1.0 },
+        { text: "自動返信タイマー競合バグ修正（二重発火・キャンセル不達）", textEn: "Fixed auto-reply timer race condition (double fire & cancel miss)", done: true, actualHours: 0.5 },
+        { text: "Graph API直接投稿によるTeams通知スレッド化実装・デプロイ", textEn: "Implemented Teams notification threading via Graph API direct posting & deployed", done: true, actualHours: 2.0 }
       ],
-      nextAction: "各責任者のチャネル追加完了待ち→テストメッセージ→PoC→39社展開",
-      nextActionEn: "Waiting for channel additions by managers → Test messages → PoC → 39-client rollout",
-      lastUpdated: "2026/3/19",
-      lastUpdatedNote: "Railway環境変数追加・バグ修正・デプロイ完了。38社チャネル追加依頼済み",
-      lastUpdatedNoteEn: "Railway env vars added, bug fix, deploy done. Channel addition requested for 38 clients"
+      nextAction: "Azure AD管理者同意→初回OAuthログイン→テスト→39社展開",
+      nextActionEn: "Azure AD admin consent → Initial OAuth login → Test → 39-client rollout",
+      lastUpdated: "2026/3/25",
+      lastUpdatedNote: "Graph API直接投稿スレッド化・バグ修正・コード改善デプロイ完了。Azure AD管理者同意待ち",
+      lastUpdatedNoteEn: "Graph API threading, bug fixes & code improvements deployed. Awaiting Azure AD admin consent"
     },
     {
       name: "案件マッチングメール自動配信",
