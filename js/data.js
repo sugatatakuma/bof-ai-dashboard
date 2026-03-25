@@ -251,13 +251,14 @@ const DASHBOARD_DATA = {
         { text: "38社Teamsチャネル追加依頼文作成・Teams投稿", textEn: "Created Teams channel addition request for 38 clients & posted to Teams", done: true },
         { text: "コード品質改善（lifespan移行・httpx共有化・障害耐性強化）", textEn: "Code quality improvement (lifespan migration, shared httpx client, resilience)", done: true, actualHours: 1.0 },
         { text: "自動返信タイマー競合バグ修正（二重発火・キャンセル不達）", textEn: "Fixed auto-reply timer race condition (double fire & cancel miss)", done: true, actualHours: 0.5 },
-        { text: "Graph API直接投稿によるTeams通知スレッド化実装・デプロイ", textEn: "Implemented Teams notification threading via Graph API direct posting & deployed", done: true, actualHours: 2.0 }
+        { text: "Graph API直接投稿によるTeams通知スレッド化実装・デプロイ", textEn: "Implemented Teams notification threading via Graph API direct posting & deployed", done: true, actualHours: 2.0 },
+        { text: "Azure AD管理者同意・OAuthログイン成功・エコラル様設定追加", textEn: "Azure AD admin consent, OAuth login success, added エコラル client setup", done: true, actualHours: 0.5 }
       ],
-      nextAction: "Azure AD管理者同意→初回OAuthログイン→テスト→39社展開",
-      nextActionEn: "Azure AD admin consent → Initial OAuth login → Test → 39-client rollout",
+      nextAction: "スレッド化テスト（クライアントメッセージ待ち）→39社展開",
+      nextActionEn: "Threading test (waiting for client message) → 39-client rollout",
       lastUpdated: "2026/3/25",
-      lastUpdatedNote: "Graph API直接投稿スレッド化・バグ修正・コード改善デプロイ完了。Azure AD管理者同意待ち",
-      lastUpdatedNoteEn: "Graph API threading, bug fixes & code improvements deployed. Awaiting Azure AD admin consent"
+      lastUpdatedNote: "OAuthログイン成功・エコラル様追加（3社目）。スレッド化テスト待ち",
+      lastUpdatedNoteEn: "OAuth login success, added エコラル (3rd client). Awaiting threading test"
     },
     {
       name: "案件マッチングメール自動配信",
