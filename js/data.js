@@ -4,14 +4,14 @@
 // ============================================================
 
 const DASHBOARD_DATA = {
-  lastUpdated: "2026/3/25",
+  lastUpdated: "2026/3/26",
   manager: "Takuma Sugata",
   title: "AIインテグレーター",
 
   // ヒーローエリアの数字
   summary: {
     toolsInProduction: 1,
-    totalProjects: 14,
+    totalProjects: 15,
     categories: 6,
     maxReduction: 96
   },
@@ -700,6 +700,49 @@ const DASHBOARD_DATA = {
       lastUpdated: "2026/3/24",
       lastUpdatedNote: "プロンプト構成統一・GitHub Pages公開",
       lastUpdatedNoteEn: "Prompt structure unified & published on GitHub Pages"
+    },
+
+    // ── #15 グランサーズスタンダード HTML化 ──
+    {
+      name: "グランサーズスタンダード HTML化",
+      nameEn: "Grancers Standard HTML Conversion",
+      description: "社内業務マニュアル（PPTX 1,930枚・247MB）を3カテゴリに再構成し、検索可能な軽量HTMLドキュメントに変換",
+      descriptionEn: "Convert internal operations manual (1,930 slides / 247MB PPTX) into a searchable, lightweight HTML document reorganized into 3 categories",
+      status: "building",
+      statusLabel: "構築中",
+      statusLabelEn: "Building",
+      progress: 60,
+      detail: {
+        overview: "グランサーズスタンダード（社内バックオフィス業務ナレッジ集約PPTX）を、ブラウザで閲覧・全文検索可能なHTMLドキュメントに変換。1,930スライドを「バックオフィス業務」「ソフトスキル」「グランサーズ独自」の3カテゴリ×25セクションに再構成し、重複195枚を排除。",
+        overviewEn: "Convert the Grancers Standard (internal back-office knowledge PPTX) into a browser-viewable, full-text searchable HTML document. Reorganized 1,930 slides into 3 categories × 25 sections, removing 195 duplicate slides.",
+        background: "247MBのPPTXファイルは重く開きづらく、必要な情報を検索で見つけることが困難だった。社員が手軽にブラウザで閲覧・検索できる形式への変換が求められた。",
+        backgroundEn: "The 247MB PPTX file was heavy and difficult to open, making it hard to find information. A browser-friendly format with search capability was needed.",
+        targetUsers: "グランサーズ全社員",
+        targetUsersEn: "All Grancers employees",
+        tools: ["Python", "python-pptx", "HTML", "CSS", "JavaScript"],
+        impact: {
+          before: "247MBのPPTXを開いてCtrl+Fで検索（起動に数十秒）",
+          beforeEn: "Open 247MB PPTX and search with Ctrl+F (takes tens of seconds to load)",
+          after: "ブラウザで即座に全文検索・カテゴリ別閲覧（HTML合計約4MB）",
+          afterEn: "Instant full-text search and category-based browsing in browser (HTML total ~4MB)",
+          savedTime: "情報検索時間の大幅短縮＋アクセシビリティ向上",
+          savedTimeEn: "Significant reduction in information retrieval time & improved accessibility"
+        },
+        period: "2026年3月〜",
+        periodEn: "Mar 2026 –"
+      },
+      history: [
+        { text: "PPTXからテキスト・画像・テーブル抽出（1,930枚・2,067画像・424テーブル）", textEn: "Extracted text, images, and tables from PPTX (1,930 slides, 2,067 images, 424 tables)", done: true, actualHours: 1.0 },
+        { text: "3カテゴリ×25セクションに再構成・重複195枚排除", textEn: "Restructured into 3 categories × 25 sections, removed 195 duplicates", done: true, actualHours: 1.0 },
+        { text: "HTML生成・全文検索・画像統合", textEn: "HTML generation, full-text search, and image integration", done: true, actualHours: 0.5 },
+        { text: "デザイン調整・最終仕上げ", textEn: "Design adjustments & final polish", done: false },
+        { text: "社内配布・フィードバック収集", textEn: "Internal distribution & feedback collection", done: false }
+      ],
+      nextAction: "デザイン調整・レスポンシブ確認・最終仕上げ",
+      nextActionEn: "Design adjustments, responsive check, and final polish",
+      lastUpdated: "2026/3/26",
+      lastUpdatedNote: "PPTX抽出・3カテゴリ再構成・HTML生成完了",
+      lastUpdatedNoteEn: "PPTX extraction, 3-category restructuring, and HTML generation completed"
     }
   ]
 };
