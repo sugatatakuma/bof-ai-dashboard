@@ -592,8 +592,8 @@ const DASHBOARD_DATA = {
       detail: {
         overview: "SharePointに格納された商談議事録（docx）を自動収集し、AIが15カテゴリで構造化分析。月次で経営・営業・マーケ・オペレーション全部署が活用できるレポートを自動生成するシステム。2段階設計（個別構造化→月次レポート生成）でコンテキスト超過を防止。",
         overviewEn: "Auto-collects sales meeting minutes (docx) from SharePoint, AI structures them into 15 categories. Generates monthly reports usable by management, sales, marketing & operations. Two-stage design (individual structuring → monthly report) prevents context overflow.",
-        background: "商談議事録が「記録」として蓄積されるだけで、経営データとしての活用ができていなかった。115件超の議事録から傾向分析・失注パターン・勝ちパターンを抽出し、全社の意思決定基盤にしたい。",
-        backgroundEn: "Sales meeting minutes were only accumulated as records without being utilized as business data. Need to extract trends, loss patterns, and win patterns from 115+ minutes to build a company-wide decision-making foundation.",
+        background: "商談議事録が「記録」として蓄積されるだけで、経営データとしての活用ができていなかった。毎月の議事録（月30〜40件）から傾向分析・失注パターン・勝ちパターンを抽出し、全社の意思決定基盤にしたい。",
+        backgroundEn: "Sales meeting minutes were only accumulated as records without being utilized as business data. Need to extract trends, loss patterns, and win patterns from monthly minutes (30-40 per month) to build a company-wide decision-making foundation.",
         targetUsers: "経営層・営業・マーケティング・オペレーション部門",
         targetUsersEn: "Management, Sales, Marketing & Operations departments",
         tools: ["Dify", "Power Automate", "SharePoint", "OneDrive", "Teams"],
