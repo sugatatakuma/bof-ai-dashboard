@@ -268,7 +268,7 @@ const DASHBOARD_DATA = {
       status: "building",
       statusLabel: "構築中",
       statusLabelEn: "Building",
-      progress: 75,
+      progress: 85,
       url: null,
       detail: {
         overview: "案件発生時に、AIチャットへ案件情報を入力するだけで、オファーメールの作成・対象者の抽出・一斉配信・エントリー回答の集約まで自動で完結するシステム。",
@@ -295,13 +295,15 @@ const DASHBOARD_DATA = {
         { text: "Makeシナリオ構築（kintone→Outlook一括送信）", textEn: "Make scenario (kintone → Outlook bulk send)", done: true },
         { text: "kintone API連携・BCC方式実装", textEn: "kintone API integration & BCC implementation", done: true },
         { text: "結合テスト成功", textEn: "Integration test passed", done: true },
-        { text: "抽出条件変更（雇用形態・単価・メーリス可否）・332件取得確認", textEn: "Filter criteria updated (employment type, rate, mailing flag) - 332 records confirmed", done: true }
+        { text: "抽出条件変更（雇用形態・単価・メーリス可否）・332件取得確認", textEn: "Filter criteria updated (employment type, rate, mailing flag) - 332 records confirmed", done: true },
+        { text: "共有メールアドレス設定・Send As権限・差出人名統一・テスト送信成功", textEn: "Shared mailbox setup, Send As permission, sender name unified, test send success", done: true },
+        { text: "担当者確認事項10項目すべて完了", textEn: "All 10 manager confirmation items completed", done: true }
       ],
-      nextAction: "担当者確認→パイロット",
-      nextActionEn: "Manager review → Pilot test",
-      lastUpdated: "2026/3/20",
-      lastUpdatedNote: "抽出条件変更・再構築・結合テスト成功（332件）",
-      lastUpdatedNoteEn: "Filter criteria updated, rebuilt & integration test passed (332 records)"
+      nextAction: "BCCマッピング設定→パイロットテスト",
+      nextActionEn: "BCC mapping setup → Pilot test",
+      lastUpdated: "2026/3/27",
+      lastUpdatedNote: "共有メールアドレス設定・確認事項10項目完了・テスト送信成功。パイロットテスト準備中",
+      lastUpdatedNoteEn: "Shared mailbox configured, all 10 confirmation items completed, test send success. Pilot test ready"
     },
     {
       name: "AI人材マッチングシステム",
