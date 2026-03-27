@@ -587,7 +587,7 @@ const DASHBOARD_DATA = {
       status: "building",
       statusLabel: "構築中",
       statusLabelEn: "Building",
-      progress: 25,
+      progress: 50,
       url: null,
       detail: {
         overview: "SharePointに格納された商談議事録（docx）を自動収集し、AIが15カテゴリで構造化分析。月次で経営・営業・マーケ・オペレーション全部署が活用できるレポートを自動生成するシステム。2段階設計（個別構造化→月次レポート生成）でコンテキスト超過を防止。",
@@ -612,13 +612,14 @@ const DASHBOARD_DATA = {
         { text: "設計仕様書作成（全10セクション・プロンプト設計含む）", textEn: "Design spec created (10 sections incl. prompt design)", done: true },
         { text: "PLAN.md作成・ナレッジベース整備（7プロジェクト分）", textEn: "PLAN.md created, knowledge base organized (7 projects)", done: true },
         { text: "Difyワークフロー①構築完了・テスト2/6通過（タイプA/B両方確認）", textEn: "Dify workflow ① built, 2/6 tests passed (Type A/B verified)", done: true },
-        { text: "Phase 1テスト完了（6/6件）: プロンプト改善（判定ヒント追加）・コード改善（company_name自動抽出・二重波括弧対応）", textEn: "Phase 1 tests complete (6/6): prompt improvement (judgment hints) & code improvement (company_name auto-extraction, double brace fix)", done: true, actualHours: 1.5 }
+        { text: "Phase 1テスト完了（6/6件）: プロンプト改善（判定ヒント追加）・コード改善（company_name自動抽出・二重波括弧対応）", textEn: "Phase 1 tests complete (6/6): prompt improvement (judgment hints) & code improvement (company_name auto-extraction, double brace fix)", done: true, actualHours: 1.5 },
+        { text: "ワークフロー①Dify反映・再テスト（判定ヒント追加: phase崩壊優先/estimated_hours）、ワークフロー②設計・構築・テスト完了（2ノードLLM分割・ローカル+Dify両方テスト通過）", textEn: "Workflow ① Dify update & retest (phase/estimated_hours hints), Workflow ② design/build/test complete (2-node LLM split, local + Dify tests passed)", done: true, actualHours: 2.0 }
       ],
-      nextAction: "Difyワークフロー①に修正版反映→セキュリティ確認→Phase 2着手",
-      nextActionEn: "Apply updates to Dify workflow ① → Security review → Start Phase 2",
-      lastUpdated: "2026/3/22",
-      lastUpdatedNote: "Phase 1完了（6/6件テスト通過・プロンプト/コード改善済み）",
-      lastUpdatedNoteEn: "Phase 1 complete (6/6 tests passed, prompt & code improved)"
+      nextAction: "セキュリティ確認（議事録のDify送信可否）→ Power Automateフロー構築（Phase 2残り）",
+      nextActionEn: "Security review (Dify data policy) → Power Automate flow build (Phase 2 remaining)",
+      lastUpdated: "2026/3/27",
+      lastUpdatedNote: "ワークフロー①Dify反映完了・ワークフロー②設計構築テスト完了（Phase 2 Dify部分完了）",
+      lastUpdatedNoteEn: "Workflow ① Dify update complete, Workflow ② design/build/test complete (Phase 2 Dify portion done)"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
