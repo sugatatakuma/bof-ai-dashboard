@@ -587,10 +587,10 @@ const DASHBOARD_DATA = {
       status: "testing",
       statusLabel: "テスト中",
       statusLabelEn: "Testing",
-      progress: 85,
+      progress: 90,
       url: null,
       detail: {
-        overview: "SharePointに格納された商談議事録（docx）を自動収集し、AIが15カテゴリで構造化分析。月次で経営・営業・マーケ・オペレーション全部署が活用できるレポートを自動生成するシステム。Pythonスクリプトで全工程を統合実行（SharePoint取得→テキスト抽出→OpenAI分析→Word/PDF生成→SharePoint保存→Teams通知）。",
+        overview: "SharePointに格納された商談議事録（docx）を自動収集し、AIが15カテゴリ+3新フィールド（業種・流入経路・対応範囲外ニーズ）で構造化分析。月次で経営・営業・マーケ・オペレーション全部署が活用できるレポートを自動生成するシステム。Pythonスクリプトで全工程を統合実行（SharePoint取得→テキスト抽出→OpenAI分析→Word/PDF生成→SharePoint保存→Teams通知）。",
         overviewEn: "Auto-collects sales meeting minutes (docx) from SharePoint, AI structures them into 15 categories. Generates monthly reports usable by management, sales, marketing & operations. Python script integrates all steps (SharePoint retrieval → text extraction → OpenAI analysis → Word/PDF generation → SharePoint save → Teams notification).",
         background: "商談議事録が「記録」として蓄積されるだけで、経営データとしての活用ができていなかった。毎月の議事録（月30〜40件）から傾向分析・失注パターン・勝ちパターンを抽出し、全社の意思決定基盤にしたい。",
         backgroundEn: "Sales meeting minutes were only accumulated as records without being utilized as business data. Need to extract trends, loss patterns, and win patterns from monthly minutes (30-40 per month) to build a company-wide decision-making foundation.",
@@ -614,13 +614,14 @@ const DASHBOARD_DATA = {
         { text: "Difyワークフロー①構築完了・テスト2/6通過（タイプA/B両方確認）", textEn: "Dify workflow ① built, 2/6 tests passed (Type A/B verified)", done: true },
         { text: "Phase 1テスト完了（6/6件）: プロンプト改善（判定ヒント追加）・コード改善（company_name自動抽出・二重波括弧対応）", textEn: "Phase 1 tests complete (6/6): prompt improvement (judgment hints) & code improvement (company_name auto-extraction, double brace fix)", done: true, actualHours: 1.5 },
         { text: "ワークフロー①Dify反映・再テスト（判定ヒント追加: phase崩壊優先/estimated_hours）、ワークフロー②設計・構築・テスト完了（2ノードLLM分割・ローカル+Dify両方テスト通過）", textEn: "Workflow ① Dify update & retest (phase/estimated_hours hints), Workflow ② design/build/test complete (2-node LLM split, local + Dify tests passed)", done: true, actualHours: 2.0 },
-        { text: "PA→Pythonアーキテクチャ変更・本番スクリプト構築・35件本番実行成功・SharePoint3形式保存（md/docx/pdf）・Teams通知設定完了", textEn: "Architecture change PA→Python, production script built, 35-file production run success, SharePoint 3-format save (md/docx/pdf), Teams notification configured", done: true, actualHours: 1.5 }
+        { text: "PA→Pythonアーキテクチャ変更・本番スクリプト構築・35件本番実行成功・SharePoint3形式保存（md/docx/pdf）・Teams通知設定完了", textEn: "Architecture change PA→Python, production script built, 35-file production run success, SharePoint 3-format save (md/docx/pdf), Teams notification configured", done: true, actualHours: 1.5 },
+        { text: "レポート品質改善12項目実装（構成変更・データ品質スコア・顧客発言+返し方・文章スタイル統一・新フィールド3種追加）・dry-run検証4回完了", textEn: "Report quality improvement: 12 items implemented (structure change, data quality score, customer quotes+responses, writing style, 3 new fields). 4 dry-run verifications passed", done: true, actualHours: 1.5 }
       ],
-      nextAction: "レポート品質レビュー→プロンプト改善→Windowsタスクスケジューラ設定",
-      nextActionEn: "Report quality review → prompt improvement → Windows Task Scheduler setup",
+      nextAction: "本番実行→Windowsタスクスケジューラ設定→運用マニュアル作成",
+      nextActionEn: "Production run → Windows Task Scheduler setup → operation manual",
       lastUpdated: "2026/3/28",
-      lastUpdatedNote: "Pythonスクリプト本番稼働・35件処理成功・SharePoint3形式保存・Teams通知OK。次回: レポート品質レビュー→タスクスケジューラ設定",
-      lastUpdatedNoteEn: "Python script in production, 35-file processing success, SharePoint 3-format save, Teams notification OK. Next: report quality review → Task Scheduler setup"
+      lastUpdatedNote: "レポート品質改善12項目完了（エグゼクティブサマリー・データ品質・顧客言語データ8件・対応範囲外ニーズ・業種・流入経路追加）。dry-run検証4回OK。次回: 本番実行→タスクスケジューラ設定",
+      lastUpdatedNoteEn: "Report quality improvement: 12 items complete (executive summary, data quality, 8+ customer quotes, unmet needs, industry, lead source). 4 dry-runs OK. Next: production run → Task Scheduler setup"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
