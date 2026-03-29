@@ -584,14 +584,14 @@ const DASHBOARD_DATA = {
       nameEn: "Sales Meeting Monthly Report Generator",
       description: "商談議事録をAIが自動分析し、FACT・INSIGHT・ACTIONの3層構造で月次レポートを生成",
       descriptionEn: "AI auto-analyzes sales meeting minutes and generates monthly reports with FACT/INSIGHT/ACTION layers",
-      status: "testing",
-      statusLabel: "テスト中",
-      statusLabelEn: "Testing",
-      progress: 90,
+      status: "live",
+      statusLabel: "運用中",
+      statusLabelEn: "Live",
+      progress: 100,
       url: null,
       detail: {
-        overview: "SharePointに格納された商談議事録（docx）を自動収集し、AIが15カテゴリ+3新フィールド（業種・流入経路・対応範囲外ニーズ）で構造化分析。月次で経営・営業・マーケ・オペレーション全部署が活用できるレポートを自動生成するシステム。Pythonスクリプトで全工程を統合実行（SharePoint取得→テキスト抽出→OpenAI分析→Word/PDF生成→SharePoint保存→Teams通知）。",
-        overviewEn: "Auto-collects sales meeting minutes (docx) from SharePoint, AI structures them into 15 categories. Generates monthly reports usable by management, sales, marketing & operations. Python script integrates all steps (SharePoint retrieval → text extraction → OpenAI analysis → Word/PDF generation → SharePoint save → Teams notification).",
+        overview: "SharePointに格納された商談議事録（docx）を自動収集し、AIが構造化分析。Python事前集計（勝ちパターン差分分析・ファネル分析・断り文句分類・データ品質警告・パイプライン推定）→LLMがINSIGHT+ACTIONを生成。FACTテーブル・フォロー優先案件・全案件一覧はPythonで直接生成し正確性を確保。毎月1日10:30にWindowsタスクスケジューラで自動実行。",
+        overviewEn: "Auto-collects sales meeting minutes (docx) from SharePoint for AI-powered analysis. Python pre-computes business insights (win pattern differential, funnel analysis, objection categorization, data quality warnings, pipeline estimation) → LLM generates INSIGHT + ACTION. FACT tables and deal lists are Python-generated for accuracy. Auto-runs via Windows Task Scheduler on the 1st of each month at 10:30.",
         background: "商談議事録が「記録」として蓄積されるだけで、経営データとしての活用ができていなかった。毎月の議事録（月30〜40件）から傾向分析・失注パターン・勝ちパターンを抽出し、全社の意思決定基盤にしたい。",
         backgroundEn: "Sales meeting minutes were only accumulated as records without being utilized as business data. Need to extract trends, loss patterns, and win patterns from monthly minutes (30-40 per month) to build a company-wide decision-making foundation.",
         targetUsers: "経営層・営業・マーケティング・オペレーション部門",
@@ -615,13 +615,56 @@ const DASHBOARD_DATA = {
         { text: "Phase 1テスト完了（6/6件）: プロンプト改善（判定ヒント追加）・コード改善（company_name自動抽出・二重波括弧対応）", textEn: "Phase 1 tests complete (6/6): prompt improvement (judgment hints) & code improvement (company_name auto-extraction, double brace fix)", done: true, actualHours: 1.5 },
         { text: "ワークフロー①Dify反映・再テスト（判定ヒント追加: phase崩壊優先/estimated_hours）、ワークフロー②設計・構築・テスト完了（2ノードLLM分割・ローカル+Dify両方テスト通過）", textEn: "Workflow ① Dify update & retest (phase/estimated_hours hints), Workflow ② design/build/test complete (2-node LLM split, local + Dify tests passed)", done: true, actualHours: 2.0 },
         { text: "PA→Pythonアーキテクチャ変更・本番スクリプト構築・35件本番実行成功・SharePoint3形式保存（md/docx/pdf）・Teams通知設定完了", textEn: "Architecture change PA→Python, production script built, 35-file production run success, SharePoint 3-format save (md/docx/pdf), Teams notification configured", done: true, actualHours: 1.5 },
-        { text: "レポート品質改善12項目実装（構成変更・データ品質スコア・顧客発言+返し方・文章スタイル統一・新フィールド3種追加）・dry-run検証4回完了", textEn: "Report quality improvement: 12 items implemented (structure change, data quality score, customer quotes+responses, writing style, 3 new fields). 4 dry-run verifications passed", done: true, actualHours: 1.5 }
+        { text: "レポート品質改善12項目実装（構成変更・データ品質スコア・顧客発言+返し方・文章スタイル統一・新フィールド3種追加）・dry-run検証4回完了", textEn: "Report quality improvement: 12 items implemented (structure change, data quality score, customer quotes+responses, writing style, 3 new fields). 4 dry-run verifications passed", done: true, actualHours: 1.5 },
+        { text: "アーキテクチャ刷新: Python事前集計（勝ちパターン差分・ファネル分析・断り文句分類・データ品質警告・パイプライン推定）→FACTテーブルPython直接生成→LLM INSIGHT+ACTION専念。PDF左寄せ修正。1〜3月本番実行成功。タスクスケジューラ設定（毎月1日10:30）。Teamsメンション通知（筧・今井・李）設定", textEn: "Architecture overhaul: Python pre-computation (win pattern diff, funnel analysis, objection categorization, data quality warnings, pipeline estimation) → FACT tables Python-generated → LLM focused on INSIGHT+ACTION. PDF alignment fix. Jan-Mar production runs successful. Task Scheduler configured (1st of month 10:30). Teams mention notification (3 users) configured", done: true, actualHours: 3.5 }
       ],
-      nextAction: "本番実行→Windowsタスクスケジューラ設定→運用マニュアル作成",
-      nextActionEn: "Production run → Windows Task Scheduler setup → operation manual",
-      lastUpdated: "2026/3/28",
-      lastUpdatedNote: "レポート品質改善12項目完了（エグゼクティブサマリー・データ品質・顧客言語データ8件・対応範囲外ニーズ・業種・流入経路追加）。dry-run検証4回OK。次回: 本番実行→タスクスケジューラ設定",
-      lastUpdatedNoteEn: "Report quality improvement: 12 items complete (executive summary, data quality, 8+ customer quotes, unmet needs, industry, lead source). 4 dry-runs OK. Next: production run → Task Scheduler setup"
+      nextAction: "4/1 自動実行・Teams通知確認",
+      nextActionEn: "Verify 4/1 auto-execution & Teams notification",
+      lastUpdated: "2026/3/29",
+      lastUpdatedNote: "アーキテクチャ刷新完了。Python事前集計+LLM INSIGHT専念で品質大幅向上。1〜3月本番実行成功。タスクスケジューラ設定済み。4/1の自動実行確認待ち",
+      lastUpdatedNoteEn: "Architecture overhaul complete. Python pre-computation + LLM INSIGHT-focused approach significantly improved quality. Jan-Mar production runs successful. Task Scheduler configured. Awaiting 4/1 auto-execution verification"
+    },
+    {
+      name: "商談分析四半期レポート自動作成",
+      nameEn: "Sales Meeting Quarterly Report Generator",
+      description: "3ヶ月分の月次構造化データを統合し、四半期トレンド分析・パイプライン追跡・戦略提案レポートを自動生成",
+      descriptionEn: "Integrates 3 months of structured data for quarterly trend analysis, pipeline tracking, and strategic recommendations",
+      status: "live",
+      statusLabel: "運用中",
+      statusLabelEn: "Live",
+      progress: 100,
+      url: null,
+      detail: {
+        overview: "月次レポートの構造化JSON（3ヶ月分、約120件）を統合し、四半期トレンド分析レポートを自動生成。Python事前集計（月別推移・パイプライン追跡・勝ちパターン差分・ファネル分析・断り文句分類・データ品質警告）→LLMがINSIGHT+ACTIONを生成。月次では見えない時系列の変化・同一企業の進捗追跡・次四半期の戦略提案を提供。",
+        overviewEn: "Integrates 3 months of structured JSON (~120 deals) from monthly reports for quarterly trend analysis. Python pre-computes monthly trends, pipeline tracking, win pattern differentials, funnel analysis, objection categorization, and data quality warnings → LLM generates INSIGHT + ACTION. Provides time-series changes, same-company progress tracking, and next-quarter strategic recommendations not visible in monthly reports.",
+        background: "月次レポートでは個別の月のスナップショットしか見えず、3ヶ月間のトレンド変化やパイプラインの進捗を把握できなかった。経営層向けに四半期単位の戦略的な分析が求められていた。",
+        backgroundEn: "Monthly reports only provided individual month snapshots, making it impossible to track 3-month trend changes or pipeline progress. Strategic quarterly-level analysis was needed for management.",
+        targetUsers: "経営層・営業マネージャー",
+        targetUsersEn: "Management & Sales Managers",
+        tools: ["Python", "OpenAI API", "Microsoft Graph API", "SharePoint", "Teams"],
+        impact: {
+          before: "月次レポートの個別確認のみ。四半期トレンドは手動で比較分析が必要",
+          beforeEn: "Only individual monthly reports. Quarterly trends required manual comparison",
+          after: "3ヶ月分を自動統合。月別推移・パイプライン追跡・勝ちパターン差分を自動分析",
+          afterEn: "Auto-integrates 3 months. Monthly trends, pipeline tracking, and win pattern differentials auto-analyzed",
+          savedTime: "四半期分析レポートの作成を全自動化（約2分で完了）",
+          savedTimeEn: "Fully automates quarterly analysis report generation (~2 min)"
+        },
+        period: "2026年3月29日〜",
+        periodEn: "Mar 29, 2026 –"
+      },
+      history: [
+        { text: "quarterly_report.py設計・実装（monthly_report.pyから共通関数import）", textEn: "quarterly_report.py designed & implemented (importing shared functions from monthly_report.py)", done: true },
+        { text: "Python事前集計+FACTテーブル直接生成+LLM INSIGHT専念アーキテクチャ構築", textEn: "Python pre-computation + FACT table direct generation + LLM INSIGHT-focused architecture built", done: true },
+        { text: "2026-Q1本番実行成功（124件、2.0分）・SharePoint3形式保存完了", textEn: "2026-Q1 production run successful (124 deals, 2.0 min), SharePoint 3-format save complete", done: true },
+        { text: "タスクスケジューラ設定（1,4,7,10月の2日10:30）・Teamsメンション通知設定", textEn: "Task Scheduler configured (2nd of Jan/Apr/Jul/Oct at 10:30), Teams mention notification configured", done: true },
+        { text: "月次プロジェクトからフォルダ分離・独立プロジェクト化", textEn: "Separated from monthly project into independent project with own folder", done: true, actualHours: 3.5 }
+      ],
+      nextAction: "4/2 自動実行・Teams通知確認",
+      nextActionEn: "Verify 4/2 auto-execution & Teams notification",
+      lastUpdated: "2026/3/29",
+      lastUpdatedNote: "新規プロジェクトとして独立。2026-Q1本番実行成功。タスクスケジューラ設定済み。4/2の自動実行確認待ち",
+      lastUpdatedNoteEn: "Launched as independent project. 2026-Q1 production run successful. Task Scheduler configured. Awaiting 4/2 auto-execution verification"
     },
     {
       name: "AI活用プロジェクトダッシュボード",
